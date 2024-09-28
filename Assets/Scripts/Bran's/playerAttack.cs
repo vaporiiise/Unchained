@@ -21,7 +21,7 @@ public class playerAttack : MonoBehaviour
         Vector2 direction = (mousePosition - transform.position).normalized;
 
         float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, -angle));
 
         if (Input.GetMouseButtonDown(0))
         {

@@ -5,6 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - PlayerAttack
+  - Obstacles
+  - ObjToPush
+  - RemovableDoor
+  - T1
+  - T2
+  - triggerTag2
+  - triggerTag1
   layers:
   - Default
   - TransparentFX
