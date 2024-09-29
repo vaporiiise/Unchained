@@ -9,15 +9,19 @@ public class Tilemovement : MonoBehaviour
 {
     private GameObject[] Obstacles;
     private GameObject[] ObjToPush;
+    public AudioClip moveSound;
+    public AudioSource audioSource;
+    private CheckpointManager checkpointManager;
 
     private bool ReadyToMove;
-    
     
     // Start is called before the first frame update
     void Start()
     {
         Obstacles = GameObject.FindGameObjectsWithTag("Obstacles");
         ObjToPush = GameObject.FindGameObjectsWithTag("ObjToPush");
+        audioSource = GetComponent<AudioSource>();
+        checkpointManager = CheckpointManager.Instance;
     }
 
     // Update is called once per frame
@@ -31,14 +35,18 @@ public class Tilemovement : MonoBehaviour
             if (ReadyToMove)
             {
                 ReadyToMove = false;
-                Move(moveinput);
+
+                // Call Move() and check if movement was successful
+                if (Move(moveinput))
+                {
+                    PlayMoveSound(); // Play move sound if movement was successful
+                }
             }
         }
         else
         {
             ReadyToMove = true;
         }
-
     }
 
     public bool Move(Vector2 direction)
@@ -60,6 +68,7 @@ public class Tilemovement : MonoBehaviour
         else
         {
             transform.Translate(direction);
+            PlayMoveSound(); // Play move sound when the movement is successful
             return true;
         }
     }
@@ -92,5 +101,22 @@ public class Tilemovement : MonoBehaviour
             }
         }
         return false;
+    }
+
+    void PlayMoveSound()
+    {
+        if (moveSound != null)
+        {
+            audioSource.PlayOneShot(moveSound);
+        }
+    }
+    public void Respawn()
+    {
+        if (checkpointManager.GetCurrentCheckpoint() != Vector2.zero)
+        {
+            transform.position = checkpointManager.GetCurrentCheckpoint();
+        }
+
+        Debug.Log("Player respawned at: " + transform.position);
     }
 }
