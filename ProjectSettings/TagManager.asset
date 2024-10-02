@@ -12,6 +12,7 @@ TagManager:
   - T2
   - triggerTag2
   - triggerTag1
+  - BossAttack
   layers:
   - Default
   - TransparentFX

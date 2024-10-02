@@ -5,11 +5,10 @@ using UnityEngine;
 public class playerMovement : MonoBehaviour
 {
     public float moveSpeed = 5F;
-    public Collider2D playerCol;
-    public Rigidbody2D playerRB;
+    private Collider2D playerCol;
+    private Rigidbody2D playerRB;
 
     private Vector2 movement;
-
     public float dodgeSpeed = 20F;
     public float dodgeDuration = 0.2F;
     public float dodgeCooldown = 1F;
@@ -22,6 +21,7 @@ public class playerMovement : MonoBehaviour
     private void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
+        playerCol = GetComponent<Collider2D>();
     }
 
     private void Update()

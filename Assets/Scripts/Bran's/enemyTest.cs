@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class enemyTest : MonoBehaviour
 {
-    public int health = 50;
+    public int health = 40;
 
     private void OnTriggerEnter2D(Collider2D enemyCol)
     {

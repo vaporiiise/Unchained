@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/Outer Halls.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Navigating Rooms.unity
+    path: Assets/Scenes/Navigating Halls.unity
     guid: e811aa0f69801154aa1e76b5c62714a4
   - enabled: 1
-    path: Assets/Scenes/Boss Sample.unity
+    path: Assets/Scenes/Inner Halls.unity
     guid: 7a10b72488158614183a72cf31412cae
   m_configObjects: {}

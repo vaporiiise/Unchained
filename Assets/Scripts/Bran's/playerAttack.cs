@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class playerAttack : MonoBehaviour
 {
-    public int maxCombo = 5;
-    public float comboResetTime = 1.5F;
+    public int currentCombo = 0;
+    public float comboResetTime = 1F;
+    private float comboDuration = 0F;
 
-    private int currentCombo = 0;
-    private float lastAttackTime = 0F;
+    public GameObject attack1HitBox;
+    public GameObject attack2HitBox;
+    public GameObject attack3HitBox;
+    public GameObject attack4HitBox;
+    private float attack1ActiveDuration = 0.2F;
+    private float attack2ActiveDuration = 0.3F;
+    private float attack3ActiveDuration = 0.3F;
+    private float attack4ActiveDuration = 0.2F;
 
-    public float hitBoxActiveDuration = 0.2F;
-    public GameObject attackHitBox;
+    public int health = 100;
 
     private void Update()
     {
@@ -20,23 +26,108 @@ public class playerAttack : MonoBehaviour
 
         Vector2 direction = (mousePosition - transform.position).normalized;
 
-        float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, -angle));
-
         if (Input.GetMouseButtonDown(0))
         {
-            if (Time.time - lastAttackTime > comboResetTime)
-                currentCombo = 0;
+            comboDuration = Time.time;
 
-            StartCoroutine(ActiveHitBox(direction));
+            currentCombo++;
+            if (currentCombo > 4)
+                currentCombo = 1;
+
+            switch (currentCombo)
+            {
+                case 1:
+                    StartCoroutine(Attack1HitBox(direction));
+                    break;
+                case 2:
+                    StartCoroutine(Attack2HitBox(direction));
+                    break;
+                case 3:
+                    StartCoroutine(Attack3HitBox(direction));
+                    break;
+                case 4:
+                    StartCoroutine(Attack4HitBox(direction));
+                    break;
+            }
         }
+
+        if (Time.time - comboDuration > comboResetTime)
+            currentCombo = 0;
     }
 
-    IEnumerator ActiveHitBox(Vector2 attackDirection)
+    IEnumerator Attack1HitBox(Vector2 attackDirection)
     {
-        attackHitBox.SetActive(true);
-        attackHitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
-        yield return new WaitForSeconds(hitBoxActiveDuration);
-        attackHitBox.SetActive(false);
+        attack1HitBox.SetActive(true);
+        attack1HitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
+        yield return new WaitForSeconds(attack1ActiveDuration);
+        attack1HitBox.SetActive(false);
+    }
+
+    IEnumerator Attack2HitBox(Vector2 attackDirection)
+    {
+        attack2HitBox.SetActive(true);
+        attack2HitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
+        float startAngle = -45F;
+        float endAngle = 45F;
+
+        float elapsedTime = 0F;
+        while (elapsedTime < attack2ActiveDuration)
+        {
+            float currentAngle = Mathf.Lerp(startAngle, endAngle, elapsedTime / attack2ActiveDuration);
+            attack2HitBox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle));
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        attack2HitBox.SetActive(false);
+    }
+
+    IEnumerator Attack3HitBox(Vector2 attackDirection)
+    {
+        attack3HitBox.SetActive(true);
+        attack3HitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
+        float startAngle = 45F;
+        float endAngle = -45F;
+
+        float elapsedTime = 0F;
+        while (elapsedTime < attack2ActiveDuration)
+        {
+            float currentAngle = Mathf.Lerp(startAngle, endAngle, elapsedTime / attack3ActiveDuration);
+            attack3HitBox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle));
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        attack3HitBox.SetActive(false);
+    }
+
+    IEnumerator Attack4HitBox(Vector2 attackDirection)
+    {
+        attack4HitBox.SetActive(true);
+        attack4HitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
+        yield return new WaitForSeconds(attack4ActiveDuration);
+        attack4HitBox.SetActive(false);
+    }
+
+    private void OnTriggerEnter2D(Collider2D playerCol)
+    {
+        if (playerCol.gameObject.CompareTag("BossAttack"))
+            TakeDamage(5);
+    }
+
+    private void TakeDamage(int damage)
+    {
+        health -= damage;
+        Debug.Log($"Player Health: {health}");
+
+        if (health <= 0)
+            Die();
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }
