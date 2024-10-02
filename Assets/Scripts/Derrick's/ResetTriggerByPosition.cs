@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ResetTriggerByPosition : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class ResetTriggerByPosition : MonoBehaviour
     public float activationRadius = 1f; // The radius around the position for the player to be in
 
     public Transform playerTransform; // Reference to the player's transform
+    public int scenes = 0;
 
     private void Start()
     {
@@ -32,9 +34,7 @@ public class ResetTriggerByPosition : MonoBehaviour
             // Check if the 'F' key is pressed
             if (Input.GetKeyDown(KeyCode.F))
             {
-                // Trigger the global reset, but keep the player's position unchanged
-                GlobalResetManager.Instance.ResetAllExceptPlayer();
-                Debug.Log("Reset triggered by player at position: " + playerTransform.position);
+                SceneManager.LoadScene(scenes);
             }
         }
     }

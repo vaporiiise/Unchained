@@ -4,6 +4,7 @@ using System.IO;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class Tilemovement : MonoBehaviour
 {
@@ -46,6 +47,10 @@ public class Tilemovement : MonoBehaviour
         else
         {
             ReadyToMove = true;
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SavePositionAndResetScene();
         }
     }
 
@@ -118,5 +123,13 @@ public class Tilemovement : MonoBehaviour
         }
 
         Debug.Log("Player respawned at: " + transform.position);
+    }
+    private void SavePositionAndResetScene()
+    {
+        // Save the player's current position to the GameManager
+        GameManager.Instance.SavePlayerPosition(transform.position);
+
+        // Reload the current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
