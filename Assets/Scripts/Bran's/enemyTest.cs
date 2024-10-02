@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class enemyTest : MonoBehaviour
 {
-    public int health = 40;
+    public int bossMaxhealth = 40;
+    public HealthBar healthBar;
 
     private void OnTriggerEnter2D(Collider2D enemyCol)
     {
@@ -14,10 +15,9 @@ public class enemyTest : MonoBehaviour
 
     private void TakeDamage(int damage)
     {
-        health -= damage;
-        Debug.Log($"Health remaining: {health}");
-
-        if (health <= 0)
+        bossMaxhealth -= damage;
+        Debug.Log($"Health remaining: {bossMaxhealth}");
+        if (bossMaxhealth <= 0)
             Die();
     }
 

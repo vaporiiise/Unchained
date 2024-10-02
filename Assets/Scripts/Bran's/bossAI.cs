@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public enum BossState
 {
@@ -23,7 +25,17 @@ public class bossAI : MonoBehaviour
     public GameObject groundSlamHitBox;
     public GameObject handSwipeHitBox;
 
-    public int health = 200;
+    public int bossMaxHealth = 200;
+    public int currentHealth;
+    public HealthBar healthBar;
+    public GameObject Healthbar;
+
+    private void Start()
+    {
+        currentHealth = bossMaxHealth;
+        healthBar.SetMaxHealth(bossMaxHealth);
+     
+    }
 
     private void Update()
     {
@@ -146,19 +158,25 @@ public class bossAI : MonoBehaviour
     {
         if (enemyCol.gameObject.CompareTag("PlayerAttack"))
             TakeDamage(10);
+        healthBar.SetHealth(currentHealth);
+
     }
 
     private void TakeDamage(int damage)
     {
-        health -= damage;
-        Debug.Log($"Boss Health: {health}");
+        currentHealth -= damage;
+        Debug.Log($"Boss Health: {currentHealth}");
+        healthBar.SetHealth(currentHealth);
 
-        if (health <= 0)
+
+
+        if (currentHealth <= 0)
             Die();
     }
 
     private void Die()
     {
         Destroy(gameObject);
+        Destroy(Healthbar);
     }
 }
