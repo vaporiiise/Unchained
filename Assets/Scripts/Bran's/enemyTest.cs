@@ -5,8 +5,6 @@ using UnityEngine;
 public class enemyTest : MonoBehaviour
 {
     public int bossMaxhealth = 40;
-    public HealthBar healthBar;
-
     private void OnTriggerEnter2D(Collider2D enemyCol)
     {
         if (enemyCol.gameObject.CompareTag("PlayerAttack"))

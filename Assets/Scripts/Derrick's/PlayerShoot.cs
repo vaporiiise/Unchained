@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class PlayerShoot : MonoBehaviour
 
     private bool isShooting = false;
 
+   
     void Update()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -50,4 +52,6 @@ public class PlayerShoot : MonoBehaviour
         isShooting = false;
         CancelInvoke("Shoot");
     }
+
+   
 }
