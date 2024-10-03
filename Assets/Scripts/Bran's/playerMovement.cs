@@ -17,11 +17,13 @@ public class playerMovement : MonoBehaviour
     private float lastDodgeTime;
     private bool isDodging = false;
     private Vector2 dodgeDirection;
+    private Animator anim;
 
     private void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
         playerCol = GetComponent<Collider2D>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -37,6 +39,15 @@ public class playerMovement : MonoBehaviour
 
             isInvincible = true;
             playerCol.enabled = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            anim.SetBool("Combo1", true);
+        }
+        else
+        {
+            anim.SetBool("Combo1", false);
         }
     }
 

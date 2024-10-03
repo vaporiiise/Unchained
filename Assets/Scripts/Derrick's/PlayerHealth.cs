@@ -7,7 +7,7 @@ public class PlayerHealth : MonoBehaviour
     public int Maxhealth = 100;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("EnemyBullet"))
+        if (other.gameObject.CompareTag("BossAttack"))
             TakeDamage(10);
     }
 
