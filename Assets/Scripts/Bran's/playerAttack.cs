@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class playerAttack : MonoBehaviour
     public int currentCombo = 0;
     public float comboResetTime = 1F;
     private float comboDuration = 0F;
+    private Animator anim;
 
     public GameObject attack1HitBox;
     public GameObject attack2HitBox;
@@ -18,6 +20,11 @@ public class playerAttack : MonoBehaviour
     private float attack4ActiveDuration = 0.2F;
 
     public int health = 100;
+
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -48,6 +55,14 @@ public class playerAttack : MonoBehaviour
                 case 4:
                     StartCoroutine(Attack4HitBox(direction));
                     break;
+            }
+            if (Input.GetKeyDown(KeyCode.Mouse0)) 
+            {
+                anim.SetBool("playerCombo1", true); // Set parameter to true
+            }
+            else if (Input.GetKeyUp(KeyCode.Mouse0))
+            {
+                anim.SetBool("playerCombo1", false); // Set parameter to false if m0 is not pressed
             }
         }
 
