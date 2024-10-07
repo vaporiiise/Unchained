@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 62049b0dec761f144ae86f9b390355e9
+guid: 97067c2a2d2c148418d02fc8c70d8b4c
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638639202605008104
+  platformSettingsDirtyTick: 638639196386229073
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: PHC1-Sheet
+  - name: Run_Left-Sheet
     originalName: 
-    pivot: {x: 0.49904093, y: -0.20000002}
+    pivot: {x: 0.5030488, y: -1.8928572}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 1564
-      height: 105
-    spriteID: 06b2c2d8eb592314593567e4a1f1b03e
+      width: 656
+      height: 28
+    spriteID: 679c56f171dc7754d960f3bbff64800d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -140,20 +140,20 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: -28, y: -17}
+    uvTransform: {x: -50, y: -49}
   spriteSheetImportData:
-  - name: PHC1-Sheet_0
+  - name: Run_Left-Sheet_0
     originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 5
-      width: 64
-      height: 104
-    spriteID: 60f65412592835b4db9464e3fd8c1133
+      width: 17
+      height: 27
+    spriteID: eaf074cd3d66a7f409e3f3aeb438e774
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -162,198 +162,18 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: PHC1-Sheet_1
+  - name: Run_Left-Sheet_1
     originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 129
-      y: 5
-      width: 64
-      height: 104
-    spriteID: eb5121b58b451cf4ea7eac71488a7295
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: PHC1-Sheet_2
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 254
-      y: 5
-      width: 64
-      height: 104
-    spriteID: dc7b2bd088cb3704fbb95a24a0be6525
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: PHC1-Sheet_3
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 379
-      y: 5
-      width: 64
-      height: 104
-    spriteID: 043fc86916526c447b3b43e9018a882f
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: PHC1-Sheet_4
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 504
-      y: 5
-      width: 64
-      height: 104
-    spriteID: 5a34da34ffe049f42b1968558494cfbe
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: PHC1-Sheet_5
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 629
-      y: 5
-      width: 64
-      height: 104
-    spriteID: 7c4798440a5e6d24098693adbe01bbcf
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: PHC1-Sheet_6
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 754
-      y: 5
-      width: 64
-      height: 104
-    spriteID: 5c6832035fa72504f806590f2b6670fd
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: PHC1-Sheet_7
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 879
-      y: 5
-      width: 64
-      height: 104
-    spriteID: cb55b47ed7b051f4593c54880749dd62
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: PHC1-Sheet_8
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 1004
-      y: 5
-      width: 64
-      height: 104
-    spriteID: f274dfe0ab974e848abaea0aed4cd3a1
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: PHC1-Sheet_9
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 1129
-      y: 5
-      width: 64
-      height: 104
-    spriteID: bc1805bb527dd654aac8967202cc0434
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: PHC1-Sheet_10
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 1254
+      x: 132
       y: 4
-      width: 64
-      height: 105
-    spriteID: 59028d59f183609458cac678818068b0
+      width: 17
+      height: 27
+    spriteID: d7b68e51eb2b65d4eb40f7b018283efd
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -362,18 +182,18 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: PHC1-Sheet_11
+  - name: Run_Left-Sheet_2
     originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1379
+      x: 260
       y: 4
-      width: 64
-      height: 105
-    spriteID: 9184d2e1f59884a45b5fc2b90457343b
+      width: 16
+      height: 28
+    spriteID: ef1511b8d8047354fb90203b7640bcdc
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -382,18 +202,58 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: PHC1-Sheet_12
+  - name: Run_Left-Sheet_3
     originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1504
-      y: 4
-      width: 64
-      height: 105
-    spriteID: a065a4cad8ff097448e091e9108b8a8b
+      x: 388
+      y: 6
+      width: 17
+      height: 26
+    spriteID: e323eef1513e13b469db8376beded20b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Run_Left-Sheet_4
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 516
+      y: 5
+      width: 14
+      height: 26
+    spriteID: 11885dd8bffa40e46a97b69257316e44
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Run_Left-Sheet_5
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 644
+      y: 6
+      width: 16
+      height: 26
+    spriteID: 3afbbde9b0866814d95573442302f2c0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -404,21 +264,21 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   asepriteLayers:
   - layerIndex: 0
-    guid: -103979492
-    name: PHC1-Sheet
+    guid: 1951363027
+    name: Run_Left-Sheet
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: PHC1-Sheet
+    - name: Run_Left-Sheet
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
-        width: 1625
-        height: 126
-      spriteId: 06b2c2d8eb592314593567e4a1f1b03e
+        width: 768
+        height: 128
+      spriteId: 679c56f171dc7754d960f3bbff64800d
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -461,4 +321,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 1625, y: 126}
+  canvasSize: {x: 768, y: 128}
