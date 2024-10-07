@@ -38,6 +38,8 @@ public class playerMovement : MonoBehaviour
             isInvincible = true;
             playerCol.enabled = false;
         }
+
+        
     }
 
     private void FixedUpdate()

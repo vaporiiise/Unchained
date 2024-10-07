@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAttackBullet : MonoBehaviour
 {
-    void OnTriggerEnter2D(CircleCollider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("EnemyBullet"))
         {
