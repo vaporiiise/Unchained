@@ -8,24 +8,20 @@ public class playerAttack : MonoBehaviour
     public int currentCombo = 0;
     public float comboResetTime = 1F;
     private float comboDuration = 0F;
-    private Animator anim;
 
     public GameObject attack1HitBox;
     public GameObject attack2HitBox;
     public GameObject attack3HitBox;
     public GameObject attack4HitBox;
-    private float attack1ActiveDuration = 0.2F;
-    private float attack2ActiveDuration = 0.3F;
-    private float attack3ActiveDuration = 0.3F;
-    private float attack4ActiveDuration = 0.2F;
 
     public int health = 100;
 
+    private Animator playerAnim;
+
     private void Start()
     {
-        anim = GetComponent<Animator>();
+        playerAnim = GetComponent<Animator>();
     }
-
     private void Update()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -56,14 +52,6 @@ public class playerAttack : MonoBehaviour
                     StartCoroutine(Attack4HitBox(direction));
                     break;
             }
-            if (Input.GetKeyDown(KeyCode.Mouse0)) 
-            {
-                anim.SetBool("playerCombo1", true); // Set parameter to true
-            }
-            else if (Input.GetKeyUp(KeyCode.Mouse0))
-            {
-                anim.SetBool("playerCombo1", false); // Set parameter to false if m0 is not pressed
-            }
         }
 
         if (Time.time - comboDuration > comboResetTime)
@@ -72,9 +60,11 @@ public class playerAttack : MonoBehaviour
 
     IEnumerator Attack1HitBox(Vector2 attackDirection)
     {
+        playerAnim.SetTrigger("PlayerCombo1");
+        yield return new WaitForSeconds(1F);
         attack1HitBox.SetActive(true);
         attack1HitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
-        yield return new WaitForSeconds(attack1ActiveDuration);
+        yield return new WaitForSeconds(0.2F);
         attack1HitBox.SetActive(false);
     }
 
@@ -86,9 +76,9 @@ public class playerAttack : MonoBehaviour
         float endAngle = 45F;
 
         float elapsedTime = 0F;
-        while (elapsedTime < attack2ActiveDuration)
+        while (elapsedTime < 0.2F)
         {
-            float currentAngle = Mathf.Lerp(startAngle, endAngle, elapsedTime / attack2ActiveDuration);
+            float currentAngle = Mathf.Lerp(startAngle, endAngle, elapsedTime / 0.2F);
             attack2HitBox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle));
 
             elapsedTime += Time.deltaTime;
@@ -106,9 +96,9 @@ public class playerAttack : MonoBehaviour
         float endAngle = -45F;
 
         float elapsedTime = 0F;
-        while (elapsedTime < attack2ActiveDuration)
+        while (elapsedTime < 0.2F)
         {
-            float currentAngle = Mathf.Lerp(startAngle, endAngle, elapsedTime / attack3ActiveDuration);
+            float currentAngle = Mathf.Lerp(startAngle, endAngle, elapsedTime / 0.2F);
             attack3HitBox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle));
 
             elapsedTime += Time.deltaTime;
@@ -122,7 +112,7 @@ public class playerAttack : MonoBehaviour
     {
         attack4HitBox.SetActive(true);
         attack4HitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
-        yield return new WaitForSeconds(attack4ActiveDuration);
+        yield return new WaitForSeconds(0.2F);
         attack4HitBox.SetActive(false);
     }
 
