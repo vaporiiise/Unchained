@@ -5,8 +5,8 @@ using UnityEngine;
 public class InnerHallsPlayerAnimator : MonoBehaviour
 {
     private KeyCode lastKeyPressed;
-    public float cD = 0.3f; // Cooldown between attacks
-    public float inputWindowTime = 1f; // Time window for combo input
+    public float cD = 0.3f; 
+    public float inputWindowTime = 1f; 
 
     public Animator anim;
     public bool isWalkingDown = false;
@@ -14,10 +14,9 @@ public class InnerHallsPlayerAnimator : MonoBehaviour
     public bool isWalkingRight = false;
     public bool isWalkingUp = false;
 
-    private bool isAttacking = false; // Flag to indicate whether the player is currently attacking
-    private int comboStep = 0; // Current combo step
-    private bool canContinueCombo = false; // Determines if the player can continue the combo
-
+    public bool isAttacking = false; 
+    public int comboStep = 0; 
+    public bool canContinueCombo = false; 
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -25,19 +24,17 @@ public class InnerHallsPlayerAnimator : MonoBehaviour
 
     void Update()
     {
-        if (isAttacking) return; // Prevent movement while attacking
+        if (isAttacking) return; 
 
-        // Movement Handling
         HandleMovement();
 
-        // Attack Combo Handling
-        if (Input.GetKeyDown(KeyCode.Mouse0)) // Detect Mouse0 for initiating or continuing combo
+        if (Input.GetKeyDown(KeyCode.Mouse0)) 
         {
-            if (comboStep == 0) // If no combo in progress, start a new combo
+            if (comboStep == 0) 
             {
                 StartCoroutine(HandleCombo());
             }
-            else if (canContinueCombo) // If combo in progress and within input window
+            else if (canContinueCombo)
             {
                 ContinueCombo();
             }
@@ -84,54 +81,46 @@ public class InnerHallsPlayerAnimator : MonoBehaviour
         }
     }
 
-    // Coroutine to handle the combo animation sequence
     IEnumerator HandleCombo()
     {
         isAttacking = true;
-        comboStep = 1; // Start with the first step
+        comboStep = 1; 
         anim.Play("PlayerCombo1");
         canContinueCombo = true;
 
-        // Wait for animation to complete + cooldown duration
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + cD);
 
-        // Start a timer for the combo input window
         yield return new WaitForSeconds(inputWindowTime);
 
-        canContinueCombo = false; // Combo input window has ended
-        ResetCombo(); // Reset combo if not continued
+        canContinueCombo = false; 
+        ResetCombo(); 
     }
 
-    // Method to continue the combo if input is received within the time window
     private void ContinueCombo()
     {
-        if (comboStep < 4) // Limit to 4 combo steps
+        if (comboStep <= 4) 
         {
             comboStep++;
-            anim.Play("PlayerCombo" + comboStep); // Trigger next combo animation
+            anim.Play("PlayerCombo" + comboStep); 
 
             if (comboStep == 4)
             {
-                // If max combo is reached, finish combo sequence
                 StartCoroutine(FinishCombo());
             }
         }
     }
 
-    // Coroutine to finish the combo and reset after the final animation
     IEnumerator FinishCombo()
     {
-        // Wait for the last animation to finish + cooldown
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + cD);
 
-        ResetCombo(); // Reset combo after final animation ends
+        ResetCombo(); 
     }
 
-    // Resets the combo step and related flags
     private void ResetCombo()
     {
         comboStep = 0;
         isAttacking = false;
-        anim.Play("Idle"); // Return to idle state
+        anim.Play("Idle"); 
     }
 } 
