@@ -27,18 +27,7 @@ public class InnerHallsPlayerAnimator : MonoBehaviour
         if (isAttacking) return; 
 
         HandleMovement();
-
-        if (Input.GetKeyDown(KeyCode.Mouse0)) 
-        {
-            if (comboStep == 0) 
-            {
-                StartCoroutine(HandleCombo());
-            }
-            else if (canContinueCombo)
-            {
-                ContinueCombo();
-            }
-        }
+        
     }
 
     private void HandleMovement()
@@ -81,7 +70,7 @@ public class InnerHallsPlayerAnimator : MonoBehaviour
         }
     }
 
-    IEnumerator HandleCombo()
+    /*IEnumerator HandleCombo()
     {
         isAttacking = true;
         comboStep = 1; 
@@ -122,5 +111,5 @@ public class InnerHallsPlayerAnimator : MonoBehaviour
         comboStep = 0;
         isAttacking = false;
         anim.Play("Idle"); 
-    }
+    }*/
 } 
