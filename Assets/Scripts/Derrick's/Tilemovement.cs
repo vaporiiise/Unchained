@@ -48,10 +48,10 @@ public class Tilemovement : MonoBehaviour
         {
             ReadyToMove = true;
         }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SavePositionAndResetScene();
-        }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+           // SavePositionAndResetScene();
+        //}
     }
 
     public bool Move(Vector2 direction)
@@ -115,16 +115,9 @@ public class Tilemovement : MonoBehaviour
             audioSource.PlayOneShot(moveSound);
         }
     }
-    public void Respawn()
-    {
-        if (checkpointManager.GetCurrentCheckpoint() != Vector2.zero)
-        {
-            transform.position = checkpointManager.GetCurrentCheckpoint();
-        }
+    
 
-        Debug.Log("Player respawned at: " + transform.position);
-    }
-    private void SavePositionAndResetScene()
+    public void SavePositionAndResetScene()
     {
         // Save the player's current position to the GameManager
         GameManager.Instance.SavePlayerPosition(transform.position);
