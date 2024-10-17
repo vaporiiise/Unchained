@@ -228,7 +228,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: playerCombo1
+    m_ConditionEvent: PlayerCombo1
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7222519688771724334}
@@ -279,7 +279,7 @@ AnimatorController:
   m_Name: Player
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: playerCombo1
+  - m_Name: PlayerCombo1
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -463,7 +463,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: playerCombo1
+    m_ConditionEvent: PlayerCombo1
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -596818382579618233}

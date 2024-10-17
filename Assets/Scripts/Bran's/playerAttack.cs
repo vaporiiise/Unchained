@@ -15,21 +15,28 @@ public class playerAttack : MonoBehaviour
     public GameObject attack4HitBox;
 
     public int health = 100;
-
     private Animator playerAnim;
 
     private void Start()
     {
         playerAnim = GetComponent<Animator>();
     }
+
     private void Update()
     {
+        // Check if the game is paused
+        if (PauseMenu.GameIsPaused)
+        {
+            return; // Exit if paused
+        }
+
+        // Handle attack input
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
 
         Vector2 direction = (mousePosition - transform.position).normalized;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)) // Left mouse button for attack
         {
             comboDuration = Time.time;
 
@@ -54,6 +61,7 @@ public class playerAttack : MonoBehaviour
             }
         }
 
+        // Reset combo if the duration has exceeded the allowed time
         if (Time.time - comboDuration > comboResetTime)
             currentCombo = 0;
     }

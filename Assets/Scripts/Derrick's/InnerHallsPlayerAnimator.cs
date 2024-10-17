@@ -5,8 +5,8 @@ using UnityEngine;
 public class InnerHallsPlayerAnimator : MonoBehaviour
 {
     private KeyCode lastKeyPressed;
-    public float cD = 0.3f; 
-    public float inputWindowTime = 1f; 
+    public float cD = 0.3f;
+    public float inputWindowTime = 1f;
 
     public Animator anim;
     public bool isWalkingDown = false;
@@ -14,23 +14,38 @@ public class InnerHallsPlayerAnimator : MonoBehaviour
     public bool isWalkingRight = false;
     public bool isWalkingUp = false;
 
-    public bool isAttacking = false; 
-    public int comboStep = 0; 
-    public bool canContinueCombo = false; 
+    public bool isAttacking = false;
+    public int comboStep = 0;
+    public bool canContinueCombo = false;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
+        if (anim == null)
+        {
+            Debug.LogError("Animator component not found on this GameObject!");
+        }
     }
 
     void Update()
     {
-        if (isAttacking) return; 
+        // Check if the game is paused
+        if (PauseMenu.GameIsPaused)
+        {
+            if (isAttacking)
+            {
+                anim.Play("Idle"); // Set to idle or whatever state you prefer
+            }
+            return; // Exit early to prevent further input processing
+        }
+
+        if (isAttacking) return; // Prevent further input while attacking
 
         HandleMovement();
 
-        if (Input.GetKeyDown(KeyCode.Mouse0)) 
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (comboStep == 0) 
+            if (comboStep == 0)
             {
                 StartCoroutine(HandleCombo());
             }
@@ -84,24 +99,26 @@ public class InnerHallsPlayerAnimator : MonoBehaviour
     IEnumerator HandleCombo()
     {
         isAttacking = true;
-        comboStep = 1; 
-        anim.Play("PlayerCombo1");
+        comboStep = 1;
+        Debug.Log("Playing PlayerCombo1");
+        anim.SetTrigger("PlayerCombo1");
         canContinueCombo = true;
 
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + cD);
 
         yield return new WaitForSeconds(inputWindowTime);
 
-        canContinueCombo = false; 
-        ResetCombo(); 
+        canContinueCombo = false;
+        ResetCombo();
     }
 
     private void ContinueCombo()
     {
-        if (comboStep <= 4) 
+        if (comboStep < 4)
         {
             comboStep++;
-            anim.Play("PlayerCombo" + comboStep); 
+            Debug.Log("Continuing Combo, playing PlayerCombo" + comboStep);
+            anim.SetTrigger("PlayerCombo" + comboStep);
 
             if (comboStep == 4)
             {
@@ -113,14 +130,13 @@ public class InnerHallsPlayerAnimator : MonoBehaviour
     IEnumerator FinishCombo()
     {
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + cD);
-
-        ResetCombo(); 
+        ResetCombo();
     }
 
     private void ResetCombo()
     {
         comboStep = 0;
         isAttacking = false;
-        anim.Play("Idle"); 
+        anim.Play("Idle");
     }
-} 
+}

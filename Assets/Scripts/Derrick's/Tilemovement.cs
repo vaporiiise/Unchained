@@ -28,29 +28,34 @@ public class Tilemovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 moveinput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        moveinput.Normalize();
-
-        if (moveinput.SqrMagnitude() > 0.5)
+        // Only allow movement if the game is not paused
+        if (!PauseMenu.GameIsPaused)
         {
-            if (ReadyToMove)
-            {
-                ReadyToMove = false;
+            Vector2 moveinput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            moveinput.Normalize();
 
-                // Call Move() and check if movement was successful
-                if (Move(moveinput))
+            if (moveinput.sqrMagnitude > 0.5)
+            {
+                if (ReadyToMove)
                 {
-                    PlayMoveSound(); // Play move sound if movement was successful
+                    ReadyToMove = false;
+
+                    // Call Move() and check if movement was successful
+                    if (Move(moveinput))
+                    {
+                        PlayMoveSound(); // Play move sound if movement was successful
+                    }
                 }
             }
-        }
-        else
-        {
-            ReadyToMove = true;
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SavePositionAndResetScene();
+            else
+            {
+                ReadyToMove = true;
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                SavePositionAndResetScene();
+            }
         }
     }
 
