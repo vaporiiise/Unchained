@@ -8,6 +8,7 @@ public class playerAttack : MonoBehaviour
     public int currentCombo = 0;
     public float comboResetTime = 1F;
     private float comboDuration = 0F;
+    public float comboAnim = 0f;
 
     public GameObject attack1HitBox;
     public GameObject attack2HitBox;
@@ -68,8 +69,9 @@ public class playerAttack : MonoBehaviour
 
     IEnumerator Attack1HitBox(Vector2 attackDirection)
     {
-        playerAnim.SetTrigger("PlayerCombo1");
-        yield return new WaitForSeconds(1F);
+        playerAnim.Play("PlayerCombo1");
+        Debug.Log("COMBO1!");
+        yield return new WaitForSeconds(comboAnim);
         attack1HitBox.SetActive(true);
         attack1HitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
         yield return new WaitForSeconds(0.2F);
@@ -78,6 +80,10 @@ public class playerAttack : MonoBehaviour
 
     IEnumerator Attack2HitBox(Vector2 attackDirection)
     {
+        playerAnim.Play("PlayerCombo2");
+        Debug.Log("COMBO2!");
+        yield return new WaitForSeconds(comboAnim);
+
         attack2HitBox.SetActive(true);
         attack2HitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
         float startAngle = -45F;
@@ -98,6 +104,10 @@ public class playerAttack : MonoBehaviour
 
     IEnumerator Attack3HitBox(Vector2 attackDirection)
     {
+        playerAnim.Play("PlayerCombo3");
+        Debug.Log("COMBO3!");
+        yield return new WaitForSeconds(comboAnim);
+        
         attack3HitBox.SetActive(true);
         attack3HitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
         float startAngle = 45F;
@@ -118,6 +128,10 @@ public class playerAttack : MonoBehaviour
 
     IEnumerator Attack4HitBox(Vector2 attackDirection)
     {
+        playerAnim.Play("PlayerCombo4");
+        Debug.Log("COMBO4!");
+        yield return new WaitForSeconds(comboAnim);
+        
         attack4HitBox.SetActive(true);
         attack4HitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
         yield return new WaitForSeconds(0.2F);
