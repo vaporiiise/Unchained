@@ -134,7 +134,7 @@ public class TitleAnimation : MonoBehaviour
                 {
                     var orig = originalVertices[charInfo.vertexIndex + j];
                     verts[charInfo.vertexIndex + j] = orig + new Vector3(targetShift * (t / duration), 0, 0)
-                                                        + new Vector3((orig.x - textInfo.characterInfo[0].origin) * (targetStretch - 1) * (t / duration), 0, 0);
+                    + new Vector3((orig.x - textInfo.characterInfo[0].origin) * (targetStretch - 1) * (t / duration), 0, 0);
                 }
             }
 
@@ -163,7 +163,7 @@ public class TitleAnimation : MonoBehaviour
                 {
                     var orig = originalVertices[charInfo.vertexIndex + j];
                     verts[charInfo.vertexIndex + j] = orig + new Vector3(targetShift * (1 - t / duration), 0, 0)
-                                                        + new Vector3((orig.x - textInfo.characterInfo[0].origin) * (targetStretch - 1) * (1 - t / duration), 0, 0);
+                    + new Vector3((orig.x - textInfo.characterInfo[0].origin) * (targetStretch - 1) * (1 - t / duration), 0, 0);
                 }
             }
 
