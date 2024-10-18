@@ -5,9 +5,9 @@ using UnityEngine;
 public class CameraZoomTrigger : MonoBehaviour
 {
     public Transform player; // Reference to the player's transform.
-    public float defaultZoom = 5f;  // Default orthographic size of the camera.
-    public float zoomOutSize = 10f; // Orthographic size when zoomed out.
-    public float zoomSpeed = 2f;    // Speed at which the camera zooms in/out.
+    public float defaultFOV = 60f;  // Default field of view of the camera.
+    public float zoomOutFOV = 45f;   // Field of view when zoomed out.
+    public float zoomSpeed = 2f;      // Speed at which the camera zooms in/out.
 
     // Define the area where the camera should zoom out.
     public Vector2 zoomAreaMin = new Vector2(-5, -5); // Bottom-left corner of the area.
@@ -18,7 +18,7 @@ public class CameraZoomTrigger : MonoBehaviour
     private void Start()
     {
         cam = Camera.main; // Get the main camera.
-        cam.orthographicSize = defaultZoom; // Set initial zoom level.
+        cam.fieldOfView = defaultFOV; // Set initial FOV level.
     }
 
     private void Update()
@@ -28,12 +28,12 @@ public class CameraZoomTrigger : MonoBehaviour
             player.position.y >= zoomAreaMin.y && player.position.y <= zoomAreaMax.y)
         {
             // Smoothly zoom out the camera if the player is within the zoom area.
-            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoomOutSize, zoomSpeed * Time.deltaTime);
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, zoomOutFOV, zoomSpeed * Time.deltaTime);
         }
         else
         {
             // Smoothly zoom back to the default size if the player is outside the zoom area.
-            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, defaultZoom, zoomSpeed * Time.deltaTime);
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, defaultFOV, zoomSpeed * Time.deltaTime);
         }
     }
 
