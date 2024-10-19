@@ -5,12 +5,12 @@ using UnityEngine;
 public class GMPlayerTriggerScript : MonoBehaviour
 {
     public Transform player; // Reference to the player
-    public GameManager gameManager; // Reference to the GameManager
 
     public Vector2 minPosition; // Minimum x, y position for the area
     public Vector2 maxPosition; // Maximum x, y position for the area
 
-    public MonoBehaviour[] scriptsToToggle; // Array of scripts to enable/disable
+    public MonoBehaviour[] scriptsToToggle;
+    public MonoBehaviour[] scriptsToOffToggle;// Array of scripts to enable/disable
 
     private bool isPlayerInside = false; // Check if the player is inside the area
 
@@ -37,6 +37,11 @@ public class GMPlayerTriggerScript : MonoBehaviour
         {
             script.enabled = true; // Enable the script
         }
+        isPlayerInside = true;
+        foreach (MonoBehaviour script in scriptsToOffToggle)
+        {
+            script.enabled = false; 
+        }
     }
 
     // Disable the scripts when the player leaves the area
@@ -46,6 +51,11 @@ public class GMPlayerTriggerScript : MonoBehaviour
         foreach (MonoBehaviour script in scriptsToToggle)
         {
             script.enabled = false; // Disable the script
+        }
+        isPlayerInside = false;
+        foreach (MonoBehaviour script in scriptsToOffToggle)
+        {
+            script.enabled = true; // Disable the script
         }
     }
 

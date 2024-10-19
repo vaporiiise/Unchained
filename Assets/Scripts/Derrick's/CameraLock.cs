@@ -19,7 +19,7 @@ public class CameraLock : MonoBehaviour
     private Vector3 originalCameraPosition; // Store the original camera position
     private float smoothTime = 0.3f; // Time for smooth transitions
 
-    public MonoBehaviour scriptToDisable; // Reference to the script that should be disabled
+    //public MonoBehaviour scriptToDisable; // Reference to the script that should be disabled
 
     void Start()
     {
@@ -59,22 +59,14 @@ public class CameraLock : MonoBehaviour
         isCameraLocked = true;
         originalCameraPosition = mainCamera.transform.position; // Store the original camera position
 
-        // Disable the script when the camera locks
-        if (scriptToDisable != null)
-        {
-            scriptToDisable.enabled = false;
-        }
+       
     }
 
     void UnlockCamera()
     {
         isCameraLocked = false;
 
-        // Re-enable the script when the camera unlocks
-        if (scriptToDisable != null)
-        {
-            scriptToDisable.enabled = true;
-        }
+       
     }
 
     void SmoothTransition(Vector3 targetPosition, float targetSize)

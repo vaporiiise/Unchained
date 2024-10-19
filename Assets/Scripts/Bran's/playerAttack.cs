@@ -15,12 +15,17 @@ public class playerAttack : MonoBehaviour
     public GameObject attack3HitBox;
     public GameObject attack4HitBox;
 
-    public int health = 100;
+    public int maxHealth = 100;
+    public int currentHealth;
+    public HealthBar healthBar;
+    public GameObject Healthbar;
     private Animator playerAnim;
 
     private void Start()
     {
         playerAnim = GetComponent<Animator>();
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     private void Update()
@@ -142,19 +147,25 @@ public class playerAttack : MonoBehaviour
     {
         if (playerCol.gameObject.CompareTag("BossAttack"))
             TakeDamage(5);
+        healthBar.SetHealth(currentHealth);
+
     }
 
     private void TakeDamage(int damage)
     {
-        health -= damage;
-        Debug.Log($"Player Health: {health}");
+        currentHealth -= damage;
+        Debug.Log($"Player Health: {currentHealth}");
+        healthBar.SetHealth(currentHealth);
 
-        if (health <= 0)
+
+        if (maxHealth <= 0)
             Die();
     }
 
     private void Die()
     {
         Destroy(gameObject);
+        Destroy(Healthbar);
+
     }
 }
