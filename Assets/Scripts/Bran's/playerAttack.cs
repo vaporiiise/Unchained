@@ -6,20 +6,21 @@ using UnityEngine;
 public class playerAttack : MonoBehaviour
 {
     public int currentCombo = 0;
-    public float comboResetTime = 1F;
+    public float comboResetTime = 2F;
+    public bool canContinueCombo = true;
     private float comboDuration = 0F;
-    public float comboAnim = 0f;
 
     public GameObject attack1HitBox;
     public GameObject attack2HitBox;
     public GameObject attack3HitBox;
     public GameObject attack4HitBox;
 
+    public HealthBar healthBar;
+    public GameObject HealthBar;
     public int maxHealth = 100;
     public int currentHealth;
-    public HealthBar healthBar;
-    public GameObject Healthbar;
-    private Animator playerAnim;
+
+    public Animator playerAnim;
 
     private void Start()
     {
@@ -30,25 +31,30 @@ public class playerAttack : MonoBehaviour
 
     private void Update()
     {
-        // Check if the game is paused
-        if (PauseMenu.GameIsPaused)
-        {
-            return; // Exit if paused
-        }
+        HandleCombo();
+        HandleAnimation();
+        HandlePause();
+    }
 
-        // Handle attack input
+    private void HandleCombo()
+    {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
 
         Vector2 direction = (mousePosition - transform.position).normalized;
 
-        if (Input.GetMouseButtonDown(0)) // Left mouse button for attack
+        if (currentCombo == 0 || currentCombo > 0)
+            canContinueCombo = true;
+        else if (currentCombo > 4 || Time.time - comboDuration > comboResetTime)
+        {
+            canContinueCombo = false;
+            currentCombo = 0;
+        }
+
+        if (Input.GetMouseButtonDown(0) && canContinueCombo)
         {
             comboDuration = Time.time;
-
             currentCombo++;
-            if (currentCombo > 4)
-                currentCombo = 1;
 
             switch (currentCombo)
             {
@@ -64,19 +70,35 @@ public class playerAttack : MonoBehaviour
                 case 4:
                     StartCoroutine(Attack4HitBox(direction));
                     break;
+                case 5:
+                    currentCombo = 0;
+                    break;
             }
         }
+    }
 
-        // Reset combo if the duration has exceeded the allowed time
-        if (Time.time - comboDuration > comboResetTime)
+    private void HandleAnimation()
+    {
+        if (currentCombo > 0)
+            playerAnim.SetBool("PlayerCombo1", true);
+        if (currentCombo > 1)
+            playerAnim.SetBool("PlayerCombo2", true);
+        if (currentCombo > 2)
+            playerAnim.SetBool("PlayerCombo3", true);
+        if (currentCombo > 3)
+            playerAnim.SetBool("PlayerCombo4", true);
+        else if (currentCombo > 4 || Time.time - comboDuration > comboResetTime)
+        {
+            playerAnim.SetBool("PlayerCombo1", false);
+            playerAnim.SetBool("PlayerCombo2", false);
+            playerAnim.SetBool("PlayerCombo3", false);
+            playerAnim.SetBool("PlayerCombo4", false);
             currentCombo = 0;
+        }
     }
 
     IEnumerator Attack1HitBox(Vector2 attackDirection)
     {
-        playerAnim.Play("PlayerCombo1");
-        Debug.Log("COMBO1!");
-        yield return new WaitForSeconds(comboAnim);
         attack1HitBox.SetActive(true);
         attack1HitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
         yield return new WaitForSeconds(0.2F);
@@ -85,10 +107,6 @@ public class playerAttack : MonoBehaviour
 
     IEnumerator Attack2HitBox(Vector2 attackDirection)
     {
-        playerAnim.Play("PlayerCombo2");
-        Debug.Log("COMBO2!");
-        yield return new WaitForSeconds(comboAnim);
-
         attack2HitBox.SetActive(true);
         attack2HitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
         float startAngle = -45F;
@@ -109,10 +127,6 @@ public class playerAttack : MonoBehaviour
 
     IEnumerator Attack3HitBox(Vector2 attackDirection)
     {
-        playerAnim.Play("PlayerCombo3");
-        Debug.Log("COMBO3!");
-        yield return new WaitForSeconds(comboAnim);
-        
         attack3HitBox.SetActive(true);
         attack3HitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
         float startAngle = 45F;
@@ -133,10 +147,6 @@ public class playerAttack : MonoBehaviour
 
     IEnumerator Attack4HitBox(Vector2 attackDirection)
     {
-        playerAnim.Play("PlayerCombo4");
-        Debug.Log("COMBO4!");
-        yield return new WaitForSeconds(comboAnim);
-        
         attack4HitBox.SetActive(true);
         attack4HitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
         yield return new WaitForSeconds(0.2F);
@@ -165,7 +175,14 @@ public class playerAttack : MonoBehaviour
     private void Die()
     {
         Destroy(gameObject);
-        Destroy(Healthbar);
+        Destroy(HealthBar);
+    }
 
+    private void HandlePause()
+    {
+        if (PauseMenu.GameIsPaused)
+        {
+            return;
+        }
     }
 }
