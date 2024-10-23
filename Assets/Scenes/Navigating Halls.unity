@@ -8416,6 +8416,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TVUncrossable (373)
       objectReference: {fileID: 0}
+    - target: {fileID: 795903707361265238, guid: 899614832fc99a2498af85004cee00f6, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4835560486914657359, guid: 899614832fc99a2498af85004cee00f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 21.5
@@ -15165,6 +15169,8 @@ Transform:
   - {fileID: 1173530676}
   - {fileID: 213775882}
   - {fileID: 1901240748}
+  - {fileID: 985773055}
+  - {fileID: 1455239699}
   - {fileID: 1574939193}
   - {fileID: 1266296608}
   - {fileID: 1027077388}
@@ -15179,13 +15185,11 @@ Transform:
   - {fileID: 1243341071}
   - {fileID: 1213178682}
   - {fileID: 1275298234}
-  - {fileID: 985773055}
   - {fileID: 1472284539}
   - {fileID: 1138167115}
   - {fileID: 1636751099}
   - {fileID: 176973599}
   - {fileID: 371274710}
-  - {fileID: 1455239699}
   - {fileID: 1249498101}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -27194,7 +27198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1472284537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29964,7 +29968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1239404627}
   defaultFOV: 30
-  zoomOutFOV: -30
+  zoomOutFOV: -16
   zoomSpeed: 2
   zoomAreaMin: {x: -16.06, y: -0.98}
   zoomAreaMax: {x: -13.94, y: 0.05}
@@ -32047,7 +32051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1239404627}
   smoothSpeed: 0.125
-  offset: {x: 0, y: 0, z: -9.3}
+  offset: {x: 0, y: 0, z: -11.55}
 --- !u!114 &1779893153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34851,6 +34855,10 @@ PrefabInstance:
     - target: {fileID: 30480552216182279, guid: 899614832fc99a2498af85004cee00f6, type: 3}
       propertyPath: m_Name
       value: TVUncrossable (50)
+      objectReference: {fileID: 0}
+    - target: {fileID: 795903707361265238, guid: 899614832fc99a2498af85004cee00f6, type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4835560486914657359, guid: 899614832fc99a2498af85004cee00f6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -38065,6 +38073,10 @@ PrefabInstance:
     - target: {fileID: 30480552216182279, guid: 899614832fc99a2498af85004cee00f6, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 795903707361265238, guid: 899614832fc99a2498af85004cee00f6, type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3026002943032311448, guid: 899614832fc99a2498af85004cee00f6, type: 3}
       propertyPath: m_LocalPosition.x
