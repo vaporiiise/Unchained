@@ -45,11 +45,6 @@ public class playerAttack : MonoBehaviour
 
         if (currentCombo == 0 || currentCombo > 0)
             canContinueCombo = true;
-        else if (currentCombo > 4 || Time.time - comboDuration > comboResetTime)
-        {
-            canContinueCombo = false;
-            currentCombo = 0;
-        }
 
         if (Input.GetMouseButtonDown(0) && canContinueCombo)
         {
@@ -70,10 +65,12 @@ public class playerAttack : MonoBehaviour
                 case 4:
                     StartCoroutine(Attack4HitBox(direction));
                     break;
-                case 5:
-                    currentCombo = 0;
-                    break;
             }
+        }
+        else if (currentCombo > 3 || Time.time - comboDuration > comboResetTime)
+        {
+            canContinueCombo = false;
+            currentCombo = 0;
         }
     }
 
