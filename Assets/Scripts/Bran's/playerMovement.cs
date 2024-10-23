@@ -18,8 +18,6 @@ public class playerMovement : MonoBehaviour
     private bool isDodging = false;
     private Vector2 dodgeDirection;
 
-    public Animator playerAnim;
-
     private void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
@@ -28,20 +26,17 @@ public class playerMovement : MonoBehaviour
 
     private void Update()
     {
-        HandleMovement();
-        HandleDodge();
-        HandleAnimation();
-        HandlePause();
-    }
+        // Check if the game is paused
+        if (PauseMenu.GameIsPaused)
+        {
+            return; // Exit if paused
+        }
 
-    private void HandleMovement()
-    {
+        // Get player movement input only when the game is not paused
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-    }
 
-    private void HandleDodge()
-    {
+        // Handle dodge action when the game is not paused
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > lastDodgeTime + dodgeCooldown)
         {
             isDodging = true;
@@ -51,13 +46,25 @@ public class playerMovement : MonoBehaviour
             isInvincible = true;
             playerCol.enabled = false;
         }
+    }
 
+    private void FixedUpdate()
+    {
+        // Move the player only when the game is not paused
+        if (PauseMenu.GameIsPaused)
+        {
+            return; // Exit if paused
+        }
+
+        // Move the player based on input
         playerRB.MovePosition(playerRB.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
 
+        // Handle dodging
         if (isDodging)
         {
             playerRB.MovePosition(playerRB.position + dodgeDirection * dodgeSpeed * Time.fixedDeltaTime);
 
+            // Reset dodge state after duration
             if (Time.time > lastDodgeTime + dodgeDuration)
             {
                 isDodging = false;
@@ -65,30 +72,5 @@ public class playerMovement : MonoBehaviour
                 playerCol.enabled = true;
             }
         }
-    }
-
-    private void HandleAnimation()
-    {
-        if (Input.GetKeyDown(KeyCode.W))
-            playerAnim.SetBool("isWalkingUp", true);
-        else if (Input.GetKeyDown(KeyCode.A))
-            playerAnim.SetBool("isWalkingLeft", true);
-        else if (Input.GetKeyDown(KeyCode.S))
-            playerAnim.SetBool("isWalkingDown", true);
-        else if (Input.GetKeyDown(KeyCode.D))
-            playerAnim.SetBool("isWalkingRight", true);
-        else if (Input.GetKeyUp(KeyCode.W))
-            playerAnim.SetBool("isWalkingUp", false);
-        else if (Input.GetKeyUp(KeyCode.A))
-            playerAnim.SetBool("isWalkingLeft", false);
-        else if (Input.GetKeyUp(KeyCode.S))
-            playerAnim.SetBool("isWalkingDown", false);
-        else if (Input.GetKeyUp(KeyCode.D))
-            playerAnim.SetBool("isWalkingRight", false);
-    }
-    private void HandlePause()
-    {
-        if (PauseMenu.GameIsPaused)
-            return;
     }
 }
