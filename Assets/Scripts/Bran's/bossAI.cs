@@ -25,7 +25,7 @@ public class bossAI : MonoBehaviour
     public GameObject groundSlamHitBox;
     public GameObject handSwipeHitBox;
 
-    public int bossMaxHealth = 200;
+    public int bossMaxHealth = 500;
     public int currentHealth;
     public HealthBar healthBar;
     public GameObject Healthbar;
