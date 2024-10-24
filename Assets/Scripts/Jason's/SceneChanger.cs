@@ -5,18 +5,12 @@ using UnityEngine;
 
 public class SceneChanger : MonoBehaviour
 {
-    [SerializeField]
-    private string sceneName; // The name of the scene to load
+    [SerializeField] private int sceneIndex; // The build index of the scene to load
 
+    // Method to change the scene
     public void ChangeScene()
     {
-        if (!string.IsNullOrEmpty(sceneName))
-        {
-            SceneManager.LoadScene(sceneName);
-        }
-        else
-        {
-            Debug.LogWarning("Scene name is not set in the Inspector.");
-        }
+        // Load the scene by its build index
+        SceneManager.LoadScene(sceneIndex);
     }
 }
