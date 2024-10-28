@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class playerAttack : MonoBehaviour
 {
     public int currentCombo = 0;
-    public float comboResetTime = 2F;
+    public float comboResetTime = 0.8F;
     public bool canContinueCombo = true;
-    private float comboDuration = 0F;
+    private float comboDuration;
 
     public GameObject attack1HitBox;
     public GameObject attack2HitBox;
@@ -22,17 +23,27 @@ public class playerAttack : MonoBehaviour
 
     public Animator playerAnim;
 
+    private playerMovement movementScript;
+
     private void Start()
     {
         playerAnim = GetComponent<Animator>();
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        movementScript = GetComponent<playerMovement>();
     }
 
     private void Update()
     {
-        HandleCombo();
-        HandleAnimation();
+        if (Input.GetMouseButtonDown(0) && currentCombo < 4)
+        {
+            HandleCombo();
+            HandleAnimation();
+        }
+
+        if (canContinueCombo && Time.time - comboDuration > comboResetTime)
+            ResetCombo();
+
         HandlePause();
     }
 
@@ -43,13 +54,17 @@ public class playerAttack : MonoBehaviour
 
         Vector2 direction = (mousePosition - transform.position).normalized;
 
-        if (currentCombo == 0 || currentCombo > 0)
-            canContinueCombo = true;
+        canContinueCombo = true;
+        movementScript.EnableMovement(false);
+
+        if (currentCombo > 4)
+            return;
 
         if (Input.GetMouseButtonDown(0) && canContinueCombo)
         {
             comboDuration = Time.time;
             currentCombo++;
+            currentCombo = Mathf.Clamp(currentCombo, 0, 4);
 
             switch (currentCombo)
             {
@@ -67,15 +82,12 @@ public class playerAttack : MonoBehaviour
                     break;
             }
         }
-        else if (currentCombo > 3 || Time.time - comboDuration > comboResetTime)
-        {
-            canContinueCombo = false;
-            currentCombo = 0;
-        }
     }
 
     private void HandleAnimation()
     {
+        ResetBool(playerAnim);
+
         if (currentCombo > 0)
             playerAnim.SetBool("PlayerCombo1", true);
         if (currentCombo > 1)
@@ -83,15 +95,34 @@ public class playerAttack : MonoBehaviour
         if (currentCombo > 2)
             playerAnim.SetBool("PlayerCombo3", true);
         if (currentCombo > 3)
-            playerAnim.SetBool("PlayerCombo4", true);
-        else if (currentCombo > 4 || Time.time - comboDuration > comboResetTime)
         {
-            playerAnim.SetBool("PlayerCombo1", false);
-            playerAnim.SetBool("PlayerCombo2", false);
-            playerAnim.SetBool("PlayerCombo3", false);
-            playerAnim.SetBool("PlayerCombo4", false);
-            currentCombo = 0;
+            playerAnim.SetBool("PlayerCombo4", true);
+            StartCoroutine(ReturnToIdle(0.8F));
         }
+    }
+
+    private void ResetCombo()
+    {
+        ResetBool(playerAnim);
+        currentCombo = 0;
+
+        canContinueCombo = false;
+        movementScript.EnableMovement(true);
+    }
+
+    private void ResetBool(Animator playerAnimator)
+    {
+        foreach (AnimatorControllerParameter parameter in playerAnimator.parameters)
+        {
+            if (parameter.type == AnimatorControllerParameterType.Bool)
+                playerAnimator.SetBool(parameter.name, false);
+        }
+    }
+
+    IEnumerator ReturnToIdle(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ResetCombo();
     }
 
     IEnumerator Attack1HitBox(Vector2 attackDirection)
@@ -171,8 +202,9 @@ public class playerAttack : MonoBehaviour
 
     private void Die()
     {
-        Destroy(gameObject);
-        Destroy(HealthBar);
+        SceneManager.LoadScene(2);
+        // Destroy(gameObject);
+        // Destroy(HealthBar);
     }
 
     private void HandlePause()

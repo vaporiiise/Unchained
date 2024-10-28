@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class SceneChanger : MonoBehaviour
 {
-    [SerializeField] private int sceneIndex; // The build index of the scene to load
+    [SerializeField]
+   
+    public int scenes; 
 
-    // Method to change the scene
     public void ChangeScene()
     {
-        // Load the scene by its build index
-        SceneManager.LoadScene(sceneIndex);
+        SceneManager.LoadScene(scenes);
     }
 }

@@ -7,11 +7,12 @@ public class playerMovement : MonoBehaviour
     public float moveSpeed = 5F;
     private Collider2D playerCol;
     private Rigidbody2D playerRB;
+    private bool canMove = true;
 
     private Vector2 movement;
     public float dodgeSpeed = 20F;
     public float dodgeDuration = 0.2F;
-    public float dodgeCooldown = 1F;
+    public float dodgeCooldown = 2F;
     public bool isInvincible = false;
 
     private float lastDodgeTime;
@@ -28,10 +29,19 @@ public class playerMovement : MonoBehaviour
 
     private void Update()
     {
-        HandleMovement();
-        HandleDodge();
-        HandleAnimation();
+        if (canMove)
+        {
+            HandleMovement();
+            HandleDodge();
+            HandleAnimation();
+        }
+        
         HandlePause();
+    }
+
+    public void EnableMovement(bool enable)
+    {
+        canMove = enable;
     }
 
     private void HandleMovement()
