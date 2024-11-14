@@ -13,6 +13,7 @@ public class Tilemovement : MonoBehaviour
     public AudioClip moveSound;
     public AudioSource audioSource;
     private CheckpointManager checkpointManager;
+    
 
     private bool ReadyToMove;
     
