@@ -8,18 +8,43 @@ public class ButtonHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerEx
 {
     public Vector3 hoverScale = new Vector3(1.2f, 1.2f, 1.2f);  // Scale to enlarge on hover
     public float animationDuration = 0.2f;                      // Duration for scale animation
+    public AudioClip hoverSound;                                // Hover sound effect
+    public AudioClip clickSound;                                // Click sound effect
 
     private Vector3 originalScale;
     private bool isHovering = false;
+    private AudioSource audioSource;
+    private Button button;
 
+    
     private void Start()
     {
         originalScale = transform.localScale;  // Store the original scale of the button
+        audioSource = GetComponent<AudioSource>();
+        button = GetComponent<Button>();
+
+        // Ensure there's an AudioSource
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        audioSource.playOnAwake = false;  // Prevents sound from playing on start
+
+        // Add the OnClick listener to play click sound
+        if (button != null)
+        {
+            button.onClick.AddListener(PlayClickSound);
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // Enlarge button when the pointer enters
+        // Play hover sound and enlarge button when the pointer enters
+        if (!isHovering && hoverSound != null)
+        {
+            audioSource.PlayOneShot(hoverSound);
+        }
         StopAllCoroutines();
         StartCoroutine(ScaleButton(hoverScale));
         isHovering = true;
@@ -46,5 +71,13 @@ public class ButtonHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerEx
         }
 
         transform.localScale = targetScale;
+    }
+
+    private void PlayClickSound()
+    {
+        if (clickSound != null)
+        {
+            audioSource.PlayOneShot(clickSound);
+        }
     }
 }

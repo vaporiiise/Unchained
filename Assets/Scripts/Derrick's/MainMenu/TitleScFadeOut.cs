@@ -18,9 +18,27 @@ public class TitleScFadeOut : MonoBehaviour
     public float cameraMoveDuration = 2f;     // Duration of the camera movement
     public float smoothTime = 0.3f;           // Smooth time for SmoothDamp
 
-    public RectTransform buttonToMove;        // Reference to the UI Button's RectTransform
-    public float buttonTargetXPos;            // Target X position for the button
-    public float buttonSmoothTime = 0.2f;     // Smooth time for button movement
+    public RectTransform buttonToMove;        // Reference to the first button's RectTransform
+    public float buttonTargetXPos;            // Target X position for the first button
+    public float buttonSmoothTime = 0.2f;     // Smooth time for first button movement
+
+    public RectTransform secondButton;        // Reference to the second button's RectTransform
+    public float secondButtonTargetXPos;      // Target X position for the second button
+    public float secondButtonSmoothTime = 0.2f; // Smooth time for second button movement
+
+    public RectTransform thirdButton;         // Reference to the third button's RectTransform
+    public float thirdButtonTargetXPos;       // Target X position for the third button
+    public float thirdButtonSmoothTime = 0.2f; // Smooth time for third button movement
+
+    public RectTransform fourthButton;        // Reference to the fourth button's RectTransform
+    public float fourthButtonTargetXPos;      // Target X position for the fourth button
+    public float fourthButtonSmoothTime = 0.2f; // Smooth time for fourth button movement
+
+    public RectTransform fifthButton;         // Reference to the fifth button's RectTransform
+    public float fifthButtonTargetXPos;       // Target X position for the fifth button
+    public float fifthButtonSmoothTime = 0.2f; // Smooth time for fifth button movement
+
+    public float delayBetweenButtonMoves = 0.5f; // Delay between each button movement
 
     private bool isFadingOut = false;         // To ensure fade-out only happens once
     private bool fadeInComplete = false;      // To track if fade-in has finished
@@ -121,23 +139,35 @@ public class TitleScFadeOut : MonoBehaviour
         // Ensure the camera reaches the exact target position
         mainCamera.transform.position = cameraTargetPosition;
 
-        // After camera movement is done, move the button to the target position
-        StartCoroutine(MoveButtonToTarget());
+        // After camera movement is done, move the buttons sequentially with a delay in between
+        yield return MoveButtonToTarget(buttonToMove, buttonTargetXPos, buttonSmoothTime);
+        yield return new WaitForSeconds(delayBetweenButtonMoves);
+
+        yield return MoveButtonToTarget(secondButton, secondButtonTargetXPos, secondButtonSmoothTime);
+        yield return new WaitForSeconds(delayBetweenButtonMoves);
+
+        yield return MoveButtonToTarget(thirdButton, thirdButtonTargetXPos, thirdButtonSmoothTime);
+        yield return new WaitForSeconds(delayBetweenButtonMoves);
+
+        yield return MoveButtonToTarget(fourthButton, fourthButtonTargetXPos, fourthButtonSmoothTime);
+        yield return new WaitForSeconds(delayBetweenButtonMoves);
+
+        yield return MoveButtonToTarget(fifthButton, fifthButtonTargetXPos, fifthButtonSmoothTime);
     }
 
-    private IEnumerator MoveButtonToTarget()
+    private IEnumerator MoveButtonToTarget(RectTransform button, float targetXPos, float smoothTime)
     {
         Vector3 velocity = Vector3.zero;
-        Vector3 startPos = buttonToMove.anchoredPosition;
-        Vector3 targetPos = new Vector3(buttonTargetXPos, startPos.y, startPos.z);
+        Vector3 startPos = button.anchoredPosition;
+        Vector3 targetPos = new Vector3(targetXPos, startPos.y, startPos.z);
 
-        while (Vector3.Distance(buttonToMove.anchoredPosition, targetPos) > 0.1f)
+        while (Vector3.Distance(button.anchoredPosition, targetPos) > 0.1f)
         {
-            buttonToMove.anchoredPosition = Vector3.SmoothDamp(buttonToMove.anchoredPosition, targetPos, ref velocity, buttonSmoothTime);
+            button.anchoredPosition = Vector3.SmoothDamp(button.anchoredPosition, targetPos, ref velocity, smoothTime);
             yield return null;
         }
 
         // Ensure the button reaches the exact target position
-        buttonToMove.anchoredPosition = targetPos;
+        button.anchoredPosition = targetPos;
     }
 }

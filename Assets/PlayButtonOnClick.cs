@@ -17,7 +17,7 @@ public class PlayButtonOnClick : MonoBehaviour
     public Camera mainCamera; // Assign the main camera in the Inspector
     public float targetZPosition = -10f; // Desired Z position after movement
     public float cameraMoveDuration = 1.5f; // Duration of the camera movement
-
+    public GameObject buttonToDisable;
     private void Start()
     {
         fadeImage.color = new Color(0, 0, 0, 0); // Set fade image to transparent at start
@@ -97,4 +97,6 @@ public class PlayButtonOnClick : MonoBehaviour
         // Load the next scene after fade completes
         SceneManager.LoadScene(nextSceneName);
     }
+
+    
 }
