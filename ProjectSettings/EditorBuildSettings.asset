@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Main Menu.unity
-    guid: 31081eaf9af0ac940bafda90dce742d2
+    path: Assets/Scenes/Main Menu NEW.unity
+    guid: e68d8253e7c01714c93db890f675bd3f
   - enabled: 1
     path: Assets/Scenes/Navigating Halls.unity
     guid: e811aa0f69801154aa1e76b5c62714a4
@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Outer Halls.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 0
+    path: Assets/Scenes/Main Menu.unity
+    guid: 31081eaf9af0ac940bafda90dce742d2
   m_configObjects: {}

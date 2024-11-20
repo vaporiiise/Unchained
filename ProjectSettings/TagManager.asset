@@ -15,6 +15,7 @@ TagManager:
   - BossAttack
   - PlayerBullet
   - EnemyBullet
+  - ButtonTrigger
   layers:
   - Default
   - TransparentFX
