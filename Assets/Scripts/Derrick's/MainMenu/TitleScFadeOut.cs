@@ -7,41 +7,40 @@ using TMPro;
 
 public class TitleScFadeOut : MonoBehaviour
 {
-    public RawImage rawImage;                 // Reference to the RawImage component
-    public TextMeshProUGUI uiText;            // Reference to the TextMeshProUGUI component
-    public float delayBeforeFadeIn = 1f;      // Delay before the fade-in starts
-    public float fadeInDuration = 1f;         // Duration of the fade-in
-    public float fadeOutDuration = 1f;        // Duration of the fade-out
-    public AudioSource audioSource;           // Reference to the AudioSource component
-    public AudioClip anyKey;                  // Sound clip to play when any key is pressed
-    public Vector3 cameraTargetPosition;      // Target position for the camera
-    public float cameraMoveDuration = 2f;     // Duration of the camera movement
-    public float smoothTime = 0.3f;           // Smooth time for SmoothDamp
+    public RawImage rawImage;                 
+    public TextMeshProUGUI uiText;            
+    public float delayBeforeFadeIn = 1f;      
+    public float fadeInDuration = 1f;         
+    public float fadeOutDuration = 1f;        
+    public AudioSource audioSource;           
+    public AudioClip anyKey;                  
+    public Vector3 cameraTargetPosition;      
+    public float cameraMoveDuration = 2f;     
+    public float smoothTime = 0.3f;           
 
-    public RectTransform buttonToMove;        // Reference to the first button's RectTransform
-    public float buttonTargetXPos;            // Target X position for the first button
-    public float buttonSmoothTime = 0.2f;     // Smooth time for first button movement
+    public RectTransform buttonToMove;        
+    public float buttonTargetXPos;            
+    public float buttonSmoothTime = 0.2f;     
 
-    public RectTransform secondButton;        // Reference to the second button's RectTransform
-    public float secondButtonTargetXPos;      // Target X position for the second button
-    public float secondButtonSmoothTime = 0.2f; // Smooth time for second button movement
+    public RectTransform secondButton;        
+    public float secondButtonTargetXPos;      
+    public float secondButtonSmoothTime = 0.2f; 
 
-    public RectTransform thirdButton;         // Reference to the third button's RectTransform
-    public float thirdButtonTargetXPos;       // Target X position for the third button
-    public float thirdButtonSmoothTime = 0.2f; // Smooth time for third button movement
+    public RectTransform thirdButton;         
+    public float thirdButtonTargetXPos;       
+    public float thirdButtonSmoothTime = 0.2f; 
 
-    public RectTransform fourthButton;        // Reference to the fourth button's RectTransform
-    public float fourthButtonTargetXPos;      // Target X position for the fourth button
-    public float fourthButtonSmoothTime = 0.2f; // Smooth time for fourth button movement
+    public RectTransform fourthButton;        
+    public float fourthButtonTargetXPos;      
+    public float fourthButtonSmoothTime = 0.2f; 
 
-    public RectTransform fifthButton;         // Reference to the fifth button's RectTransform
-    public float fifthButtonTargetXPos;       // Target X position for the fifth button
-    public float fifthButtonSmoothTime = 0.2f; // Smooth time for fifth button movement
+    public RectTransform fifthButton;         
+    public float fifthButtonTargetXPos;       
+    public float fifthButtonSmoothTime = 0.2f; 
+    public float delayBetweenButtonMoves = 0.2f; 
 
-    public float delayBetweenButtonMoves = 0.5f; // Delay between each button movement
-
-    private bool isFadingOut = false;         // To ensure fade-out only happens once
-    private bool fadeInComplete = false;      // To track if fade-in has finished
+    private bool isFadingOut = false;         
+    private bool fadeInComplete = false;      
 
     private void Start()
     {
@@ -139,19 +138,10 @@ public class TitleScFadeOut : MonoBehaviour
         // Ensure the camera reaches the exact target position
         mainCamera.transform.position = cameraTargetPosition;
 
-        // After camera movement is done, move the buttons sequentially with a delay in between
         yield return MoveButtonToTarget(buttonToMove, buttonTargetXPos, buttonSmoothTime);
-        yield return new WaitForSeconds(delayBetweenButtonMoves);
-
         yield return MoveButtonToTarget(secondButton, secondButtonTargetXPos, secondButtonSmoothTime);
-        yield return new WaitForSeconds(delayBetweenButtonMoves);
-
         yield return MoveButtonToTarget(thirdButton, thirdButtonTargetXPos, thirdButtonSmoothTime);
-        yield return new WaitForSeconds(delayBetweenButtonMoves);
-
         yield return MoveButtonToTarget(fourthButton, fourthButtonTargetXPos, fourthButtonSmoothTime);
-        yield return new WaitForSeconds(delayBetweenButtonMoves);
-
         yield return MoveButtonToTarget(fifthButton, fifthButtonTargetXPos, fifthButtonSmoothTime);
     }
 

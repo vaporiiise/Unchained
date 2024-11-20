@@ -17,7 +17,9 @@ public class PlayButtonOnClick : MonoBehaviour
     public Camera mainCamera; // Assign the main camera in the Inspector
     public float targetZPosition = -10f; // Desired Z position after movement
     public float cameraMoveDuration = 1.5f; // Duration of the camera movement
-    public GameObject buttonToDisable;
+    public GameObject objectToMove; // Assign the GameObject to move in the Inspector
+    public float targetXPosition = 5f; // Desired X position after movement
+    public float objectMoveDuration = 1.5f; // Duration of the object movement
     private void Start()
     {
         fadeImage.color = new Color(0, 0, 0, 0); // Set fade image to transparent at start
@@ -28,14 +30,14 @@ public class PlayButtonOnClick : MonoBehaviour
     public void OnButtonClick()
     {
         toDisable.SetActive(false);
-        videoPlayer.Play(); // Start video playback
-        videoPlayer.loopPointReached += OnVideoEnd; // Trigger fade after video
+        MoveObjectOnX(); // Start object movement on the x-axis
 
-        // Start button fade-out
+        videoPlayer.Play();
+        videoPlayer.loopPointReached += OnVideoEnd;
+
         if (buttonCanvasGroup != null)
             StartCoroutine(FadeOutButton());
 
-        // Start camera movement
         if (mainCamera != null)
             StartCoroutine(MoveCameraZPosition());
     }
@@ -96,6 +98,30 @@ public class PlayButtonOnClick : MonoBehaviour
 
         // Load the next scene after fade completes
         SceneManager.LoadScene(nextSceneName);
+    }
+    
+    public void MoveObjectOnX()
+    {
+        if (objectToMove != null)
+            StartCoroutine(MoveObjectXPosition());
+    }
+
+    private IEnumerator MoveObjectXPosition()
+    {
+        float elapsedTime = 0f;
+        Vector3 startingPosition = objectToMove.transform.position;
+        Vector3 targetPosition = new Vector3(targetXPosition, startingPosition.y, startingPosition.z);
+
+        while (elapsedTime < objectMoveDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / objectMoveDuration;
+            t = t * t * (3f - 2f * t); // Smoothstep interpolation for natural movement
+            objectToMove.transform.position = Vector3.Lerp(startingPosition, targetPosition, t);
+            yield return null;
+        }
+
+        objectToMove.transform.position = targetPosition;
     }
 
     
