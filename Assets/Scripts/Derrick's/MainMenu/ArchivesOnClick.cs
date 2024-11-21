@@ -10,25 +10,48 @@ public class ArchivesOnClick : MonoBehaviour
    public float cameraMoveDuration = 1.5f;
    public Vector3 cameraTargetPos;
    public float smoothTime = 0.2f;
-   public GameObject moveButtons;
-   public float objectMoveDuration = 0.2f;
-   public float targetXPos = 10f;
-   public GameObject itemToShow;
-   public float zPosItem;
-   private Vector3 originalPos;
-   public float smoothZ = 0.2f;
-   
+   public RectTransform buttonToMove;        
+   public float buttonTargetXPos;            
+   public float buttonSmoothTime = 0.2f;     
 
-   private void Start()
-   {
-      originalPos = transform.localPosition;
-   }
+   public RectTransform secondButton;        
+   public float secondButtonTargetXPos;      
+   public float secondButtonSmoothTime = 0.2f; 
+
+   public RectTransform thirdButton;         
+   public float thirdButtonTargetXPos;       
+   public float thirdButtonSmoothTime = 0.2f;
    
+   public RectTransform m1Button;         
+   public float m1ButtonTargetXPos;       
+   public float m1ButtonSmoothTime = 0.2f;
+   
+   public RectTransform m2Button;         
+   public float m2ButtonTargetXPos;       
+   public float m2ButtonSmoothTime = 0.2f;
+   
+   public RectTransform m3Button;         
+   public float m3ButtonTargetXPos;       
+   public float m3ButtonSmoothTime = 0.2f;
+   
+   public RectTransform m4Button;         
+   public float m4ButtonTargetXPos;       
+   public float m4ButtonSmoothTime = 0.2f;
+   
+   public RectTransform m5Button;         
+   public float m5ButtonTargetXPos;       
+   public float m5ButtonSmoothTime = 0.2f;
    public void OnButtonClick()
    {
       StartCoroutine(MoveCameraToTarget());
-      StartCoroutine(MoveButtons());
-
+      StartCoroutine(MoveButtonToTarget(buttonToMove, buttonTargetXPos, buttonSmoothTime));
+      StartCoroutine(MoveButtonToTarget(secondButton, secondButtonTargetXPos, secondButtonSmoothTime));
+      StartCoroutine(MoveButtonToTarget(thirdButton, thirdButtonTargetXPos, thirdButtonSmoothTime));
+      StartCoroutine(MoveButtonToTarget(m1Button, m1ButtonTargetXPos, m1ButtonSmoothTime));
+      StartCoroutine(MoveButtonToTarget(m2Button, m2ButtonTargetXPos, m2ButtonSmoothTime));
+      StartCoroutine(MoveButtonToTarget(m3Button, m3ButtonTargetXPos, m3ButtonSmoothTime));
+      StartCoroutine(MoveButtonToTarget(m4Button, m4ButtonTargetXPos, m4ButtonSmoothTime));
+      StartCoroutine(MoveButtonToTarget(m5Button, m5ButtonTargetXPos, m5ButtonSmoothTime));
    }
 
    private IEnumerator MoveCameraToTarget()
@@ -51,37 +74,22 @@ public class ArchivesOnClick : MonoBehaviour
       
       
    }
-
-   private IEnumerator MoveButtons()
+   private IEnumerator MoveButtonToTarget(RectTransform button, float targetXPos, float smoothTime)
    {
-      float elapsedTime = 0f;
-      Vector3 startingPosition = moveButtons.transform.position;
-      Vector3 targetPosition = new Vector3(targetXPos, startingPosition.y, startingPosition.z);
+      Vector3 velocity = Vector3.zero;
+      Vector3 startPos = button.anchoredPosition;
+      Vector3 targetPos = new Vector3(targetXPos, startPos.y, startPos.z);
 
-      while (elapsedTime < objectMoveDuration)
+      while (Vector3.Distance(button.anchoredPosition, targetPos) > 0.1f)
       {
-         elapsedTime += Time.deltaTime;
-         float t = elapsedTime / objectMoveDuration;
-         t = t * t * (3f - 2f * t); // Smoothstep interpolation for natural movement
-         moveButtons.transform.position = Vector3.Lerp(startingPosition, targetPosition, t);
+         button.anchoredPosition = Vector3.SmoothDamp(button.anchoredPosition, targetPos, ref velocity, smoothTime);
          yield return null;
       }
 
-      moveButtons.transform.position = targetPosition;
+      // Ensure the button reaches the exact target position
+      button.anchoredPosition = targetPos;
+      
    }
 
-   private IEnumerator ShowItem(Vector3 targetPos)
-   {
-      float elapsedTime = 0f;
-      Vector3 startingPosition = itemToShow.transform.localPosition;
-
-      while (elapsedTime < smoothZ)
-      {
-         itemToShow.transform.localScale = Vector3.Lerp(startingPosition, targetPos, elapsedTime / smoothZ);
-         elapsedTime += Time.deltaTime;
-         yield return null;
-      }
-      itemToShow.transform.localScale = targetPos;
-
-   }
+   
 }

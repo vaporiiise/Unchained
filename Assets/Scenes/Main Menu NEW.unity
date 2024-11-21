@@ -714,17 +714,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 331849908}
-  m_LocalRotation: {x: 0, y: 0, z: 0.2588191, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 0, z: -89.24}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
+  m_LocalRotation: {x: -0.032483947, y: 0.14548215, z: 0.16802618, w: 0.974447}
+  m_LocalPosition: {x: 0, y: 0, z: 440}
+  m_LocalScale: {x: 5.700001, y: 5.700001, z: 5.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 884476937}
-  m_Father: {fileID: 716195067}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.67, y: 0.85}
+  m_Father: {fileID: 1113636214}
+  m_LocalEulerAnglesHint: {x: -6.442, y: 15.923, z: 18.665}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -1769, y: -591}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &331849910
@@ -848,7 +848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ce8b863bf398743af34adc8e933b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 0.04, y: 0.04, z: 0.04}
+  hoverScale: {x: 6.75, y: 6.75, z: 6.75}
   animationDuration: 0.1
   hoverSound: {fileID: 8300000, guid: 4fcb1cc2a5d947a458a3dadb0c4c806a, type: 3}
   clickSound: {fileID: 8300000, guid: 06a7e24d0a0f07547be631aced38b614, type: 3}
@@ -1388,16 +1388,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 591928323}
   m_LocalRotation: {x: -0.03248784, y: 0.14547965, z: 0.16802295, w: 0.97444785}
-  m_LocalPosition: {x: 0, y: 0, z: 140.03043}
-  m_LocalScale: {x: 0.51857597, y: 0.51857597, z: 0.5185759}
+  m_LocalPosition: {x: 0, y: 0, z: 440}
+  m_LocalScale: {x: 5.700001, y: 5.700001, z: 5.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 520974306}
-  m_Father: {fileID: 1320080595}
+  m_Father: {fileID: 1113636214}
   m_LocalEulerAnglesHint: {x: -6.442, y: 15.923, z: 18.665}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -160.10345, y: 36.227554}
+  m_AnchoredPosition: {x: -987.0001, y: -158.99042}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &591928325
@@ -1412,7 +1412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ce8b863bf398743af34adc8e933b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 0.6, y: 0.6, z: 0.6}
+  hoverScale: {x: 6.75, y: 6.75, z: 6.75}
   animationDuration: 0.2
   hoverSound: {fileID: 8300000, guid: 4fcb1cc2a5d947a458a3dadb0c4c806a, type: 3}
   clickSound: {fileID: 8300000, guid: 06a7e24d0a0f07547be631aced38b614, type: 3}
@@ -1531,7 +1531,7 @@ MonoBehaviour:
   mainCamera: {fileID: 1522884700}
   targetZPosition: 8.4
   cameraMoveDuration: 5
-  objectToMove: {fileID: 1320080594}
+  objectToMove: {fileID: 0}
   targetXPosition: -130
   objectMoveDuration: 0.1
 --- !u!1 &616935431
@@ -1617,40 +1617,6 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 424323053}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &716195066
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 716195067}
-  m_Layer: 5
-  m_Name: Archives Button
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &716195067
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 716195066}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -64, y: 0, z: 0}
-  m_LocalScale: {x: 10.991639, y: 10.991639, z: 10.991639}
-  m_ConstrainProportionsScale: 1
-  m_Children:
-  - {fileID: 331849909}
-  - {fileID: 1150246042}
-  - {fileID: 950123474}
-  m_Father: {fileID: 1113636214}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &723552030
 GameObject:
@@ -1748,16 +1714,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726653832}
   m_LocalRotation: {x: -0.03248784, y: 0.14547965, z: 0.16802295, w: 0.97444785}
-  m_LocalPosition: {x: 0, y: 0, z: 140.03043}
-  m_LocalScale: {x: 0.51857597, y: 0.51857597, z: 0.5185759}
+  m_LocalPosition: {x: 0, y: 0, z: 440}
+  m_LocalScale: {x: 5.700001, y: 5.700001, z: 5.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1052252877}
-  m_Father: {fileID: 1320080595}
+  m_Father: {fileID: 1113636214}
   m_LocalEulerAnglesHint: {x: -6.442, y: 15.923, z: 18.665}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -160.10345, y: -1.4829102}
+  m_AnchoredPosition: {x: -987.0001, y: -573.49036}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &726653834
@@ -1772,7 +1738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ce8b863bf398743af34adc8e933b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 0.6, y: 0.6, z: 0.6}
+  hoverScale: {x: 6.75, y: 6.75, z: 6.75}
   animationDuration: 0.2
   hoverSound: {fileID: 8300000, guid: 4fcb1cc2a5d947a458a3dadb0c4c806a, type: 3}
   clickSound: {fileID: 8300000, guid: 06a7e24d0a0f07547be631aced38b614, type: 3}
@@ -2062,7 +2028,6 @@ GameObject:
   - component: {fileID: 950123476}
   - component: {fileID: 950123475}
   - component: {fileID: 950123480}
-  - component: {fileID: 950123481}
   m_Layer: 5
   m_Name: RETURN
   m_TagString: Untagged
@@ -2077,17 +2042,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 950123473}
-  m_LocalRotation: {x: 0, y: 0, z: 0.2588191, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 0, z: -89.24}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
+  m_LocalRotation: {x: -0.032483947, y: 0.14548215, z: 0.16802618, w: 0.974447}
+  m_LocalPosition: {x: 0, y: 0, z: 440}
+  m_LocalScale: {x: 5.700001, y: 5.700001, z: 5.700001}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1118537939}
-  m_Father: {fileID: 716195067}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.66, y: -2.1}
+  m_Father: {fileID: 1113636214}
+  m_LocalEulerAnglesHint: {x: -6.442, y: 15.923, z: 18.665}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -1769.0005, y: -823.7009}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &950123475
@@ -2117,7 +2082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ce8b863bf398743af34adc8e933b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 0.04, y: 0.04, z: 0.04}
+  hoverScale: {x: 6.75, y: 6.75, z: 6.75}
   animationDuration: 0.1
   hoverSound: {fileID: 8300000, guid: 4fcb1cc2a5d947a458a3dadb0c4c806a, type: 3}
   clickSound: {fileID: 8300000, guid: 06a7e24d0a0f07547be631aced38b614, type: 3}
@@ -2165,8 +2130,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 950123475}
-        m_TargetAssemblyTypeName: inArchiveOnClick, Assembly-CSharp
+      - m_Target: {fileID: 950123480}
+        m_TargetAssemblyTypeName: ArchivesOnClick, Assembly-CSharp
         m_MethodName: OnButtonClick
         m_Mode: 1
         m_Arguments:
@@ -2224,31 +2189,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 950123473}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17b22ff55b58d9845a7bc3dc15cb9885, type: 3}
+  m_Script: {fileID: 11500000, guid: 53ed0aa6245a3bd49a30b0499691a154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetCamera: {fileID: 1522884700}
-  cameraTargetPosition: {x: 0, y: -16, z: -10}
-  targetObject: {fileID: 716195066}
-  objectTargetPosition: {fileID: 1022827580}
-  moveSpeed: 100
-  triggerButton: {fileID: 950123477}
---- !u!114 &950123481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 950123473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79f6527094ef3744095c6dce5254d7bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetObject: {fileID: 1320080594}
-  objectTargetPosition: {fileID: 176204686}
-  moveSpeed: 5
-  triggerButton: {fileID: 950123477}
+  cameraMoveDuration: 1.5
+  cameraTargetPos: {x: 0, y: -15, z: -10}
+  smoothTime: 0.2
+  buttonToMove: {fileID: 950123474}
+  buttonTargetXPos: -1769
+  buttonSmoothTime: 0.2
+  secondButton: {fileID: 331849909}
+  secondButtonTargetXPos: -1769
+  secondButtonSmoothTime: 0.2
+  thirdButton: {fileID: 1150246042}
+  thirdButtonTargetXPos: -1769
+  thirdButtonSmoothTime: 0.2
+  m1Button: {fileID: 591928324}
+  m1ButtonTargetXPos: -133
+  m1ButtonSmoothTime: 0.2
+  m2Button: {fileID: 1231878615}
+  m2ButtonTargetXPos: -133
+  m2ButtonSmoothTime: 0.2
+  m3Button: {fileID: 726653833}
+  m3ButtonTargetXPos: -133
+  m3ButtonSmoothTime: 0.2
+  m4Button: {fileID: 2053098358}
+  m4ButtonTargetXPos: -133
+  m4ButtonSmoothTime: 0.2
+  m5Button: {fileID: 1461740419}
+  m5ButtonTargetXPos: -133
+  m5ButtonSmoothTime: 0.2
 --- !u!1 &974830276
 GameObject:
   m_ObjectHideFlags: 0
@@ -2726,8 +2696,14 @@ RectTransform:
   - {fileID: 57146319}
   - {fileID: 723552033}
   - {fileID: 291350436}
-  - {fileID: 1320080595}
-  - {fileID: 716195067}
+  - {fileID: 1461740419}
+  - {fileID: 2053098358}
+  - {fileID: 726653833}
+  - {fileID: 1231878615}
+  - {fileID: 591928324}
+  - {fileID: 1150246042}
+  - {fileID: 331849909}
+  - {fileID: 950123474}
   - {fileID: 879676881}
   - {fileID: 1022827580}
   - {fileID: 176204686}
@@ -2912,17 +2888,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1150246041}
-  m_LocalRotation: {x: 0, y: 0, z: 0.2588191, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 0, z: -89.24}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
+  m_LocalRotation: {x: -0.032483947, y: 0.14548215, z: 0.16802618, w: 0.974447}
+  m_LocalPosition: {x: 0, y: 0, z: 440}
+  m_LocalScale: {x: 5.700001, y: 5.700001, z: 5.700001}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1666995705}
-  m_Father: {fileID: 716195067}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.67, y: -0.65}
+  m_Father: {fileID: 1113636214}
+  m_LocalEulerAnglesHint: {x: -6.442, y: 15.923, z: 18.665}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -1769.0005, y: -354.7009}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1150246043
@@ -2952,7 +2928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ce8b863bf398743af34adc8e933b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 0.04, y: 0.04, z: 0.04}
+  hoverScale: {x: 6.75, y: 6.75, z: 6.75}
   animationDuration: 0.1
   hoverSound: {fileID: 8300000, guid: 4fcb1cc2a5d947a458a3dadb0c4c806a, type: 3}
   clickSound: {fileID: 8300000, guid: 06a7e24d0a0f07547be631aced38b614, type: 3}
@@ -3148,7 +3124,6 @@ GameObject:
   - component: {fileID: 1231878617}
   - component: {fileID: 1231878616}
   - component: {fileID: 1231878620}
-  - component: {fileID: 1231878621}
   m_Layer: 5
   m_Name: ARCHIVES
   m_TagString: Untagged
@@ -3164,16 +3139,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1231878614}
   m_LocalRotation: {x: -0.03248784, y: 0.14547965, z: 0.16802295, w: 0.97444785}
-  m_LocalPosition: {x: 0, y: 0, z: 140.03043}
-  m_LocalScale: {x: 0.51857597, y: 0.51857597, z: 0.5185759}
+  m_LocalPosition: {x: 0, y: 0, z: 440}
+  m_LocalScale: {x: 5.700001, y: 5.700001, z: 5.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 115287943}
-  m_Father: {fileID: 1320080595}
+  m_Father: {fileID: 1113636214}
   m_LocalEulerAnglesHint: {x: -6.442, y: 15.923, z: 18.665}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -160.10345, y: 17.285889}
+  m_AnchoredPosition: {x: -987.0001, y: -367.19037}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1231878616
@@ -3188,7 +3163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ce8b863bf398743af34adc8e933b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 0.6, y: 0.6, z: 0.6}
+  hoverScale: {x: 6.75, y: 6.75, z: 6.75}
   animationDuration: 0.2
   hoverSound: {fileID: 8300000, guid: 4fcb1cc2a5d947a458a3dadb0c4c806a, type: 3}
   clickSound: {fileID: 8300000, guid: 06a7e24d0a0f07547be631aced38b614, type: 3}
@@ -3248,18 +3223,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ArchivesOnClick, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1231878618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3313,28 +3276,30 @@ MonoBehaviour:
   cameraMoveDuration: 1.5
   cameraTargetPos: {x: 0, y: -25, z: 0}
   smoothTime: 0.2
-  moveButtons: {fileID: 1320080594}
-  objectMoveDuration: 0.2
-  targetXPos: -130
-  itemToShow: {fileID: 0}
-  zPosItem: 0
-  smoothZ: 0.2
---- !u!114 &1231878621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1231878614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79f6527094ef3744095c6dce5254d7bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetObject: {fileID: 716195066}
-  objectTargetPosition: {fileID: 879676881}
-  moveSpeed: 20
-  triggerButton: {fileID: 1231878617}
+  buttonToMove: {fileID: 1150246042}
+  buttonTargetXPos: -1079
+  buttonSmoothTime: 0.2
+  secondButton: {fileID: 331849909}
+  secondButtonTargetXPos: -1079
+  secondButtonSmoothTime: 0.2
+  thirdButton: {fileID: 950123474}
+  thirdButtonTargetXPos: -1079
+  thirdButtonSmoothTime: 0.2
+  m1Button: {fileID: 591928324}
+  m1ButtonTargetXPos: -987.0001
+  m1ButtonSmoothTime: 0.2
+  m2Button: {fileID: 1231878615}
+  m2ButtonTargetXPos: -987.0001
+  m2ButtonSmoothTime: 0.2
+  m3Button: {fileID: 726653833}
+  m3ButtonTargetXPos: -987.0001
+  m3ButtonSmoothTime: 0.2
+  m4Button: {fileID: 2053098358}
+  m4ButtonTargetXPos: -987.0001
+  m4ButtonSmoothTime: 0.2
+  m5Button: {fileID: 1461740419}
+  m5ButtonTargetXPos: -987.0001
+  m5ButtonSmoothTime: 0.2
 --- !u!1 &1273425701
 GameObject:
   m_ObjectHideFlags: 0
@@ -3587,42 +3552,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
---- !u!1 &1320080594
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1320080595}
-  m_Layer: 5
-  m_Name: Main Menu Buttons
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1320080595
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1320080594}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 130, y: 0, z: -1099.164}
-  m_LocalScale: {x: 10.991639, y: 10.991639, z: 10.991639}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1461740419}
-  - {fileID: 2053098358}
-  - {fileID: 726653833}
-  - {fileID: 1231878615}
-  - {fileID: 591928324}
-  m_Father: {fileID: 1113636214}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1423125104
 GameObject:
   m_ObjectHideFlags: 0
@@ -3786,16 +3715,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1461740418}
   m_LocalRotation: {x: -0.03248784, y: 0.14547965, z: 0.16802295, w: 0.97444785}
-  m_LocalPosition: {x: 0, y: 0, z: 140.03043}
-  m_LocalScale: {x: 0.51857597, y: 0.51857597, z: 0.5185759}
+  m_LocalPosition: {x: 0, y: 0, z: 440}
+  m_LocalScale: {x: 5.700001, y: 5.700001, z: 5.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 369105098}
-  m_Father: {fileID: 1320080595}
+  m_Father: {fileID: 1113636214}
   m_LocalEulerAnglesHint: {x: -6.442, y: 15.923, z: 18.665}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -160.10345, y: -38.73938}
+  m_AnchoredPosition: {x: -987, y: -983}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1461740420
@@ -3810,7 +3739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ce8b863bf398743af34adc8e933b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 0.6, y: 0.6, z: 0.6}
+  hoverScale: {x: 6.75, y: 6.75, z: 6.75}
   animationDuration: 0.2
   hoverSound: {fileID: 8300000, guid: 4fcb1cc2a5d947a458a3dadb0c4c806a, type: 3}
   clickSound: {fileID: 8300000, guid: 06a7e24d0a0f07547be631aced38b614, type: 3}
@@ -4079,7 +4008,7 @@ Transform:
   m_GameObject: {fileID: 1522884698}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.07, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4702,16 +4631,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2053098357}
   m_LocalRotation: {x: -0.03248784, y: 0.14547965, z: 0.16802295, w: 0.97444785}
-  m_LocalPosition: {x: 0, y: 0, z: 140.03043}
-  m_LocalScale: {x: 0.51857597, y: 0.51857597, z: 0.5185759}
+  m_LocalPosition: {x: 0, y: 0, z: 440}
+  m_LocalScale: {x: 5.700001, y: 5.700001, z: 5.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1423125105}
-  m_Father: {fileID: 1320080595}
+  m_Father: {fileID: 1113636214}
   m_LocalEulerAnglesHint: {x: -6.442, y: 15.923, z: 18.665}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -160.10345, y: -20.224365}
+  m_AnchoredPosition: {x: -987.0001, y: -779.48975}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2053098359
@@ -4726,7 +4655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ce8b863bf398743af34adc8e933b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 0.6, y: 0.6, z: 0.6}
+  hoverScale: {x: 6.75, y: 6.75, z: 6.75}
   animationDuration: 0.2
   hoverSound: {fileID: 8300000, guid: 4fcb1cc2a5d947a458a3dadb0c4c806a, type: 3}
   clickSound: {fileID: 8300000, guid: 06a7e24d0a0f07547be631aced38b614, type: 3}

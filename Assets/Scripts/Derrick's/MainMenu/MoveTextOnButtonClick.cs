@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,60 +7,37 @@ using UnityEngine.UI;
 
 public class MoveTextOnButtonClick : MonoBehaviour
 {
-    public GameObject targetObject; // The object to move
-    public Transform objectTargetPosition; 
-    public float moveSpeed = 5.0f; // Speed of movement
-    public Button triggerButton;
+    public RectTransform buttonToMove;        
+    public float buttonTargetXPos;            
+    public float buttonSmoothTime = 0.2f;     
 
+    public RectTransform secondButton;        
+    public float secondButtonTargetXPos;      
+    public float secondButtonSmoothTime = 0.2f; 
 
-    private bool isMoving = false; // Track if movement is ongoing
+    public RectTransform thirdButton;         
+    public float thirdButtonTargetXPos;       
+    public float thirdButtonSmoothTime = 0.2f;
 
-    void Start()
+    private void OnButtonClick()
     {
-        if (triggerButton != null)
-        {
-            triggerButton.onClick.AddListener(StartMovement);
-        }
+        StartCoroutine(MoveButtonToTarget(buttonToMove, buttonTargetXPos, buttonSmoothTime));
+        StartCoroutine(MoveButtonToTarget(secondButton, secondButtonTargetXPos, secondButtonSmoothTime));
+        StartCoroutine(MoveButtonToTarget(thirdButton, thirdButtonTargetXPos, thirdButtonSmoothTime));
     }
-
-    void StartMovement()
+    private IEnumerator MoveButtonToTarget(RectTransform button, float targetXPos, float smoothTime)
     {
-        if (!isMoving)
+        Vector3 velocity = Vector3.zero;
+        Vector3 startPos = button.anchoredPosition;
+        Vector3 targetPos = new Vector3(targetXPos, startPos.y, startPos.z);
+
+        while (Vector3.Distance(button.anchoredPosition, targetPos) > 0.1f)
         {
-            StartCoroutine(MoveObject());
-        }
-    }
-
-    System.Collections.IEnumerator MoveObject()
-    {
-        isMoving = true;
-        
-        Vector3 objectStartPosition = targetObject.transform.position;
-        Vector3 objectTargetPos = objectTargetPosition.position;
-
-        float elapsedTime = 0.0f;
-
-        // Calculate the duration based on distance and speed
-        float maxDistance = Mathf.Max(
-            Vector3.Distance(objectStartPosition, objectTargetPos)
-        );
-        float duration = maxDistance / moveSpeed;
-
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-
-            // Smoothly move the camera
-
-            // Smoothly move the object
-            targetObject.transform.position = Vector3.Lerp(objectStartPosition, objectTargetPos, elapsedTime / duration);
-
-            yield return null; // Wait for the next frame
+            button.anchoredPosition = Vector3.SmoothDamp(button.anchoredPosition, targetPos, ref velocity, smoothTime);
+            yield return null;
         }
 
-        // Ensure the final positions are exact
-        targetObject.transform.position = objectTargetPos;
-
-        isMoving = false;
+        // Ensure the button reaches the exact target position
+        button.anchoredPosition = targetPos;
     }
 }
