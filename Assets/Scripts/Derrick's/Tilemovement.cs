@@ -13,6 +13,8 @@ public class Tilemovement : MonoBehaviour
     public AudioClip moveSound;
     public AudioSource audioSource;
     private CheckpointManager checkpointManager;
+    public static event System.Action OnPlayerMove; // Event triggered when player moves
+
     
 
     private bool ReadyToMove;
@@ -80,6 +82,8 @@ public class Tilemovement : MonoBehaviour
         {
             transform.Translate(direction);
             PlayMoveSound(); // Play move sound when the movement is successful
+            OnPlayerMove?.Invoke(); // Trigger event
+            
             return true;
         }
     }

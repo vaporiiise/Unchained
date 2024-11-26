@@ -2,56 +2,106 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 
 public class PlayerShoot : MonoBehaviour
 {
-    public GameObject bulletSprite;
-    public Transform firePoint;
-    public float bulletSpeed = 10f;
-    public float bulletDowntime = 0.2F;
+    public GameObject bulletPrefab;  // Prefab for the bullet
+    public Transform bulletsParent; // Parent for organizing bullets
+    public SpriteRenderer directionIndicator; // SpriteRenderer to show the selected direction
+    public Sprite upSprite, downSprite, leftSprite, rightSprite; // Direction sprites
 
-    private bool isShooting = false;
+    private Vector2Int selectedDirection; // Current selected direction
+    private bool isDirectionSelected = false; // Flag to check if direction is selected
+    public GameObject rouletteWheel;
 
-   
     void Update()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0;
+        // Start roulette on R key press
+        if (Input.GetKeyDown(KeyCode.F) && !isDirectionSelected)
+        {
+            StartCoroutine(StartRouletteWithAnimation());
+        }
 
-        Vector2 direction = (mousePosition - transform.position).normalized;
+        // Shoot when direction is selected and Space is pressed
+        if (Input.GetKeyDown(KeyCode.Space) && isDirectionSelected)
+        {
+            rouletteWheel.SetActive(false);
 
-        float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, -angle));
+            Shoot();
+            ResetIndicator();
+        }
+    }
+    
+    IEnumerator StartRouletteWithAnimation()
+    {
+        // Activate the roulette wheel for the animation
+        rouletteWheel.SetActive(true);
 
-        if (Input.GetMouseButtonDown(0))
-            StartShooting();
+        // Wait for a few seconds to let the animation play
+        yield return new WaitForSeconds(2f); // Adjust the duration as needed
+
+        // Start the roulette selection
+        StartRoulette();
+    }
+
+
+
+    void StartRoulette()
+    {
+
         
-        else if (Input.GetMouseButtonUp(0))
-            StopShooting();
+        isDirectionSelected = true;
+
+        // Randomly choose a direction
+        int randomDir = Random.Range(0, 4);
+        switch (randomDir)
+        {
+            case 0: // Up
+                selectedDirection = Vector2Int.up;
+                directionIndicator.sprite = upSprite;
+                break;
+            case 1: // Down
+                selectedDirection = Vector2Int.down;
+                directionIndicator.sprite = downSprite;
+                break;
+            case 2: // Left
+                selectedDirection = Vector2Int.left;
+                directionIndicator.sprite = leftSprite;
+                break;
+            case 3: // Right
+                selectedDirection = Vector2Int.right;
+                directionIndicator.sprite = rightSprite;
+                break;
+        }
+
+        // Activate the indicator
+        directionIndicator.gameObject.SetActive(true);
     }
 
     void Shoot()
     {
-        GameObject bullet = Instantiate(bulletSprite, firePoint.position, firePoint.rotation);
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        rb.velocity = firePoint.up * bulletSpeed;
-        Debug.Log("Shooting..");
-    }
+        if (bulletPrefab == null || bulletsParent == null) return;
 
-    void StartShooting()
-    {
-        if (!isShooting)
+        // Instantiate the bullet
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity, bulletsParent);
+
+        // Set the direction directly
+        TVBullet bulletScript = bullet.GetComponent<TVBullet>();
+        if (bulletScript != null)
         {
-            isShooting = true;
-            InvokeRepeating("Shoot", 0F, bulletDowntime);
+            bulletScript.SetDirection(selectedDirection); // Pass the selected direction
         }
-    }
 
-    void StopShooting()
+        // Reset the state
+        isDirectionSelected = false;
+    }
+    
+
+    void ResetIndicator()
     {
-        isShooting = false;
-        CancelInvoke("Shoot");
-    }
-
-   
+        // Deactivate the direction indicator after shooting
+        directionIndicator.gameObject.SetActive(false);
+    }
 }
