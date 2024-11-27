@@ -20,7 +20,7 @@ public class SendPlayerBack : MonoBehaviour
     {
         if (Vector3.Distance(player.transform.position, requiredPosition) <= positionTolerance)
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.T))
             {
                 Vector3 currentPosition = player.transform.position;
                 player.transform.position = new Vector3(currentPosition.x, currentPosition.y, targetZPosition);
@@ -31,7 +31,7 @@ public class SendPlayerBack : MonoBehaviour
             }
         }
     }
-
+    
     void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
