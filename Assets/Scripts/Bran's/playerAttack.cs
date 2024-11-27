@@ -105,7 +105,6 @@ public class playerAttack : MonoBehaviour
     {
         ResetBool(playerAnim);
         currentCombo = 0;
-
         canContinueCombo = false;
         movementScript.EnableMovement(true);
     }
@@ -203,8 +202,6 @@ public class playerAttack : MonoBehaviour
     private void Die()
     {
         SceneManager.LoadScene(2);
-        // Destroy(gameObject);
-        // Destroy(HealthBar);
     }
 
     private void HandlePause()

@@ -18,17 +18,20 @@ public class bossAI : MonoBehaviour
     public Transform player;
     public float moveSpeed = 3F;
     public float attackRange = 4F;
-    public float attackCooldown = 3F;
-    private float attackCooldownTimer = 0F;
+    public float attackCooldown = 60F;
+    private float attackCooldownTimer;
+    public int attackPattern;
+    public int lastPattern;
 
     public GameObject handSlamHitBox;
     public GameObject groundSlamHitBox;
     public GameObject handSwipeHitBox;
 
-    public int bossMaxHealth = 500;
+    public int bossMaxHealth = 300;
     public int currentHealth;
     public HealthBar healthBar;
-    public GameObject Healthbar;
+    public GameObject HealthBar;
+    public Animator bossAnim;
 
     private void Start()
     {
@@ -78,17 +81,33 @@ public class bossAI : MonoBehaviour
 
     private void Attack()
     {
-        int attackPattern = Random.Range(1, 3);
+        do
+        {
+            attackPattern = Random.Range(1, 4);
+        } while (attackPattern == lastPattern);
+
+        lastPattern = attackPattern;
 
         if (attackPattern == 1)
+        {
             StartCoroutine(HandSlam());
+            bossAnim.SetBool("fastPound", true);
+        }
         else if (attackPattern == 2)
+        {
             StartCoroutine(GroundSlam());
+            bossAnim.SetBool("groundPound", true);
+        }   
         else if (attackPattern == 3)
-            StartCoroutine(HandSwipe());
+        {
+            StartCoroutine(JumpAttack());
+            bossAnim.SetBool("jumpAttack", true);
+        }  
 
         currentState = BossState.Cooldown;
         attackCooldownTimer = attackCooldown;
+
+        StartCoroutine(ReturnToIdle(1F));
     }
 
     private void Cooldown()
@@ -97,6 +116,21 @@ public class bossAI : MonoBehaviour
 
         if (attackCooldownTimer <= 0)
             currentState = BossState.Idle;
+    }
+
+    private void ResetBool(Animator bossAnimator)
+    {
+        foreach (AnimatorControllerParameter parameter in bossAnimator.parameters)
+        {
+            if (parameter.type == AnimatorControllerParameterType.Bool)
+                bossAnimator.SetBool(parameter.name, false);
+        }
+    }
+
+    IEnumerator ReturnToIdle(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ResetBool(bossAnim);
     }
 
     IEnumerator HandSlam()
@@ -121,15 +155,15 @@ public class bossAI : MonoBehaviour
         Vector2 attackPosition = (Vector2)transform.position + directionToPlayer * 1.5F;
         groundSlamHitBox.transform.position = attackPosition;
 
-        yield return new WaitForSeconds(1F);
+        yield return new WaitForSeconds(0.8F);
         groundSlamHitBox.SetActive(true);
         yield return new WaitForSeconds(0.2F);
         groundSlamHitBox.SetActive(false);
     }
 
-    IEnumerator HandSwipe()
+    IEnumerator JumpAttack()
     {
-        Debug.Log("Hand Swipe!");
+        Debug.Log("Jump Attack!");
 
         Vector2 directionToPlayer = (player.position - transform.position).normalized;
         Vector2 attackPosition = (Vector2)transform.position + directionToPlayer * 1.5F;
@@ -162,13 +196,11 @@ public class bossAI : MonoBehaviour
 
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         Debug.Log($"Boss Health: {currentHealth}");
         healthBar.SetHealth(currentHealth);
-
-
 
         if (currentHealth <= 0)
             Die();
