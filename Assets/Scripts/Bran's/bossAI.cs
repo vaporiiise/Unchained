@@ -33,6 +33,9 @@ public class bossAI : MonoBehaviour
     public GameObject HealthBar;
     public Animator bossAnim;
 
+    private float damageCooldown = 0.1F;
+    private float lastDamageTime;
+
     private void Start()
     {
         currentHealth = bossMaxHealth;
@@ -190,8 +193,11 @@ public class bossAI : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D enemyCol)
     {
-        if (enemyCol.gameObject.CompareTag("PlayerAttack"))
+        if (enemyCol.gameObject.CompareTag("PlayerAttack") && Time.time > lastDamageTime + damageCooldown)
+        {
             TakeDamage(10);
+            lastDamageTime = Time.time;
+        }
         healthBar.SetHealth(currentHealth);
 
     }

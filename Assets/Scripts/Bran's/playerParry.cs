@@ -28,7 +28,6 @@ public class playerParry : MonoBehaviour
         Debug.Log("Parry Window Up!");
         parryHitbox.SetActive(true);
         parryHitbox.transform.position = (Vector2)transform.position * 1.0F;
-        movementScript.EnableMovement(false);
         yield return new WaitForSeconds(parryDuration);
         parryHitbox.SetActive(false);
         Debug.Log("Parry Window Down!");
@@ -36,7 +35,6 @@ public class playerParry : MonoBehaviour
 
         yield return new WaitForSeconds(parryCooldown);
         canParry = true;
-        movementScript.EnableMovement(true);
     }
 
     private void OnTriggerEnter2D(Collider2D parryCol)

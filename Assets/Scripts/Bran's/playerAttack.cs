@@ -25,6 +25,9 @@ public class playerAttack : MonoBehaviour
 
     private playerMovement movementScript;
 
+    private float damageCooldown = 1.5F;
+    private float lastDamageTime;
+
     private void Start()
     {
         playerAnim = GetComponent<Animator>();
@@ -180,10 +183,13 @@ public class playerAttack : MonoBehaviour
         attack4HitBox.SetActive(false);
     }
 
-    private void OnTriggerEnter2D(Collider2D playerCol)
+    private void OnTriggerStay2D(Collider2D playerCol)
     {
-        if (playerCol.gameObject.CompareTag("BossAttack"))
+        if (playerCol.gameObject.CompareTag("BossAttack") && Time.time > lastDamageTime + damageCooldown)
+        {
             TakeDamage(5);
+            lastDamageTime = Time.time;
+        }
         healthBar.SetHealth(currentHealth);
 
     }
