@@ -209,6 +209,6 @@ public class bossAI : MonoBehaviour
     private void Die()
     {
         Destroy(gameObject);
-        Destroy(Healthbar);
+        Destroy(HealthBar);
     }
 }
