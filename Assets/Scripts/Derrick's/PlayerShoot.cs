@@ -84,10 +84,27 @@ public class PlayerShoot : MonoBehaviour
     {
         if (bulletPrefab == null || bulletsParent == null) return;
 
-        // Instantiate the bullet
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity, bulletsParent);
+        // Determine the rotation based on the direction
+        Quaternion bulletRotation = Quaternion.identity; // Default rotation (upwards)
 
-        // Set the direction directly
+        if (selectedDirection == Vector2.left)
+        {
+            bulletRotation = Quaternion.Euler(0, 0, 90); // Rotate -90 degrees
+        }
+        else if (selectedDirection == Vector2.right)
+        {
+            bulletRotation = Quaternion.Euler(0, 0, -90); // Rotate 90 degrees
+        }
+        else if (selectedDirection == Vector2.down)
+        {
+            bulletRotation = Quaternion.Euler(0, 0, 180); // Rotate 180 degrees
+        }
+        // Default direction (up) requires no rotation adjustment
+
+        // Instantiate the bullet with the correct rotation
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, bulletRotation, bulletsParent);
+
+        // Set the direction for the bullet script
         TVBullet bulletScript = bullet.GetComponent<TVBullet>();
         if (bulletScript != null)
         {

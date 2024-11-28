@@ -132,7 +132,6 @@ public class EnemyTVMovement : MonoBehaviour
         // Check if the new position would overlap the player's position
         if (newPosition == player.position)
         {
-            // Enemy stays in its current position if the path is blocked by the player
             return;
         }
 
@@ -192,26 +191,33 @@ public class EnemyTVMovement : MonoBehaviour
         return true;
     }
 
-    bool Blocked(Vector3 position, Vector3 direction)
+    bool Blocked(Vector3 position, Vector2 direction)
     {
-        Vector3 newpos = position + direction;
+        Vector2 newpos = new Vector2(position.x, position.y) + direction;
 
         foreach (var obj in Obstacles)
         {
-            if (SnapToGrid(obj.transform.position) == SnapToGrid(newpos))
+            if (obj.transform.position.x == newpos.x && obj.transform.position.y == newpos.y)
             {
                 return true;
             }
-        }
 
-        foreach (var objToPush in ObjToPush)
-        {
-            if (SnapToGrid(objToPush.transform.position) == SnapToGrid(newpos))
+            foreach (var objToPush in ObjToPush)
             {
-                return true;
+                if (objToPush.transform.position.x == newpos.x && objToPush.transform.position.y == newpos.y)
+                {
+                    Push objPush = objToPush.GetComponent<Push>();
+                    if (objToPush && objPush.Move(direction))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
             }
         }
-
         return false;
     }
 
@@ -239,4 +245,6 @@ public class EnemyTVMovement : MonoBehaviour
     {
         currentState = (Random.value > 0.5f) ? EnemyState.FollowPlayer : EnemyState.RandomMovement;
     }
+
+    
 }
