@@ -16,7 +16,6 @@ public class EnemyTVMovement : MonoBehaviour
     private int stepsTaken = 0;
     private EnemyState currentState;
 
-    // Define grid size (e.g., 0.5 units per grid cell)
     public float gridSize = 0.5f;
 
     private enum EnemyState
@@ -36,7 +35,7 @@ public class EnemyTVMovement : MonoBehaviour
         Obstacles = GameObject.FindGameObjectsWithTag("Obstacles");
         ObjToPush = GameObject.FindGameObjectsWithTag("ObjToPush");
         lastPlayerPosition = player.position;
-        audioSource = GetComponent<AudioSource>();
+        //audioSource = GetComponent<AudioSource>();
 
         RandomizeMovesBeforeEnemyMove();
         SwitchState();
@@ -95,18 +94,15 @@ public class EnemyTVMovement : MonoBehaviour
 
         Vector3 newPosition = transform.position + direction;
 
-        // Check if the new position would overlap the player's position
         if (newPosition == player.position)
         {
-            // Enemy stays in its current position if the path is blocked by the player
             return;
         }
 
-        // Attempt to move to the new position if it's valid
         if (CanMoveInDirection(direction))
         {
             transform.position = SnapToGrid(newPosition);
-            PlayMoveSound();
+            //PlayMoveSound();
         }
         else
         {
@@ -129,7 +125,6 @@ public class EnemyTVMovement : MonoBehaviour
 
         Vector3 newPosition = transform.position + direction;
 
-        // Check if the new position would overlap the player's position
         if (newPosition == player.position)
         {
             return;
@@ -138,7 +133,7 @@ public class EnemyTVMovement : MonoBehaviour
         if (CanMoveInDirection(direction))
         {
             transform.position = SnapToGrid(newPosition);
-            PlayMoveSound();
+            //PlayMoveSound();
         }
         else
         {
@@ -163,17 +158,15 @@ public class EnemyTVMovement : MonoBehaviour
 
             Vector3 newPosition = transform.position + direction;
 
-            // Check if the new position would overlap the player's position
             if (newPosition == player.position)
             {
-                // Enemy stays in its current position if the path is blocked by the player
                 return;
             }
 
             if (CanMoveInDirection(direction))
             {
                 transform.position = SnapToGrid(newPosition);
-                PlayMoveSound();
+                //PlayMoveSound();
                 return;
             }
         }
@@ -228,17 +221,17 @@ public class EnemyTVMovement : MonoBehaviour
         return new Vector3(x, y, position.z);           
     }
 
-    void PlayMoveSound()
+    /*void PlayMoveSound()
     {
         if (moveSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(moveSound);
         }
-    }
+    }*/
 
     void RandomizeMovesBeforeEnemyMove()
     {
-        movesBeforeEnemyMove = Random.Range(1, 4); // Randomize between 1 and 3 moves
+        movesBeforeEnemyMove = Random.Range(2, 5); 
     }
 
     void SwitchState()

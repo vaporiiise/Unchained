@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 1872939571735098637}
   - component: {fileID: 3339383858497984490}
   - component: {fileID: 5097894718119956194}
+  - component: {fileID: 6464840841244218662}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
@@ -444,7 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 412be57277f079f4cb7cc43390fc839b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 1.48
+  attackRange: 1.12
   attackCooldown: 3
   damageAmount: 10
 --- !u!82 &5097894718119956194
@@ -543,6 +544,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6464840841244218662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3799382341342472592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2246a09bfc7d447449e9ac4c3b4ebc34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destructionSound: {fileID: 8300000, guid: d41ee27c9dfb0094ea506223f6b016e0, type: 3}
 --- !u!1 &8836518538200558724
 GameObject:
   m_ObjectHideFlags: 0

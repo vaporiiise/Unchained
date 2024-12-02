@@ -18,6 +18,7 @@ TagManager:
   - ButtonTrigger
   - Enemy
   - PlayerParry
+  - Wall
   layers:
   - Default
   - TransparentFX
