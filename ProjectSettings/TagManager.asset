@@ -26,7 +26,7 @@ TagManager:
   - Water
   - UI
   - Enemy
-  - 
+  - Armour
   - 
   - 
   - 
@@ -54,4 +54,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Armour
+    uniqueID: 1771557779
     locked: 0
