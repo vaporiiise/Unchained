@@ -5,25 +5,23 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance; // Singleton instance
+    public static GameManager Instance; 
 
-    public Vector3 savedPlayerPosition; // Store the player's position here
+    public Vector3 savedPlayerPosition; 
 
     private void Awake()
     {
-        // Implement the Singleton pattern
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Make this object persistent across scenes
+            DontDestroyOnLoad(gameObject); 
         }
         else
         {
-            Destroy(gameObject); // Ensure only one instance exists
+            Destroy(gameObject); 
         }
     }
 
-    // Method to save the player's position
     public void SavePlayerPosition(Vector3 position)
     {
         savedPlayerPosition = position;
