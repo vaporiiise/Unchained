@@ -13,13 +13,12 @@ public class Tilemovement : MonoBehaviour
     public AudioClip moveSound;
     public AudioSource audioSource;
     private CheckpointManager checkpointManager;
-    public static event System.Action OnPlayerMove; // Event triggered when player moves
+    public static event System.Action OnPlayerMove; 
 
     
 
     private bool ReadyToMove;
     
-    // Start is called before the first frame update
     void Start()
     {
         Obstacles = GameObject.FindGameObjectsWithTag("Obstacles");
@@ -28,10 +27,8 @@ public class Tilemovement : MonoBehaviour
         checkpointManager = CheckpointManager.Instance;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Only allow movement if the game is not paused
         if (!PauseMenu.GameIsPaused)
         {
             Vector2 moveinput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -43,10 +40,10 @@ public class Tilemovement : MonoBehaviour
                 {
                     ReadyToMove = false;
 
-                    // Call Move() and check if movement was successful
+                    
                     if (Move(moveinput))
                     {
-                        PlayMoveSound(); // Play move sound if movement was successful
+                        PlayMoveSound(); 
                     }
                 }
             }
@@ -81,8 +78,8 @@ public class Tilemovement : MonoBehaviour
         else
         {
             transform.Translate(direction);
-            PlayMoveSound(); // Play move sound when the movement is successful
-            OnPlayerMove?.Invoke(); // Trigger event
+            PlayMoveSound(); 
+            OnPlayerMove?.Invoke(); 
             
             return true;
         }

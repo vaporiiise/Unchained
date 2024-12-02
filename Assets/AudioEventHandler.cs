@@ -8,10 +8,6 @@ public class AudioEventHandler : MonoBehaviour
 
     public void PlaySound()
     {
-        
-        
-            
             audioSource.Play();
-        
     }
 }

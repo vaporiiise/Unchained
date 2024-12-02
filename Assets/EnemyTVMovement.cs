@@ -223,9 +223,9 @@ public class EnemyTVMovement : MonoBehaviour
 
     Vector3 SnapToGrid(Vector3 position)
     {
-        float x = Mathf.Round(position.x / gridSize) * gridSize;
-        float y = Mathf.Round(position.y / gridSize) * gridSize;
-        return new Vector3(x, y, position.z);
+        float x = Mathf.Round(position.x - 0.5f) + 0.5f; 
+        float y = Mathf.Round(position.y - 0.5f) + 0.5f; 
+        return new Vector3(x, y, position.z);           
     }
 
     void PlayMoveSound()

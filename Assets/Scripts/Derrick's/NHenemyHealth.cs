@@ -6,11 +6,15 @@ public class NHenemyHealth : MonoBehaviour
 {
     public int maxHealth = 30;
     private int currentHealth;
+    public AudioClip takeDamageSound;
+    private AudioSource audioSource;
 
     public GameObject[] healthSprites; 
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         currentHealth = maxHealth;
         UpdateHealthUI();
     }
@@ -20,6 +24,7 @@ public class NHenemyHealth : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); 
         Debug.Log("Enemy Health: " + currentHealth);
+        audioSource.PlayOneShot(takeDamageSound);
 
         UpdateHealthUI();
 

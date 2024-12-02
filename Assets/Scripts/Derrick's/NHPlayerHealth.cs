@@ -2,19 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class NHPlayerHealth : MonoBehaviour
 {
     public int maxHealth = 100;
     private int currentHealth;
+    public AudioClip takeDamageSound;
+    private AudioSource audioSource;
 
-    public List<Image> healthImages; // List of UI Images (assign in Inspector)
+    public List<Image> healthImages; 
+    public GameObject damageIndicator;    
+    public float damageDisplayDuration = 0.5f; 
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         currentHealth = maxHealth;
         UpdateHealthUI();
+
+        if (damageIndicator != null)
+        {
+            damageIndicator.gameObject.SetActive(false);
+        }
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
@@ -26,15 +38,26 @@ public class NHPlayerHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Ensure health doesn't drop below 0
         Debug.Log("Player Health: " + currentHealth);
-
         UpdateHealthUI();
+        audioSource.PlayOneShot(takeDamageSound);
+
+        if (damageIndicator != null)
+        {
+            StartCoroutine(ShowDamageIndicator());
+        }
 
         if (currentHealth <= 0)
         {
             Die();
         }
+    }
+
+    IEnumerator ShowDamageIndicator()
+    {
+        damageIndicator.gameObject.SetActive(true); 
+        yield return new WaitForSeconds(damageDisplayDuration); 
+        damageIndicator.gameObject.SetActive(false); 
     }
 
     void UpdateHealthUI()
@@ -45,11 +68,11 @@ public class NHPlayerHealth : MonoBehaviour
         {
             if (i < remainingSprites)
             {
-                healthImages[i].enabled = true; // Show sprite
+                healthImages[i].enabled = true; 
             }
             else
             {
-                healthImages[i].enabled = false; // Hide sprite
+                healthImages[i].enabled = false; 
             }
         }
     }
@@ -57,8 +80,6 @@ public class NHPlayerHealth : MonoBehaviour
     void Die()
     {
         Debug.Log("Player is dead!");
-        // Add death logic here (e.g., restart level, show game over screen)
+        SceneManager.LoadScene(1);
     }
-    
-    
 }
