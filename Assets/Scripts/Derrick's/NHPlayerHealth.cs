@@ -27,6 +27,15 @@ public class NHPlayerHealth : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        // Heal player when pressing Q
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            HealPlayer(20);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
@@ -81,5 +90,12 @@ public class NHPlayerHealth : MonoBehaviour
     {
         Debug.Log("Player is dead!");
         SceneManager.LoadScene(1);
+    }
+
+    void HealPlayer(int healAmount)
+    {
+        currentHealth = Mathf.Min(currentHealth + healAmount, maxHealth);  // Heal player but don't exceed max health
+        Debug.Log("Player Healed: " + currentHealth);
+        UpdateHealthUI();
     }
 }
