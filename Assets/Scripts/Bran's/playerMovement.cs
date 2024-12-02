@@ -10,9 +10,9 @@ public class playerMovement : MonoBehaviour
     private bool canMove = true;
 
     private Vector2 movement;
-    public float dodgeSpeed = 20F;
+    public float dodgeSpeed = 7F;
     public float dodgeDuration = 0.2F;
-    public float dodgeCooldown = 2F;
+    public float dodgeCooldown = 3F;
     public bool isInvincible = false;
 
     private float lastDodgeTime;

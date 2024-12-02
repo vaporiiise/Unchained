@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,14 +15,14 @@ public class playerParry : MonoBehaviour
 
     private bool isParrying = false;
     private bool canParry = true;
+    private bool parrySuccess = false;
 
     public GameObject parryHitbox;
-
-    private playerMovement movementScript;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+
     }
 
     private void Update()
@@ -31,6 +33,7 @@ public class playerParry : MonoBehaviour
 
     IEnumerator ParryWindow()
     {
+        parrySuccess = false;
         canParry = false;
         isParrying = true;
 
@@ -42,7 +45,9 @@ public class playerParry : MonoBehaviour
         Debug.Log("Parry Window Down!");
         isParrying = false;
 
-        yield return new WaitForSeconds(parryCooldown);
+        if (!parrySuccess)
+            yield return new WaitForSeconds(parryCooldown);
+
         canParry = true;
     }
 
@@ -51,10 +56,15 @@ public class playerParry : MonoBehaviour
        if (isParrying && parryCol.CompareTag("BossAttack"))
         {
             Debug.Log("Parried!");
+            parrySuccess = true;
             PlayRandomAudio();
             bossAI boss = parryCol.GetComponentInParent<bossAI>();
+            playerAttack player = parryCol.GetComponentInParent<playerAttack>();
             if (boss != null)
+            {
                 boss.TakeDamage(30);
+                player.HealDamage(10);
+            }
         }
     }
     public void PlayRandomAudio()

@@ -28,6 +28,8 @@ public class playerAttack : MonoBehaviour
     private float damageCooldown = 1.5F;
     private float lastDamageTime;
 
+    public Transform playerTransform;
+
     private void Start()
     {
         playerAnim = GetComponent<Animator>();
@@ -139,8 +141,8 @@ public class playerAttack : MonoBehaviour
     {
         attack2HitBox.SetActive(true);
         attack2HitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
-        float startAngle = -45F;
-        float endAngle = 45F;
+        float startAngle = 45F;
+        float endAngle = -45F;
 
         float elapsedTime = 0F;
         while (elapsedTime < 0.2F)
@@ -159,8 +161,8 @@ public class playerAttack : MonoBehaviour
     {
         attack3HitBox.SetActive(true);
         attack3HitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
-        float startAngle = 45F;
-        float endAngle = -45F;
+        float startAngle = -45F;
+        float endAngle = 45F;
 
         float elapsedTime = 0F;
         while (elapsedTime < 0.2F)
@@ -200,9 +202,15 @@ public class playerAttack : MonoBehaviour
         Debug.Log($"Player Health: {currentHealth}");
         healthBar.SetHealth(currentHealth);
 
-
         if (maxHealth <= 0)
             Die();
+    }
+
+    public void HealDamage(int heal)
+    {
+        currentHealth += heal;
+        Debug.Log($"Player Health: {currentHealth}");
+        healthBar.SetHealth(currentHealth);
     }
 
     private void Die()
