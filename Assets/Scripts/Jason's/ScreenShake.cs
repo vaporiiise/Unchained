@@ -1,21 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScreenShake : MonoBehaviour
 {
     public static ScreenShake Instance;
 
-    [SerializeField] private float defaultShakeDuration = 0.5f;
-    [SerializeField] private float defaultShakeMagnitude = 0.2f;
+    [Header("Jump Attack Settings")]
+    [SerializeField] private float jumpAttackDuration = 0.5f;
+    [SerializeField] private float jumpAttackMagnitude = 0.3f;
 
-    private Vector3 originalPosition;
+    [Header("Ground Slam Settings")]
+    [SerializeField] private float groundSlamDuration = 0.6f;
+    [SerializeField] private float groundSlamMagnitude = 0.35f;
+
+    [Header("Hand Slam Settings")]
+    [SerializeField] private float handSlamDuration = 0.4f;
+    [SerializeField] private float handSlamMagnitude = 0.2f;
+
+    [Header("UI Shake Settings")]
+    [SerializeField] private RectTransform uiElementToShake;
+    [SerializeField] private float uiShakeDuration = 0.5f;
+    [SerializeField] private float uiShakeMagnitude = 10f;
+
     private Vector3 shakeOffset;
+    private FollowCamera followCameraScript;
+    private bossAI bossScript;
+    private playerAttack playerScript;
 
-    private FollowCamera followCameraScript;  // ref to FollowCamera script
-    private bossAI bossScript; // ref to bossAI script
-
-    private bool isShaking = false; // Whether the camera is currently shaking
+    // Flag to prevent continuous UI shake
+    private bool isUIShaking = false;
 
     private void Awake()
     {
@@ -25,34 +40,30 @@ public class ScreenShake : MonoBehaviour
             Destroy(gameObject);
     }
 
-    private void Start()//find where the scripts at
+    private void Start()
     {
         bossScript = FindObjectOfType<bossAI>();
-
         followCameraScript = Camera.main.GetComponent<FollowCamera>();
+        playerScript = FindObjectOfType<playerAttack>();
     }
 
     private void OnEnable()
     {
-        originalPosition = transform.position;
+        shakeOffset = Vector3.zero;
+        isUIShaking = false; // Reset the UI shaking flag
     }
 
-    // Trigger the camera shake
-    public void Shake(float duration = -1f, float magnitude = -1f)
+    public void Shake(float duration, float magnitude)
     {
-        float shakeDuration = duration > 0 ? duration : defaultShakeDuration;
-        float shakeMagnitude = magnitude > 0 ? magnitude : defaultShakeMagnitude;
-        StartCoroutine(ShakeCoroutine(shakeDuration, shakeMagnitude));
+        StartCoroutine(ShakeCoroutine(duration, magnitude));
     }
 
     private IEnumerator ShakeCoroutine(float duration, float magnitude)
     {
         float elapsedTime = 0f;
-        shakeOffset = Vector3.zero; // Reset shake offset
 
         while (elapsedTime < duration)
         {
-            // Calculate random offsets for shake
             float offsetX = Random.Range(-1f, 1f) * magnitude;
             float offsetY = Random.Range(-1f, 1f) * magnitude;
 
@@ -62,32 +73,63 @@ public class ScreenShake : MonoBehaviour
             yield return null;
         }
 
-        // Reset shake offset to avoid lingering shake
         shakeOffset = Vector3.zero;
     }
 
     private void Update()
     {
-        // Only check for the jump attack hitbox
-        if (bossScript != null && bossScript.attackPattern == 3) // Jump Attack
+        // Handle the boss's attack shake patterns
+        if (bossScript != null)
         {
-            // Check if the jump attack hitbox is active
-            if (bossScript.handSwipeHitBox.activeInHierarchy)
+            if (bossScript.attackPattern == 3 && bossScript.handSwipeHitBox.activeInHierarchy)
             {
-                // Trigger screen shake when the jump attack hitbox is active
-                Shake(0.5f, 0.3f);
+                Shake(jumpAttackDuration, jumpAttackMagnitude);
+            }
+            else if (bossScript.attackPattern == 2 && bossScript.groundSlamHitBox.activeInHierarchy)
+            {
+                Shake(groundSlamDuration, groundSlamMagnitude);
+            }
+            else if (bossScript.attackPattern == 1 && bossScript.handSlamHitBox.activeInHierarchy)
+            {
+                Shake(handSlamDuration, handSlamMagnitude);
             }
         }
 
-        // If the shake offset is not zero, apply it while following the player
-        if (shakeOffset != Vector3.zero)
+        // Trigger UI shake once when the player takes damage (if health is below max)
+        if (playerScript != null && playerScript.currentHealth < playerScript.maxHealth && !isUIShaking)
         {
-            // Apply the shake offset on top of the camera's following position
-            if (followCameraScript != null)
-            {
-                // Apply the shake offset to the camera position
-                followCameraScript.transform.position += shakeOffset;
-            }
+            isUIShaking = true; // Set the flag to prevent repeated shakes
+            StartCoroutine(UIShakeCoroutine());
         }
+
+        // Apply screen shake offset to the camera
+        if (shakeOffset != Vector3.zero && followCameraScript != null)
+        {
+            followCameraScript.transform.position += shakeOffset;
+        }
+    }
+
+    private IEnumerator UIShakeCoroutine()
+    {
+        if (uiElementToShake == null) yield break;
+
+        Vector3 originalPosition = uiElementToShake.anchoredPosition;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < uiShakeDuration)
+        {
+            float offsetX = Random.Range(-1f, 1f) * uiShakeMagnitude;
+            float offsetY = Random.Range(-1f, 1f) * uiShakeMagnitude;
+
+            uiElementToShake.anchoredPosition = originalPosition + new Vector3(offsetX, offsetY, 0);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        uiElementToShake.anchoredPosition = originalPosition;
+
+        // Reset the flag after UI shake ends
+        isUIShaking = false;
     }
 }
