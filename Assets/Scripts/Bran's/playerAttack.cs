@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -56,7 +57,6 @@ public class playerAttack : MonoBehaviour
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
-
         Vector2 direction = (mousePosition - transform.position).normalized;
 
         canContinueCombo = true;
@@ -132,7 +132,7 @@ public class playerAttack : MonoBehaviour
     IEnumerator Attack1HitBox(Vector2 attackDirection)
     {
         attack1HitBox.SetActive(true);
-        attack1HitBox.transform.position = (Vector2)transform.position + attackDirection * 1.0F;
+        attack1HitBox.transform.position = (Vector2)transform.position + attackDirection * 3.0F;
         yield return new WaitForSeconds(0.2F);
         attack1HitBox.SetActive(false);
     }
@@ -208,6 +208,7 @@ public class playerAttack : MonoBehaviour
 
     public void HealDamage(int heal)
     {
+        Debug.Log("Player Healed!");
         currentHealth += heal;
         Debug.Log($"Player Health: {currentHealth}");
         healthBar.SetHealth(currentHealth);

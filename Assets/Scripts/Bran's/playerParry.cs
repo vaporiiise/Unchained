@@ -57,14 +57,11 @@ public class playerParry : MonoBehaviour
         {
             Debug.Log("Parried!");
             parrySuccess = true;
-            PlayRandomAudio();
             bossAI boss = parryCol.GetComponentInParent<bossAI>();
             playerAttack player = parryCol.GetComponentInParent<playerAttack>();
-            if (boss != null)
-            {
-                boss.TakeDamage(30);
-                player.HealDamage(10);
-            }
+            boss.TakeDamage(50);
+
+            PlayRandomAudio();
         }
     }
     public void PlayRandomAudio()
