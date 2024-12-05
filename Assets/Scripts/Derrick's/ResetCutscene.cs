@@ -19,7 +19,7 @@ public class ResetCutscene : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R) && !sceneResetting)
+        if ((Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.JoystickButton5)) && !sceneResetting)
         {
             rawImageUnactive.SetActive(true);
             GameManager.Instance.SavePlayerPosition(transform.position);

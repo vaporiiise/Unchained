@@ -31,8 +31,10 @@ public class Tilemovement : MonoBehaviour
     {
         if (!PauseMenu.GameIsPaused)
         {
-            Vector2 moveinput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            moveinput.Normalize();
+            Vector2 moveinput = new Vector2(
+                Input.GetAxisRaw("Horizontal") + Input.GetAxisRaw("Joystick Axis 6"), 
+                Input.GetAxisRaw("Vertical") + Input.GetAxisRaw("Joystick Axis 7")    
+            );            moveinput.Normalize();
 
             if (moveinput.sqrMagnitude > 0.5)
             {

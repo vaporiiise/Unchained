@@ -26,12 +26,12 @@ public class PlayerShoot : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && !isDirectionSelected)
+        if (Input.GetKeyDown(KeyCode.Joystick1Button3) && !isDirectionSelected)
         {
             StartCoroutine(StartRouletteWithAnimation());
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isDirectionSelected)
+        if (Input.GetKeyDown(KeyCode.Joystick1Button2) && isDirectionSelected)
         {
             rouletteWheel.SetActive(false);
 
@@ -46,7 +46,7 @@ public class PlayerShoot : MonoBehaviour
     {
         rouletteWheel.SetActive(true);
 
-        yield return new WaitForSeconds(2f); 
+        yield return new WaitForSeconds(1f); 
 
         StartRoulette();
     }
