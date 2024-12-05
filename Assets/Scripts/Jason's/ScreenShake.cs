@@ -25,12 +25,12 @@ public class ScreenShake : MonoBehaviour
     [SerializeField] private float uiShakeMagnitude = 10f;
 
     private Vector3 shakeOffset;
-    private FollowCamera followCameraScript;
-    private bossAI bossScript;
-    private playerAttack playerScript;
+    private FollowCamera followCameraScript; // Reference to FollowCamera script
+    private bossAI bossScript; // Reference to boss script
+    private playerAttack playerScript; // Reference to player script
 
-    // Flag to prevent continuous UI shake
     private bool isUIShaking = false;
+    private int lastHealth = 0; // Track player's health from the last frame
 
     private void Awake()
     {
@@ -45,12 +45,15 @@ public class ScreenShake : MonoBehaviour
         bossScript = FindObjectOfType<bossAI>();
         followCameraScript = Camera.main.GetComponent<FollowCamera>();
         playerScript = FindObjectOfType<playerAttack>();
+
+        if (playerScript != null)
+            lastHealth = playerScript.currentHealth; // Initialize lastHealth
     }
 
     private void OnEnable()
     {
         shakeOffset = Vector3.zero;
-        isUIShaking = false; // Reset the UI shaking flag
+        isUIShaking = false;
     }
 
     public void Shake(float duration, float magnitude)
@@ -95,12 +98,16 @@ public class ScreenShake : MonoBehaviour
             }
         }
 
-        // Trigger UI shake once when the player takes damage (if health is below max)
-        if (playerScript != null && playerScript.currentHealth < playerScript.maxHealth && !isUIShaking)
+        // Trigger UI shake when the player's health decreases
+        if (playerScript != null && playerScript.currentHealth < lastHealth && !isUIShaking)
         {
-            isUIShaking = true; // Set the flag to prevent repeated shakes
+            isUIShaking = true;
             StartCoroutine(UIShakeCoroutine());
         }
+
+        // Update lastHealth for the next frame
+        if (playerScript != null)
+            lastHealth = playerScript.currentHealth;
 
         // Apply screen shake offset to the camera
         if (shakeOffset != Vector3.zero && followCameraScript != null)

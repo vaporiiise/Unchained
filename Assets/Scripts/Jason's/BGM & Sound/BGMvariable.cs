@@ -6,18 +6,20 @@ using UnityEngine.Audio;
 public class BGMvariable : MonoBehaviour
 {
     [Header("Music Clips")]
-    public AudioClip initialBossMusic;   // Initial music when the boss starts
-    public AudioClip intenseBossMusic;   // Intense music when the boss or player is low on health
+    public AudioClip initialBossMusic;
+    public AudioClip intenseBossMusic;
 
     [Header("References")]
-    public bossAI bossScript;           // Reference to the boss AI script
-    public playerAttack playerScript;   // Reference to the player attack script (handles health)
-    public AudioSource audioSourceA;    // First audio source for crossfading
-    public AudioSource audioSourceB;    // Second audio source for crossfading
+    public bossAI bossScript;           // Refto  boss AI script
+    public playerAttack playerScript;   // Ref to player attack script
+
+    [Header("AudioSource")]
+    public AudioSource audioSourceA;    // the chill one
+    public AudioSource audioSourceB;    // the intense one
 
     [Header("Health Thresholds")]
-    public int lowBossHealth = 50;   // Boss low health threshold
-    public int lowPlayerHealth = 30;  // Player low health threshold
+    public int lowBossHealth = 50;
+    public int lowPlayerHealth = 30;
 
     private AudioSource activeAudioSource; // Keeps track of which source is currently active
     private bool isInitialMusicPlaying = false;
@@ -42,7 +44,6 @@ public class BGMvariable : MonoBehaviour
             return;
         }
 
-        // Initialize AudioSources
         audioSourceA.loop = true;
         audioSourceB.loop = true;
 
