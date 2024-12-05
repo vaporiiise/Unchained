@@ -10,6 +10,8 @@ public class NHPlayerHealth : MonoBehaviour
     private int currentHealth;
     public AudioClip takeDamageSound;
     private AudioSource audioSource;
+    public AudioClip healSound;
+
 
     public List<Image> healthImages; 
     public GameObject damageIndicator;    
@@ -29,9 +31,10 @@ public class NHPlayerHealth : MonoBehaviour
 
     void Update()
     {
-        // Heal player when pressing Q
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.JoystickButton4))
         {
+            audioSource.PlayOneShot(healSound);
+
             HealPlayer(20);
         }
     }
