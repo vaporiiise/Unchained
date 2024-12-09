@@ -6,36 +6,54 @@ using UnityEngine.SceneManagement;
 
 public class NHPlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 100;
+    public int maxHealth = 150;
     private int currentHealth;
     public AudioClip takeDamageSound;
     private AudioSource audioSource;
     public AudioClip healSound;
 
-
     public List<Image> healthImages; 
     public GameObject damageIndicator;    
     public float damageDisplayDuration = 0.5f; 
 
+    public GameObject deathCanvas;        // Canvas to activate on death
+    public List<GameObject> otherCanvases; // List of other canvases to disable on death
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        currentHealth = maxHealth;
-        UpdateHealthUI();
+    
+        // Check if the saved health exists, and if not, initialize it to maxHealth
+        if (GameManager.Instance.savedPlayerHealth > 0)
+        {
+            currentHealth = GameManager.Instance.savedPlayerHealth; 
+        }
+        else 
+        {
+            currentHealth = maxHealth;  // If no saved health or it's 0, set to max health
+        }
+
+        // Ensure the health is saved in GameManager after initialization
+        GameManager.Instance.SavePlayerHealth(currentHealth);
+
+        UpdateHealthUI();  // Update the UI with the current health
 
         if (damageIndicator != null)
         {
-            damageIndicator.gameObject.SetActive(false);
+            damageIndicator.gameObject.SetActive(false);  // Ensure damage indicator is off at the start
+        }
+
+        if (deathCanvas != null)
+        {
+            deathCanvas.SetActive(false);  // Ensure death canvas is off at the start
         }
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.JoystickButton4))
+        if ((Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.JoystickButton5)))
         {
-            audioSource.PlayOneShot(healSound);
-
-            HealPlayer(20);
+           TakeDamage(10);
         }
     }
 
@@ -49,10 +67,12 @@ public class NHPlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        UpdateHealthUI();
+
         currentHealth -= damage;
         Debug.Log("Player Health: " + currentHealth);
-        UpdateHealthUI();
         audioSource.PlayOneShot(takeDamageSound);
+        GameManager.Instance.SavePlayerHealth(currentHealth);
 
         if (damageIndicator != null)
         {
@@ -74,17 +94,22 @@ public class NHPlayerHealth : MonoBehaviour
 
     void UpdateHealthUI()
     {
-        int remainingSprites = Mathf.CeilToInt((float)currentHealth / (maxHealth / healthImages.Count));
+        // Calculate how many health images should be visible based on current health.
+        int remainingSprites = Mathf.CeilToInt((float)currentHealth / 10); // Each sprite represents 10 health
 
+        // Ensure the number of visible sprites does not exceed the size of healthImages
+        remainingSprites = Mathf.Clamp(remainingSprites, 0, healthImages.Count);
+
+        // Update the health images based on the remaining health
         for (int i = 0; i < healthImages.Count; i++)
         {
             if (i < remainingSprites)
             {
-                healthImages[i].enabled = true; 
+                healthImages[i].gameObject.SetActive(true);  // Enable health image
             }
             else
             {
-                healthImages[i].enabled = false; 
+                healthImages[i].gameObject.SetActive(false);  // Disable health image
             }
         }
     }
@@ -92,7 +117,29 @@ public class NHPlayerHealth : MonoBehaviour
     void Die()
     {
         Debug.Log("Player is dead!");
-        SceneManager.LoadScene(1);
+
+        AudioListener.pause = true;
+
+        Time.timeScale = 0;
+
+        if (deathCanvas != null)
+        {
+            deathCanvas.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("Death canvas is not assigned in the inspector!");
+        }
+
+        // Disable other canvases
+        foreach (GameObject canvas in otherCanvases)
+        {
+            if (canvas != null)
+            {
+                canvas.SetActive(false);
+            }
+        }
+        
     }
 
     void HealPlayer(int healAmount)

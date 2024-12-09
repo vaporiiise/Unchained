@@ -51,7 +51,6 @@ public class PlayButtonOnClick : MonoBehaviour
     {
         float elapsedTime = 0f;
 
-        // Gradually reduce alpha from 1 to 0
         while (elapsedTime < fadeDuration)
         {
             elapsedTime += Time.deltaTime;
@@ -59,7 +58,6 @@ public class PlayButtonOnClick : MonoBehaviour
             yield return null;
         }
 
-        // Ensure button is fully invisible at the end
         buttonCanvasGroup.alpha = 0f;
     }
 
@@ -74,7 +72,12 @@ public class PlayButtonOnClick : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / cameraMoveDuration;
-            t = t * t * (3f - 2f * t); // Smoothstep interpolation for natural movement
+            t = t * t * (3f - 2f * t);
+            if (Input.anyKey)
+            {
+                SceneManager.LoadScene(nextSceneName);
+
+            }
             mainCamera.transform.position = Vector3.Lerp(startingPosition, targetPosition, t);
             yield return null;
         }
