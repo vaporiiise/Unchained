@@ -21,7 +21,18 @@ public class SendPlayerBack : MonoBehaviour
     {
         if (Vector3.Distance(player.transform.position, requiredPosition) <= positionTolerance)
         {
-            if (Input.GetKeyDown(KeyCode.T) || Input.GetKeyDown(KeyCode.Joystick1Button1))
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                Vector3 currentPosition = player.transform.position;
+                player.transform.position = new Vector3(currentPosition.x, currentPosition.y, targetZPosition);
+                objectToDisable.transform.position = Vector3.MoveTowards(objectToDisable.transform.position, moveObject, 10 * Time.deltaTime);
+                //globalLight.intensity = intensity;
+                objectToDisable2.SetActive(false);
+                //playerLight.SetActive(true);
+               // objectToEnable.SetActive(true);
+
+            }
+            else if (Input.GetKeyDown(KeyCode.Joystick1Button1))
             {
                 Vector3 currentPosition = player.transform.position;
                 player.transform.position = new Vector3(currentPosition.x, currentPosition.y, targetZPosition);
@@ -30,7 +41,6 @@ public class SendPlayerBack : MonoBehaviour
                 objectToDisable2.SetActive(false);
                 //playerLight.SetActive(true);
                 objectToEnable.SetActive(true);
-
             }
         }
     }
