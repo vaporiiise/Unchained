@@ -96,6 +96,16 @@ public class ScreenShake : MonoBehaviour
             {
                 Shake(handSlamDuration, handSlamMagnitude);
             }
+
+            if (playerScript != null && playerScript.currentHealth < lastHealth)
+            {
+                Debug.Log($"Player health decreased: {playerScript.currentHealth}");
+            }
+
+            if (isUIShaking)
+            {
+                Debug.LogWarning("UI Shake is already in progress.");
+            }
         }
 
         // Trigger UI shake when the player's health decreases
@@ -118,8 +128,17 @@ public class ScreenShake : MonoBehaviour
 
     private IEnumerator UIShakeCoroutine()
     {
-        if (uiElementToShake == null) yield break;
+        if (isUIShaking) yield break; // Prevent overlapping shakes
+        isUIShaking = true;
 
+        if (uiElementToShake == null)
+        {
+            Debug.LogError("UI Element to shake is null!");
+            isUIShaking = false;
+            yield break;
+        }
+
+        Debug.Log("UI Shake started.");
         Vector3 originalPosition = uiElementToShake.anchoredPosition;
         float elapsedTime = 0f;
 
@@ -129,14 +148,12 @@ public class ScreenShake : MonoBehaviour
             float offsetY = Random.Range(-1f, 1f) * uiShakeMagnitude;
 
             uiElementToShake.anchoredPosition = originalPosition + new Vector3(offsetX, offsetY, 0);
-
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         uiElementToShake.anchoredPosition = originalPosition;
-
-        // Reset the flag after UI shake ends
+        Debug.Log("UI Shake completed.");
         isUIShaking = false;
     }
 }
