@@ -34,20 +34,19 @@ public class BGMvariable : MonoBehaviour
 
         if (bossScript == null)
         {
-            Debug.LogError("Boss Script is not assigned to the MusicManager!");
+            Debug.LogError("Boss Script is not assigned to the BGMManager!");
             return;
         }
 
         if (playerScript == null)
         {
-            Debug.LogError("Player Script is not assigned to the MusicManager!");
+            Debug.LogError("Player Script is not assigned to the BGMManager!");
             return;
         }
 
         audioSourceA.loop = true;
         audioSourceB.loop = true;
 
-        // Start playing the initial boss music on audioSourceA
         PlayMusic(initialBossMusic, true);
         isInitialMusicPlaying = true;
     }
@@ -79,13 +78,10 @@ public class BGMvariable : MonoBehaviour
         if (clip == null || (activeAudioSource != null && activeAudioSource.clip == clip))
             return;
 
-        // Determine which audio source is currently active and switch
         AudioSource newAudioSource = (activeAudioSource == audioSourceA) ? audioSourceB : audioSourceA;
 
-        // Start crossfading
         StartCoroutine(CrossfadeMusic(activeAudioSource, newAudioSource, clip, loop, 1f));
 
-        // Update the active audio source
         activeAudioSource = newAudioSource;
     }
 
@@ -94,7 +90,6 @@ public class BGMvariable : MonoBehaviour
         float startVolume = fromSource != null ? fromSource.volume : 1f;
         float elapsed = 0f;
 
-        // Prepare the new audio source
         toSource.clip = newClip;
         toSource.loop = loop;
         toSource.volume = 0;
@@ -105,21 +100,18 @@ public class BGMvariable : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = elapsed / fadeDuration;
 
-            // Fade out the old audio source
             if (fromSource != null)
                 fromSource.volume = Mathf.Lerp(startVolume, 0, t);
 
-            // Fade in the new audio source
             toSource.volume = Mathf.Lerp(0, 1, t);
 
             yield return null;
         }
 
-        // Ensure volumes are set correctly at the end
         if (fromSource != null)
         {
             fromSource.Stop();
-            fromSource.volume = startVolume; // Reset for future fades
+            fromSource.volume = startVolume;
         }
         toSource.volume = 1;
     }

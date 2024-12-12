@@ -8,29 +8,32 @@ public class ScreenShake : MonoBehaviour
     public static ScreenShake Instance;
 
     [Header("Jump Attack Settings")]
-    [SerializeField] private float jumpAttackDuration = 0.5f;
-    [SerializeField] private float jumpAttackMagnitude = 0.3f;
+    [SerializeField] private float jumpAttackDuration = 0.3f;
+    [SerializeField] private float jumpAttackMagnitude = 0.2f;
 
     [Header("Ground Slam Settings")]
-    [SerializeField] private float groundSlamDuration = 0.6f;
-    [SerializeField] private float groundSlamMagnitude = 0.35f;
+    [SerializeField] private float groundSlamDuration = 0.2f;
+    [SerializeField] private float groundSlamMagnitude = 0.04f;
 
     [Header("Hand Slam Settings")]
-    [SerializeField] private float handSlamDuration = 0.4f;
-    [SerializeField] private float handSlamMagnitude = 0.2f;
+    [SerializeField] private float handSlamDuration = 0f;
+    [SerializeField] private float handSlamMagnitude = 0f;
 
     [Header("UI Shake Settings")]
-    [SerializeField] private RectTransform uiElementToShake;
-    [SerializeField] private float uiShakeDuration = 0.5f;
-    [SerializeField] private float uiShakeMagnitude = 10f;
+    [SerializeField] private RectTransform playerUIElementToShake;
+    [SerializeField] private RectTransform bossUIElementToShake;
+    [SerializeField] private float uiShakeDuration = 0.2f;
+    [SerializeField] private float uiShakeMagnitude = 0.2f;
 
     private Vector3 shakeOffset;
-    private FollowCamera followCameraScript; // Reference to FollowCamera script
-    private bossAI bossScript; // Reference to boss script
-    private playerAttack playerScript; // Reference to player script
+    private FollowCamera followCameraScript;
+    private bossAI bossScript;
+    private playerAttack playerScript;
 
-    private bool isUIShaking = false;
-    private int lastHealth = 0; // Track player's health from the last frame
+    private bool isPlayerUIShaking = false;
+    private bool isBossUIShaking = false;
+    private int lastPlayerHealth = 0;
+    private int lastBossHealth = 0;
 
     private void Awake()
     {
@@ -47,13 +50,17 @@ public class ScreenShake : MonoBehaviour
         playerScript = FindObjectOfType<playerAttack>();
 
         if (playerScript != null)
-            lastHealth = playerScript.currentHealth; // Initialize lastHealth
+            lastPlayerHealth = playerScript.currentHealth;
+
+        if (bossScript != null)
+            lastBossHealth = bossScript.currentHealth;
     }
 
     private void OnEnable()
     {
         shakeOffset = Vector3.zero;
-        isUIShaking = false;
+        isPlayerUIShaking = false;
+        isBossUIShaking = false;
     }
 
     public void Shake(float duration, float magnitude)
@@ -96,28 +103,28 @@ public class ScreenShake : MonoBehaviour
             {
                 Shake(handSlamDuration, handSlamMagnitude);
             }
-
-            if (playerScript != null && playerScript.currentHealth < lastHealth)
-            {
-                Debug.Log($"Player health decreased: {playerScript.currentHealth}");
-            }
-
-            if (isUIShaking)
-            {
-                Debug.LogWarning("UI Shake is already in progress.");
-            }
         }
 
         // Trigger UI shake when the player's health decreases
-        if (playerScript != null && playerScript.currentHealth < lastHealth && !isUIShaking)
+        if (playerScript != null && playerScript.currentHealth < lastPlayerHealth && !isPlayerUIShaking)
         {
-            isUIShaking = true;
-            StartCoroutine(UIShakeCoroutine());
+            StartCoroutine(UIShakeCoroutine(playerUIElementToShake, () => isPlayerUIShaking = false));
+            isPlayerUIShaking = true;
         }
 
-        // Update lastHealth for the next frame
+        // Trigger UI shake when the boss's health decreases
+        if (bossScript != null && bossScript.currentHealth < lastBossHealth && !isBossUIShaking)
+        {
+            StartCoroutine(UIShakeCoroutine(bossUIElementToShake, () => isBossUIShaking = false));
+            isBossUIShaking = true;
+        }
+
+        // Update health values for the next frame
         if (playerScript != null)
-            lastHealth = playerScript.currentHealth;
+            lastPlayerHealth = playerScript.currentHealth;
+
+        if (bossScript != null)
+            lastBossHealth = bossScript.currentHealth;
 
         // Apply screen shake offset to the camera
         if (shakeOffset != Vector3.zero && followCameraScript != null)
@@ -126,20 +133,16 @@ public class ScreenShake : MonoBehaviour
         }
     }
 
-    private IEnumerator UIShakeCoroutine()
+    private IEnumerator UIShakeCoroutine(RectTransform uiElement, System.Action onComplete)
     {
-        if (isUIShaking) yield break; // Prevent overlapping shakes
-        isUIShaking = true;
-
-        if (uiElementToShake == null)
+        if (uiElement == null)
         {
             Debug.LogError("UI Element to shake is null!");
-            isUIShaking = false;
+            onComplete?.Invoke();
             yield break;
         }
 
-        Debug.Log("UI Shake started.");
-        Vector3 originalPosition = uiElementToShake.anchoredPosition;
+        Vector3 originalPosition = uiElement.anchoredPosition;
         float elapsedTime = 0f;
 
         while (elapsedTime < uiShakeDuration)
@@ -147,13 +150,14 @@ public class ScreenShake : MonoBehaviour
             float offsetX = Random.Range(-1f, 1f) * uiShakeMagnitude;
             float offsetY = Random.Range(-1f, 1f) * uiShakeMagnitude;
 
-            uiElementToShake.anchoredPosition = originalPosition + new Vector3(offsetX, offsetY, 0);
+            uiElement.anchoredPosition = originalPosition + new Vector3(offsetX, offsetY, 0);
+            //Debug.Log($"Shaking Position: {uiElement.anchoredPosition}");
+
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        uiElementToShake.anchoredPosition = originalPosition;
-        Debug.Log("UI Shake completed.");
-        isUIShaking = false;
+        uiElement.anchoredPosition = originalPosition;
+        onComplete?.Invoke();
     }
 }

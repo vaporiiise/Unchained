@@ -5,24 +5,26 @@ using UnityEngine;
 public class Bosssound : MonoBehaviour
 {
     [Header("Audio Sources")]
-    public AudioSource attackSource;
     public AudioSource idleSource;
+    public AudioSource walkingSource;
+    public AudioSource growlingSource;
+    public AudioSource attackSource;
+    public AudioSource groundPoundSource;
     public AudioSource jumpSource;
+    public AudioSource landingSource;
     public AudioSource hurtSource;
-    public AudioSource landingSource;    // New landing sound source
-    public AudioSource walkingSource;   // New walking sound source
-    public AudioSource growlingSource;  // New growling sound source
-    public AudioSource groundPoundSource; // New ground pound sound source
+
 
     [Header("Audio Clips")]
-    public AudioClip[] attackClips;
     public AudioClip[] idleClips;
-    public AudioClip[] jumpClips;
-    public AudioClip[] hurtClips;
-    public AudioClip[] landingClips;
     public AudioClip[] walkingClips;
     public AudioClip[] growlingClips;
-    public AudioClip[] groundPoundClips;  // New ground pound sound clips
+    public AudioClip[] attackClips;
+    public AudioClip[] groundPoundClips;
+    public AudioClip[] jumpClips;
+    public AudioClip[] landingClips;
+    public AudioClip[] hurtClips;
+
 
     [Header("Idle Sound Settings")]
     public float idleSoundInterval = 5f;
@@ -37,25 +39,16 @@ public class Bosssound : MonoBehaviour
     {
         HandleIdleSounds();
     }
-
-    public void PlayAttackSound()
+    private void HandleIdleSounds()
     {
-        PlayRandomSound(attackSource, attackClips);
-    }
+        if (idleClips.Length == 0 || idleSource.isPlaying) return;
 
-    public void PlayJumpSound()
-    {
-        PlayRandomSound(jumpSource, jumpClips);
-    }
-
-    public void PlayHurtSound()
-    {
-        PlayRandomSound(hurtSource, hurtClips);
-    }
-
-    public void PlayLandingSound()
-    {
-        PlayRandomSound(landingSource, landingClips);
+        idleTimer += Time.deltaTime;
+        if (idleTimer >= idleSoundInterval)
+        {
+            PlayRandomSound(idleSource, idleClips);
+            idleTimer = 0f;
+        }
     }
 
     public void PlayWalkingSound()
@@ -68,21 +61,27 @@ public class Bosssound : MonoBehaviour
         PlayRandomSound(growlingSource, growlingClips);
     }
 
-    public void PlayGroundPoundSound() // New method for Ground Pound sound
+    public void PlayAttackSound()
+    {
+        PlayRandomSound(attackSource, attackClips);
+    }
+    public void PlayGroundPoundSound()
     {
         PlayRandomSound(groundPoundSource, groundPoundClips);
     }
 
-    private void HandleIdleSounds()
+    public void PlayJumpSound()
     {
-        if (idleClips.Length == 0 || idleSource.isPlaying) return;
+        PlayRandomSound(jumpSource, jumpClips);
+    }
+    public void PlayLandingSound()
+    {
+        PlayRandomSound(landingSource, landingClips);
+    }
 
-        idleTimer += Time.deltaTime;
-        if (idleTimer >= idleSoundInterval)
-        {
-            PlayRandomSound(idleSource, idleClips);
-            idleTimer = 0f;
-        }
+    public void PlayHurtSound()
+    {
+        PlayRandomSound(hurtSource, hurtClips);
     }
 
     private void PlayRandomSound(AudioSource source, AudioClip[] clips)

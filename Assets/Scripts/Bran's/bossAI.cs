@@ -198,6 +198,7 @@ public class bossAI : MonoBehaviour
             TakeDamage(10);
             lastDamageTime = Time.time;
         }
+
         healthBar.SetHealth(currentHealth);
 
     }
