@@ -8,15 +8,15 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused { get; private set; }
 
-    public GameObject pauseMenuUI; // Reference to the pause menu UI (optional)
-    public GameObject settingsPanel; // Reference to the settings panel (optional)
+    public GameObject pauseMenuUI; // Ref to the pause menu UI
+    public GameObject settingsPanel; // Ref to the settings panel
 
-    public GameObject player; // Reference to the player GameObject (optional if needed)
+    public GameObject player; // Ref to the player GameObject
 
     [SerializeField]
-    private KeyCode pauseKey = KeyCode.Escape; // Configurable key for pausing the game (optional)
+    private KeyCode pauseKey = KeyCode.Escape; // Configurable key for pausing the game
 
-    private MonoBehaviour[] playerScripts; // To store the player scripts for enabling/disabling
+    private MonoBehaviour[] playerScripts; // Store the player scripts for enabling/disabling
 
     void Start()
     {

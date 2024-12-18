@@ -10,7 +10,7 @@ public class BGMvariable : MonoBehaviour
     public AudioClip intenseBossMusic;
 
     [Header("References")]
-    public bossAI bossScript;           // Refto  boss AI script
+    public bossAI bossScript;           // Ref to  boss AI script
     public playerAttack playerScript;   // Ref to player attack script
 
     [Header("AudioSource")]

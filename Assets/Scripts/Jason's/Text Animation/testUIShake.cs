@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class testUIShake : MonoBehaviour
 {
+    // This is a manual UI shake for testing purposes (currently not in use)
     public RectTransform testUIElement;
 
     void Update()

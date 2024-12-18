@@ -4,16 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 public class FadeNFillHealthBar : MonoBehaviour
 {
-    public Slider healthSlider;             // Reference to the Slider (Health Bar)
-    public GameObject canvasObject;         // The Canvas GameObject (Drag the entire Canvas here)
-    private CanvasGroup canvasGroup;        // Reference to CanvasGroup
-    public float fadeDuration = 1f;         // Duration for the fade-in effect
-    public float fillDuration = 2f;         // Duration for the health bar to fill from 0 to full
+    public Slider healthSlider;
+    public GameObject canvasObject;
+    private CanvasGroup canvasGroup;
+    public float fadeDuration = 1f;
+    public float fillDuration = 2f;
 
-    private float targetHealth;             // Target health value
-    private float currentHealth;            // Current health value
-    private bool isFadingIn;                // Track if the fade-in is happening
-    private bool isFilling;                 // Track if the health bar is filling up
+    private float targetHealth;
+    private float currentHealth;
+    private bool isFadingIn;
+    private bool isFilling;
 
     void Start()
     {
@@ -43,10 +43,10 @@ public class FadeNFillHealthBar : MonoBehaviour
     {
         targetHealth = maxHealth;
         healthSlider.maxValue = maxHealth;
-        currentHealth = 0;  // Start from 0 health
+        currentHealth = 0;  // Start from 0
         healthSlider.value = 0;
 
-        // Start filling the health bar
+        // Start filling up
         StartCoroutine(FillHealthBar());
     }
 
@@ -74,7 +74,7 @@ public class FadeNFillHealthBar : MonoBehaviour
         isFilling = true; // Start filling the health bar after fade-in
     }
 
-    // Gradually fill the health bar from 0 to max
+    // slowly fill from 0 to de max
     IEnumerator FillHealthBar()
     {
         float elapsedTime = 0f;
@@ -88,7 +88,7 @@ public class FadeNFillHealthBar : MonoBehaviour
         healthSlider.value = targetHealth;  // Ensure it's fully filled at the end
     }
 
-    // Call this method when the boss takes damage
+    // When the boss takes damage dis shet will be called
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
@@ -104,7 +104,6 @@ public class FadeNFillHealthBar : MonoBehaviour
         StartCoroutine(FadeOut());
     }
 
-    // Coroutine for fading out the health bar
     IEnumerator FadeOut()
     {
         float elapsedTime = 0f;

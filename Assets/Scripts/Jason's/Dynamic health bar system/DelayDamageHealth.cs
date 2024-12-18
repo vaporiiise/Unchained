@@ -11,13 +11,13 @@ public class DelayDamageHealth : MonoBehaviour
     public bossAI enemyScript;
 
 
-    public float delayTime = 1f;        // Delay time before health bar starts following (in seconds)
-    public float smoothSpeed = 2f;      // Speed at which the damaged health bar follows the main health bar
+    public float delayTime = 1f;        // Delay time before health bar starts following
+    public float smoothSpeed = 2f;      // Higher = faster | Lower = Smoother
 
-    private float targetHealth;            // Target health value to be set for the damaged health bar
-    private float previousHealth;          // To track the previous health value
-    private float damageTimer;             // Timer to track the time since last damage
-    private bool isDamageReceived;         // Whether the enemy is receiving damage
+    private float targetHealth;
+    private float previousHealth;
+    private float damageTimer;
+    private bool isDamageReceived;
 
     private void Start()
     {
