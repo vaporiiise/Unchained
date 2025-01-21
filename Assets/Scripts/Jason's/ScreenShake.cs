@@ -22,6 +22,8 @@ public class ScreenShake : MonoBehaviour
     [Header("UI Shake Settings")]
     [SerializeField] private RectTransform playerUIElementToShake;
     [SerializeField] private RectTransform bossUIElementToShake;
+    [SerializeField] private RectTransform playerDamageUIElementToShake;
+    [SerializeField] private RectTransform bossDamageUIElementToShake;
     [SerializeField] private float uiShakeDuration = 0.2f;
     [SerializeField] private float uiShakeMagnitude = 0.2f;
 
@@ -32,6 +34,9 @@ public class ScreenShake : MonoBehaviour
 
     private bool isPlayerUIShaking = false;
     private bool isBossUIShaking = false;
+    private bool isPlayerDamageUIShaking = false;
+    private bool isBossDamageUIShaking = false;
+
     private int lastPlayerHealth = 0;
     private int lastBossHealth = 0;
 
@@ -61,6 +66,8 @@ public class ScreenShake : MonoBehaviour
         shakeOffset = Vector3.zero;
         isPlayerUIShaking = false;
         isBossUIShaking = false;
+        isPlayerDamageUIShaking = false;
+        isBossDamageUIShaking = false;
     }
 
     public void Shake(float duration, float magnitude)
@@ -106,17 +113,35 @@ public class ScreenShake : MonoBehaviour
         }
 
         // Trigger UI shake when the player's health decreases
-        if (playerScript != null && playerScript.currentHealth < lastPlayerHealth && !isPlayerUIShaking)
+        if (playerScript != null && playerScript.currentHealth < lastPlayerHealth)
         {
-            StartCoroutine(UIShakeCoroutine(playerUIElementToShake, () => isPlayerUIShaking = false));
-            isPlayerUIShaking = true;
+            if (!isPlayerUIShaking)
+            {
+                StartCoroutine(UIShakeCoroutine(playerUIElementToShake, () => isPlayerUIShaking = false));
+                isPlayerUIShaking = true;
+            }
+
+            if (!isPlayerDamageUIShaking)
+            {
+                StartCoroutine(UIShakeCoroutine(playerDamageUIElementToShake, () => isPlayerDamageUIShaking = false));
+                isPlayerDamageUIShaking = true;
+            }
         }
 
         // Trigger UI shake when the boss's health decreases
-        if (bossScript != null && bossScript.currentHealth < lastBossHealth && !isBossUIShaking)
+        if (bossScript != null && bossScript.currentHealth < lastBossHealth)
         {
-            StartCoroutine(UIShakeCoroutine(bossUIElementToShake, () => isBossUIShaking = false));
-            isBossUIShaking = true;
+            if (!isBossUIShaking)
+            {
+                StartCoroutine(UIShakeCoroutine(bossUIElementToShake, () => isBossUIShaking = false));
+                isBossUIShaking = true;
+            }
+
+            if (!isBossDamageUIShaking)
+            {
+                StartCoroutine(UIShakeCoroutine(bossDamageUIElementToShake, () => isBossDamageUIShaking = false));
+                isBossDamageUIShaking = true;
+            }
         }
 
         // Update health values for the next frame
@@ -151,7 +176,6 @@ public class ScreenShake : MonoBehaviour
             float offsetY = Random.Range(-1f, 1f) * uiShakeMagnitude;
 
             uiElement.anchoredPosition = originalPosition + new Vector3(offsetX, offsetY, 0);
-            //Debug.Log($"Shaking Position: {uiElement.anchoredPosition}");
 
             elapsedTime += Time.deltaTime;
             yield return null;

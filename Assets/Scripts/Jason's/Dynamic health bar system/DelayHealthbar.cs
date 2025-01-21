@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DelayDamageHealth : MonoBehaviour
+public class DelayHealthbar : MonoBehaviour
 {
     public Slider mainHealthBarSlider;
     public Slider damagedHealthBarSlider;
 
-    public bossAI enemyScript;
+    public playerAttack playerScript;
 
     public float delayTime = 1f;        // Delay time before health bar starts following
     public float smoothSpeed = 2f;      // Higher = faster | Lower = Smoother
@@ -18,16 +18,16 @@ public class DelayDamageHealth : MonoBehaviour
     private float damageTimer;
     private bool isDamageReceived;
 
-    private void Start()
+    void Start() //
     {
-        if (mainHealthBarSlider != null && enemyScript != null)
+        if (mainHealthBarSlider != null && playerScript != null)
         {
-            mainHealthBarSlider.maxValue = enemyScript.bossMaxHealth;
-            damagedHealthBarSlider.maxValue = enemyScript.bossMaxHealth;
+            mainHealthBarSlider.maxValue = playerScript.maxHealth;
+            damagedHealthBarSlider.maxValue = playerScript.maxHealth;
         }
         else
         {
-            Debug.LogError("Missing reference to mainHealthBarSlider or enemyScript.");
+            Debug.LogError("Missing reference to mainHealthBarSlider(player) or playerScript.");
         }
 
         targetHealth = mainHealthBarSlider.value;
@@ -36,11 +36,11 @@ public class DelayDamageHealth : MonoBehaviour
         isDamageReceived = false;
     }
 
-    private void Update()
+    void Update() //
     {
-        if (mainHealthBarSlider == null || damagedHealthBarSlider == null || enemyScript == null)
+        if (mainHealthBarSlider == null || damagedHealthBarSlider == null || playerScript == null)
         {
-            Debug.LogError("Missing reference to sliders or enemyScript.");
+            Debug.LogError("Missing reference to sliders or playerScript.");
             return;
         }
 
@@ -67,10 +67,9 @@ public class DelayDamageHealth : MonoBehaviour
 
         previousHealth = mainHealthBarSlider.value;
 
-        //Debug.Log($"Enemy Main Health: {mainHealthBarSlider.value}, Enemy Damaged Health: {damagedHealthBarSlider.value}, Enemy Damage Timer: {damageTimer}");
+        //Debug.Log($"Player Main Health: {mainHealthBarSlider.value}, Player Damaged Health: {damagedHealthBarSlider.value}, Player Damage Timer: {damageTimer}");
     }
-
-    private IEnumerator SmoothHealthUpdate()
+    private IEnumerator SmoothHealthUpdate() //
     {
         float startHealth = damagedHealthBarSlider.value;
         float targetHealth = mainHealthBarSlider.value;
