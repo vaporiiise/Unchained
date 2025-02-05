@@ -29,8 +29,12 @@ public class Tilemovement : MonoBehaviour
 
     void Update()
     {
+
+        Debug.Log("code should be running");
         if (!PauseMenu.GameIsPaused)
         {
+            Debug.Log("no problem");
+
             Vector2 moveinput = new Vector2(
                 Input.GetAxisRaw("Horizontal") + Input.GetAxisRaw("Joystick Axis 6"), 
                 Input.GetAxisRaw("Vertical") + Input.GetAxisRaw("Joystick Axis 7")    
@@ -59,6 +63,9 @@ public class Tilemovement : MonoBehaviour
                 SavePositionAndResetScene();
             }*/
         }
+        else
+            Debug.Log("game is paused");
+
     }
 
     public bool Move(Vector2 direction)
