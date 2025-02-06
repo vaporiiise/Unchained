@@ -13,12 +13,12 @@ public class Tilemovement : MonoBehaviour
     public AudioClip moveSound;
     public AudioSource audioSource;
     private CheckpointManager checkpointManager;
-    public static event System.Action OnPlayerMove; 
+    public static event System.Action OnPlayerMove;
 
-    
+
 
     private bool ReadyToMove;
-    
+
     void Start()
     {
         Obstacles = GameObject.FindGameObjectsWithTag("Obstacles");
@@ -30,15 +30,14 @@ public class Tilemovement : MonoBehaviour
     void Update()
     {
 
-        Debug.Log("code should be running");
         if (!PauseMenu.GameIsPaused)
         {
-            Debug.Log("no problem");
 
             Vector2 moveinput = new Vector2(
-                Input.GetAxisRaw("Horizontal") + Input.GetAxisRaw("Joystick Axis 6"), 
-                Input.GetAxisRaw("Vertical") + Input.GetAxisRaw("Joystick Axis 7")    
-            );            moveinput.Normalize();
+                Input.GetAxisRaw("Horizontal"),
+                Input.GetAxisRaw("Vertical")
+            );
+            moveinput.Normalize();
 
             if (moveinput.sqrMagnitude > 0.5)
             {
@@ -46,10 +45,9 @@ public class Tilemovement : MonoBehaviour
                 {
                     ReadyToMove = false;
 
-                    
                     if (Move(moveinput))
                     {
-                        PlayMoveSound(); 
+                        PlayMoveSound();
                     }
                 }
             }
@@ -57,11 +55,6 @@ public class Tilemovement : MonoBehaviour
             {
                 ReadyToMove = true;
             }
-
-            /*if (Input.GetKeyDown(KeyCode.R))
-            {
-                SavePositionAndResetScene();
-            }*/
         }
         else
             Debug.Log("game is paused");
@@ -78,6 +71,7 @@ public class Tilemovement : MonoBehaviour
         {
             direction.y = 0;
         }
+
         direction.Normalize();
 
         if (Blocked(transform.position, direction))
@@ -87,9 +81,9 @@ public class Tilemovement : MonoBehaviour
         else
         {
             transform.Translate(direction);
-            PlayMoveSound(); 
-            OnPlayerMove?.Invoke(); 
-            
+            PlayMoveSound();
+            OnPlayerMove?.Invoke();
+
             return true;
         }
     }
@@ -121,6 +115,7 @@ public class Tilemovement : MonoBehaviour
                 }
             }
         }
+
         return false;
     }
 
@@ -131,6 +126,7 @@ public class Tilemovement : MonoBehaviour
             audioSource.PlayOneShot(moveSound);
         }
     }
+
     public void Respawn()
     {
         if (checkpointManager.GetCurrentCheckpoint() != Vector2.zero)
@@ -140,10 +136,4 @@ public class Tilemovement : MonoBehaviour
 
         Debug.Log("Player respawned at: " + transform.position);
     }
-    /*private void SavePositionAndResetScene()
-    {
-        GameManager.Instance.SavePlayerPosition(transform.position);
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }*/
 }
