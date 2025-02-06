@@ -58,6 +58,8 @@ public class Tilemovement : MonoBehaviour
         }
         else
             Debug.Log("game is paused");
+        
+        
 
     }
 

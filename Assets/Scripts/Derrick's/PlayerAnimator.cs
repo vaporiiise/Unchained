@@ -13,21 +13,19 @@ public class PlayerAnimator : MonoBehaviour
 
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal"); 
-        float vertical = Input.GetAxis("Vertical");     
-
-        horizontal += Input.GetAxisRaw("Joystick Axis 6"); 
-        vertical += Input.GetAxisRaw("Joystick Axis 7");   
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
 
         bool isMovingUp = vertical > 0.1f;
         bool isMovingDown = vertical < -0.1f;
         bool isMovingLeft = horizontal < -0.1f;
         bool isMovingRight = horizontal > 0.1f;
 
-        
         anim.SetBool("moveUp", isMovingUp);
         anim.SetBool("moveDown", isMovingDown);
         anim.SetBool("moveLeft", isMovingLeft);
         anim.SetBool("moveRight", isMovingRight);
     }
+
+
 }
