@@ -9,6 +9,7 @@ public class DoorTrigger : MonoBehaviour
     public Transform targetPosition1; // Target position for box 1
     public Transform targetPosition2; // Target position for box 2
     public GameObject door; // The door object (box)
+    public SpriteRenderer lockSprite; // Sprite that disappears when unlocked
     public float threshold = 0.5f; // Distance threshold for activation
     public AudioClip doorUnlockSound; // Sound effect when unlocked
     public MonoBehaviour scriptToDisable; // Script to disable after unlock
@@ -19,8 +20,19 @@ public class DoorTrigger : MonoBehaviour
     public float cameraPanSpeed = 5f; // Speed of the camera pan
     public float shakeDuration = 0.2f; // How long the camera shakes
     public float shakeIntensity = 0.2f; // How strong the shake is
+    public float spriteFadeSpeed = 1.5f; // Speed at which sprite fades out
 
     private bool doorOpened = false;
+
+    void Start()
+    {
+        if (lockSprite != null)
+        {
+            Color c = lockSprite.color;
+            c.a = 1; // Make sure the sprite is fully visible at the start
+            lockSprite.color = c;
+        }
+    }
 
     void Update()
     {
@@ -49,6 +61,12 @@ public class DoorTrigger : MonoBehaviour
         // Camera shake effect
         yield return StartCoroutine(CameraShake());
 
+        // Start fading out the lock sprite
+        if (lockSprite != null)
+        {
+            StartCoroutine(FadeOutSprite());
+        }
+
         // Move the door really fast
         float startTime = Time.time;
         Vector3 startPosition = door.transform.position;
@@ -68,7 +86,7 @@ public class DoorTrigger : MonoBehaviour
         // Pan the camera to the door position
         yield return StartCoroutine(PanCamera());
 
-        // Wait 3 seconds before reactivating the script
+        // Wait 0.5 seconds before reactivating the script
         yield return new WaitForSeconds(0.5f);
 
         // Reactivate the previously disabled script
@@ -95,6 +113,24 @@ public class DoorTrigger : MonoBehaviour
         mainCamera.transform.position = originalPos; // Reset position
     }
 
+    IEnumerator FadeOutSprite()
+    {
+        Color c = lockSprite.color;
+        float alpha = 1f;
+        float startTime = Time.time;
+
+        while (alpha > 0f) // Fully fade out
+        {
+            alpha = Mathf.Clamp01(1f - (Time.time - startTime) * spriteFadeSpeed);
+            c.a = alpha;
+            lockSprite.color = c;
+            yield return null;
+        }
+
+        c.a = 0;
+        lockSprite.color = c; // Ensure it's completely invisible
+    }
+
     IEnumerator PanCamera()
     {
         Vector3 startCamPos = mainCamera.transform.position;
@@ -111,6 +147,6 @@ public class DoorTrigger : MonoBehaviour
 
         mainCamera.transform.position = endCamPos; // Ensure final position is correct
 
-        yield return new WaitForSeconds(0.5f); // Keep camera on the door for 3 seconds
+        yield return new WaitForSeconds(0.5f); // Keep camera on the door for 0.5 seconds
     }
 }
