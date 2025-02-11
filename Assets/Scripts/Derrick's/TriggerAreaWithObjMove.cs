@@ -17,6 +17,9 @@ public class TriggerAreaWithObjMove : MonoBehaviour
     public Vector3 areaMax;           
     public Color gizmoColor = new Color(0f, 1f, 0f, 0.25f); 
 
+    public AudioClip popUpSound; // 🎵 Sound effect for UI pop-up
+    private AudioSource audioSource;  
+
     private Vector3 originalPosition; 
     private bool playerInArea = false;
     private float timeInArea = 0f;
@@ -25,7 +28,10 @@ public class TriggerAreaWithObjMove : MonoBehaviour
     void Start()
     {
         originalPosition = targetRect.anchoredPosition;
-        SetAlpha(0f); 
+        SetAlpha(0f);
+
+        // 🎵 Add an AudioSource component if not present
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     void Update()
@@ -73,6 +79,12 @@ public class TriggerAreaWithObjMove : MonoBehaviour
 
     private IEnumerator FadeInAndMove()
     {
+        // 🎵 Play pop-up sound if assigned
+        if (popUpSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(popUpSound);
+        }
+
         yield return StartCoroutine(FadeAlpha(1f, fadeDuration));
         targetRect.anchoredPosition = newPosition;
 

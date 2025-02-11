@@ -63,7 +63,6 @@ public class DoorTrigger : MonoBehaviour
         if (unlockEffect != null)
         {
             unlockEffect.Play();
-            SetRandomColorPerParticle();
         }
 
         StartCoroutine(CameraShake());
@@ -162,26 +161,5 @@ public class DoorTrigger : MonoBehaviour
         yield return new WaitForSeconds(0.5f); 
     }
 
-    void SetRandomColorPerParticle()
-    {
-        if (unlockEffect != null)
-        {
-            var main = unlockEffect.main;
-            main.startColor = GetRandomColor();
-        }
-    }
-
-    Color GetRandomColor()
-    {
-        Color[] colors = new Color[]
-        {
-            Color.white, new Color(1f, 1f, 0f), // Yellow
-            new Color(0f, 1f, 1f), // Neon Blue
-            Color.green, new Color(1f, 0f, 1f), // Neon Pink
-            Color.red, new Color(0f, 0f, 0.5f), // Dark Blue
-            Color.black
-        };
-
-        return colors[Random.Range(0, colors.Length)];
-    }
+    
 }

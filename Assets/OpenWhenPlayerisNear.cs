@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class OpenWhenPlayerisNear : MonoBehaviour
 {
-    public string targetTag = "BossRoom";  // Tag of the first object
-    public Transform player;  // Reference to the player
-    public float threshold = 0.5f;  // Distance threshold
-    public Animator animator; // Reference to the Animator
+    public string targetTag = "BossRoom";
+    public Transform player;
+    public float threshold = 0.5f;
+    public Animator animator;
+    public AudioClip animationSound;
+    public Color gizmoColor = Color.green;
 
     private bool isNear = false;
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -25,10 +33,31 @@ public class OpenWhenPlayerisNear : MonoBehaviour
             }
         }
 
-        if (playerClose != isNear) // Only update if state changes
+        if (playerClose != isNear)
         {
             isNear = playerClose;
             animator.SetBool("isNear", isNear);
+
+            if (isNear) 
+            {
+                if (animationSound != null && !audioSource.isPlaying)
+                {
+                    audioSource.PlayOneShot(animationSound);
+                }
+            }
+            else 
+            {
+                audioSource.Stop();
+            }
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        if (player != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(player.position, threshold); // Draws ONLY one radius
         }
     }
 }
