@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class DoorTrigger : MonoBehaviour
 {
-    public Transform box1; // First box
-    public Transform box2; // Second box
-    public Transform targetPosition1; // Target position for box 1
-    public Transform targetPosition2; // Target position for box 2
-    public GameObject door; // The door object (box)
-    public SpriteRenderer lockSprite; // Sprite that disappears when unlocked
-    public float threshold = 0.5f; // Distance threshold for activation
-    public AudioClip doorUnlockSound; // Sound effect when unlocked
-    public MonoBehaviour scriptToDisable; // Script to disable after unlock
-    public Transform moveToPosition; // Where the door moves
-    public float moveSpeed = 20f; // Speed at which the door moves
-    public Camera mainCamera; // Reference to the camera
-    public Transform cameraTarget; // The position the camera should pan to
-    public float cameraPanSpeed = 5f; // Speed of the camera pan
-    public float shakeDuration = 0.2f; // How long the camera shakes
-    public float shakeIntensity = 0.2f; // How strong the shake is
-    public float spriteFadeSpeed = 1.5f; // Speed at which sprite fades out
+    public Transform box1;
+    public Transform box2;
+    public Transform targetPosition1;
+    public Transform targetPosition2;
+    public GameObject door;
+    public SpriteRenderer lockSprite;
+    public float threshold = 0.5f;
+    public AudioClip doorUnlockSound;
+    public MonoBehaviour scriptToDisable;
+    public Transform moveToPosition;
+    public float moveSpeed = 20f;
+    public Camera mainCamera;
+    public Transform cameraTarget;
+    public float cameraPanSpeed = 5f;
+    public float shakeDuration = 0.2f;
+    public float shakeIntensity = 0.2f;
+    public float spriteFadeSpeed = 1.5f;
+    public ParticleSystem unlockEffect; 
+    public float particleDuration = 1.5f; 
 
     private bool doorOpened = false;
 
@@ -29,7 +31,7 @@ public class DoorTrigger : MonoBehaviour
         if (lockSprite != null)
         {
             Color c = lockSprite.color;
-            c.a = 1; // Make sure the sprite is fully visible at the start
+            c.a = 1; 
             lockSprite.color = c;
         }
     }
@@ -46,28 +48,50 @@ public class DoorTrigger : MonoBehaviour
 
     IEnumerator OpenDoorSequence()
     {
-        // Disable the specified script
         if (scriptToDisable != null)
         {
             scriptToDisable.enabled = false;
         }
 
-        // Play the unlock sound
+        yield return StartCoroutine(PanCamera());
+        
         if (doorUnlockSound != null)
         {
             AudioSource.PlayClipAtPoint(doorUnlockSound, Camera.main.transform.position, 1.0f);
         }
 
-        // Camera shake effect
-        yield return StartCoroutine(CameraShake());
+        if (unlockEffect != null)
+        {
+            unlockEffect.Play();
+            SetRandomColorPerParticle();
+        }
 
-        // Start fading out the lock sprite
+        StartCoroutine(CameraShake());
+
         if (lockSprite != null)
         {
             StartCoroutine(FadeOutSprite());
         }
 
-        // Move the door really fast
+        StartCoroutine(MoveDoor());
+
+        yield return new WaitForSeconds(particleDuration);
+
+        if (unlockEffect != null)
+        {
+            unlockEffect.Stop();
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (scriptToDisable != null)
+        {
+            scriptToDisable.enabled = true;
+        }
+    }
+
+    IEnumerator MoveDoor()
+    {
         float startTime = Time.time;
         Vector3 startPosition = door.transform.position;
         Vector3 endPosition = moveToPosition.position;
@@ -81,19 +105,7 @@ public class DoorTrigger : MonoBehaviour
             yield return null;
         }
 
-        door.transform.position = endPosition; // Ensure the door reaches its position
-
-        // Pan the camera to the door position
-        yield return StartCoroutine(PanCamera());
-
-        // Wait 0.5 seconds before reactivating the script
-        yield return new WaitForSeconds(0.5f);
-
-        // Reactivate the previously disabled script
-        if (scriptToDisable != null)
-        {
-            scriptToDisable.enabled = true;
-        }
+        door.transform.position = endPosition; 
     }
 
     IEnumerator CameraShake()
@@ -110,7 +122,7 @@ public class DoorTrigger : MonoBehaviour
             yield return null;
         }
 
-        mainCamera.transform.position = originalPos; // Reset position
+        mainCamera.transform.position = originalPos; 
     }
 
     IEnumerator FadeOutSprite()
@@ -119,7 +131,7 @@ public class DoorTrigger : MonoBehaviour
         float alpha = 1f;
         float startTime = Time.time;
 
-        while (alpha > 0f) // Fully fade out
+        while (alpha > 0f) 
         {
             alpha = Mathf.Clamp01(1f - (Time.time - startTime) * spriteFadeSpeed);
             c.a = alpha;
@@ -128,7 +140,7 @@ public class DoorTrigger : MonoBehaviour
         }
 
         c.a = 0;
-        lockSprite.color = c; // Ensure it's completely invisible
+        lockSprite.color = c; 
     }
 
     IEnumerator PanCamera()
@@ -136,7 +148,7 @@ public class DoorTrigger : MonoBehaviour
         Vector3 startCamPos = mainCamera.transform.position;
         Vector3 endCamPos = cameraTarget.position;
         float startTime = Time.time;
-        float duration = 0.5f; // Camera pan duration
+        float duration = 0.5f; 
 
         while (Time.time - startTime < duration)
         {
@@ -145,8 +157,31 @@ public class DoorTrigger : MonoBehaviour
             yield return null;
         }
 
-        mainCamera.transform.position = endCamPos; // Ensure final position is correct
+        mainCamera.transform.position = endCamPos;
 
-        yield return new WaitForSeconds(0.5f); // Keep camera on the door for 0.5 seconds
+        yield return new WaitForSeconds(0.5f); 
+    }
+
+    void SetRandomColorPerParticle()
+    {
+        if (unlockEffect != null)
+        {
+            var main = unlockEffect.main;
+            main.startColor = GetRandomColor();
+        }
+    }
+
+    Color GetRandomColor()
+    {
+        Color[] colors = new Color[]
+        {
+            Color.white, new Color(1f, 1f, 0f), // Yellow
+            new Color(0f, 1f, 1f), // Neon Blue
+            Color.green, new Color(1f, 0f, 1f), // Neon Pink
+            Color.red, new Color(0f, 0f, 0.5f), // Dark Blue
+            Color.black
+        };
+
+        return colors[Random.Range(0, colors.Length)];
     }
 }
