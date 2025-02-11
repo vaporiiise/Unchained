@@ -19,6 +19,9 @@ TagManager:
   - Enemy
   - PlayerParry
   - Wall
+  - BossRoom
+  - Lock
+  - Door
   layers:
   - Default
   - TransparentFX
