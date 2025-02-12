@@ -13035,10 +13035,10 @@ MonoBehaviour:
   targetText: {fileID: 645824242}
   newPosition: {x: 161, y: 0, z: 0}
   fadeDuration: 0.3
-  triggerDuration: 2
+  triggerDuration: 0
   displayDuration: 60
   areaMin: {x: 2.75, y: -6.83, z: -1}
-  areaMax: {x: 4.22, y: -3.88, z: 1}
+  areaMax: {x: 4.22, y: -1, z: 1}
   gizmoColor: {r: 0, g: 1, b: 0, a: 0.25}
   popUpSound: {fileID: 8300000, guid: 1a8fa01b9577a8f4b99752ca9be898ed, type: 3}
 --- !u!4 &623451323
@@ -13582,7 +13582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1460503015627800137, guid: ea93fc4a4a8b4964e94c618f107e9bdc, type: 3}
       propertyPath: m_text
-      value: Now you are forced to use the rewind! try it and see!
+      value: Oh no! you are blocked, try and rewind!
       objectReference: {fileID: 0}
     - target: {fileID: 1460503015627800137, guid: ea93fc4a4a8b4964e94c618f107e9bdc, type: 3}
       propertyPath: m_fontColor.b
