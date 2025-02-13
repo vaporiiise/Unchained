@@ -318,7 +318,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00030517578, y: 1.1487122}
+  m_AnchoredPosition: {x: -0.00030517578, y: 1.1486816}
   m_SizeDelta: {x: -683.88, y: -379.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &88341005
@@ -5428,11 +5428,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rawImage: {fileID: 1512894913}
   uiText: {fileID: 57146316}
-  delayBeforeFadeIn: 3
   fadeInDuration: 1
   fadeOutDuration: 2
   audioSource: {fileID: 1707179888}
-  anyKey: {fileID: 8300000, guid: 06a7e24d0a0f07547be631aced38b614, type: 3}
+  clickSound: {fileID: 0}
   cameraTargetPosition: {x: 0, y: -16, z: -10}
   cameraMoveDuration: 1
   smoothTime: 0.05

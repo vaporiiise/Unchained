@@ -9,11 +9,10 @@ public class TitleScFadeOut : MonoBehaviour
 {
     public RawImage rawImage;                 
     public TextMeshProUGUI uiText;            
-    public float delayBeforeFadeIn = 1f;      
     public float fadeInDuration = 1f;         
     public float fadeOutDuration = 1f;        
     public AudioSource audioSource;           
-    public AudioClip anyKey;                  
+    public AudioClip clickSound;              
     public Vector3 cameraTargetPosition;      
     public float cameraMoveDuration = 2f;     
     public float smoothTime = 0.3f;           
@@ -44,53 +43,52 @@ public class TitleScFadeOut : MonoBehaviour
 
     private void Start()
     {
-        if (audioSource != null && audioSource.clip != null)
-        {
-            anyKey = audioSource.clip;
-        }
-
         StartCoroutine(FadeInText());
     }
 
     private void Update()
     {
-        // After fade-in is complete, wait for any key to start fade-out
-        if (fadeInComplete && Input.anyKeyDown && !isFadingOut)
+        // Wait for a mouse click to trigger the effect
+        if (fadeInComplete && Input.GetMouseButtonDown(0) && !isFadingOut)
         {
-            StartCoroutine(FadeOutElements());
+            StartCoroutine(FlashThenFadeOut());
             isFadingOut = true;
-            audioSource?.PlayOneShot(anyKey);
+            audioSource?.PlayOneShot(clickSound);
         }
     }
 
     private IEnumerator FadeInText()
     {
-        // Wait for the specified delay before starting the fade-in
-        yield return new WaitForSeconds(delayBeforeFadeIn);
-
         float elapsedTime = 0f;
         Color textColor = uiText.color;
-        textColor.a = 0f;  // Start with the text fully transparent
+        textColor.a = 0f;
         uiText.color = textColor;
 
+        // Fade in the text
         while (elapsedTime < fadeInDuration)
         {
-            float alpha = Mathf.Lerp(0f, 1f, elapsedTime / fadeInDuration);
-            textColor.a = alpha;
+            textColor.a = Mathf.Lerp(0f, 1f, elapsedTime / fadeInDuration);
             uiText.color = textColor;
-
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        // Ensure the final alpha is set to 1 (fully opaque)
         textColor.a = 1f;
         uiText.color = textColor;
-        fadeInComplete = true; // Mark fade-in as complete
+        fadeInComplete = true; // Now we can detect clicks
     }
 
-    private IEnumerator FadeOutElements()
+    private IEnumerator FlashThenFadeOut()
     {
+        // Flashing effect
+        for (int i = 0; i < 5; i++) // Flash 5 times
+        {
+            uiText.enabled = !uiText.enabled;
+            yield return new WaitForSeconds(0.15f); // Faster flashing
+        }
+        uiText.enabled = true;
+
+        // Fade out everything
         float elapsedTime = 0f;
         Color imageColor = rawImage.color;
         Color textColor = uiText.color;
@@ -99,7 +97,6 @@ public class TitleScFadeOut : MonoBehaviour
         {
             float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeOutDuration);
 
-            // Update alpha for both image and text
             imageColor.a = alpha;
             rawImage.color = imageColor;
 
@@ -110,24 +107,18 @@ public class TitleScFadeOut : MonoBehaviour
             yield return null;
         }
 
-        // Ensure the final alpha is set to 0 (fully transparent)
-        imageColor.a = 0f;
-        rawImage.color = imageColor;
+        rawImage.color = new Color(imageColor.r, imageColor.g, imageColor.b, 0f);
+        uiText.color = new Color(textColor.r, textColor.g, textColor.b, 0f);
 
-        textColor.a = 0f;
-        uiText.color = textColor;
-
-        // Start the camera movement coroutine after the fade-out completes
         StartCoroutine(MoveCameraToTarget());
     }
 
     private IEnumerator MoveCameraToTarget()
     {
         Camera mainCamera = Camera.main;
-        Vector3 velocity = Vector3.zero;  // Required by SmoothDamp to smoothly reach the target position
+        Vector3 velocity = Vector3.zero;
         float elapsedTime = 0f;
 
-        // Smoothly move the camera to the target position using SmoothDamp
         while (elapsedTime < cameraMoveDuration)
         {
             mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, cameraTargetPosition, ref velocity, smoothTime);
@@ -135,7 +126,6 @@ public class TitleScFadeOut : MonoBehaviour
             yield return null;
         }
 
-        // Ensure the camera reaches the exact target position
         mainCamera.transform.position = cameraTargetPosition;
 
         yield return MoveButtonToTarget(buttonToMove, buttonTargetXPos, buttonSmoothTime);
@@ -157,7 +147,6 @@ public class TitleScFadeOut : MonoBehaviour
             yield return null;
         }
 
-        // Ensure the button reaches the exact target position
         button.anchoredPosition = targetPos;
     }
 }

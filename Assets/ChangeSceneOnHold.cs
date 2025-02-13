@@ -7,9 +7,9 @@ public class ChangeSceneOnHold : MonoBehaviour
 {
     public Animator animator;  // Assign your Animator in the Inspector
     private bool isHoldingEsc = false;
-    private float animationTime = 0f;
     private float idleTimer = 0f;
     public float idleTimeout = 71f; // Time before auto scene change
+    private bool animationFinished = false;
 
     void Update()
     {
@@ -20,17 +20,21 @@ public class ChangeSceneOnHold : MonoBehaviour
             isHoldingEsc = true;
             idleTimer = 0f; // Reset idle timer on input
             animator.Play("HOLDCIRCLE", 0, 0); // Start animation from beginning
-            animationTime = animator.GetCurrentAnimatorStateInfo(0).length;
+            animationFinished = false; // Reset animation flag
         }
 
         if (Input.GetKeyUp(KeyCode.Escape))
         {
             isHoldingEsc = false;
             animator.Play("IdleCircle", 0, 0); // Reset animation (optional)
+            animationFinished = false; // Prevent scene transition
         }
 
-        if (isHoldingEsc && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        // Check if animation has finished playing
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        if (isHoldingEsc && stateInfo.IsName("HOLDCIRCLE") && stateInfo.normalizedTime >= 1.0f && !animationFinished)
         {
+            animationFinished = true;
             LoadNextScene();
         }
 
@@ -42,6 +46,6 @@ public class ChangeSceneOnHold : MonoBehaviour
 
     void LoadNextScene()
     {
-        SceneManager.LoadScene("Main Menu NEW"); // Replace with your actual scene name
+        SceneManager.LoadScene("MainMenu"); // Replace with your actual scene name
     }
 }
