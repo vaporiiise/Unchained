@@ -8,7 +8,7 @@ public class ChangeSceneOnHold : MonoBehaviour
     public Animator animator;  // Assign your Animator in the Inspector
     private bool isHoldingEsc = false;
     private float idleTimer = 0f;
-    public float idleTimeout = 71f; // Time before auto scene change
+    public float idleTimeout = 69f; // Time before auto scene change
     private bool animationFinished = false;
 
     void Update()

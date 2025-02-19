@@ -11,6 +11,9 @@ public class PressAnyKey : MonoBehaviour
     public AudioSource audioSource;
     public Canvas targetCanvas;
 
+    public AudioClip initialClip; // First sound effect
+    public AudioClip loopingClip; // Continuous background loop
+
     private bool isFading = false;
     private bool canActivateCanvas = false;
     private float timeSinceFirstKey = 0f;
@@ -58,12 +61,17 @@ public class PressAnyKey : MonoBehaviour
 
     IEnumerator StartGameSequence()
     {
-        if (audioSource) audioSource.PlayOneShot(audioSource.clip);
+        // Play initial sound without waiting
+        if (audioSource && initialClip)
+        {
+            audioSource.PlayOneShot(initialClip);
+            StartCoroutine(PlayLoopingMusicAfterDelay(initialClip.length)); // Start looping music after it finishes
+        }
 
+        // Immediately start animations and fade effect
         if (imageAnimator2) 
         {
             imageAnimator2.SetTrigger("PlayEffect");
-            yield return new WaitForSeconds(1f);
         }
 
         float fadeDuration = 3f;
@@ -93,5 +101,18 @@ public class PressAnyKey : MonoBehaviour
         yield return new WaitForSeconds(10f);
         canActivateCanvas = true;
         timeSinceFirstKey = 10f;
+    }
+
+    IEnumerator PlayLoopingMusicAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay); // Wait until the initialClip finishes
+
+        // Start looping background sound
+        if (audioSource && loopingClip)
+        {
+            audioSource.clip = loopingClip;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
     }
 }
