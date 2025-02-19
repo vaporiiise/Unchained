@@ -11108,7 +11108,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &552810388
 Animator:
   serializedVersion: 5
@@ -45155,27 +45155,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1897591103}
   audioSource: {fileID: 1658149170}
-  heartAnimators:
-  - {fileID: 1824577013}
-  - {fileID: 416141128}
-  - {fileID: 850340130}
-  - {fileID: 687571022}
-  - {fileID: 2423630}
-  - {fileID: 806859828}
-  - {fileID: 1226467987}
-  - {fileID: 585388208}
-  - {fileID: 1323599537}
-  - {fileID: 1728642936}
-  - {fileID: 1802002662}
-  - {fileID: 1459049344}
-  - {fileID: 46493706}
-  - {fileID: 1809643011}
   maxHealth: 160
   warningHealth: 100
   criticalHealth: 50
-  normalSpeed: 0.3
-  warningSpeed: 0.5
-  criticalSpeed: 1.5
   slowHeartbeatClip: {fileID: 8300000, guid: 78621bab28afac049b476e3c4f9b7c07, type: 3}
   fastHeartbeatClip: {fileID: 8300000, guid: 9079f878a1be3e045982b87e03827587, type: 3}
 --- !u!4 &1411257923
@@ -54905,8 +54887,6 @@ GameObject:
   - component: {fileID: 1897591104}
   - component: {fileID: 1897591103}
   - component: {fileID: 1897591105}
-  - component: {fileID: 1897591106}
-  - component: {fileID: 1897591107}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -54954,30 +54934,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a4723aaa21bc994fbe6e9b0bad7c8a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1897591106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1897591102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e72563049d22382468ed58d7bb252791, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1897591107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1897591102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bd0d73d93ac7dd489194af8474ab1be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1897929048

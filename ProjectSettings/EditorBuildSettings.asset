@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/RestartHalls.unity
     guid: 9c12b033df7678f4fb194f265f5b6739
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Inner Halls.unity
     guid: 7a10b72488158614183a72cf31412cae
   - enabled: 0
