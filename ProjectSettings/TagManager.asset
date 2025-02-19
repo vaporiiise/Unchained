@@ -22,6 +22,7 @@ TagManager:
   - BossRoom
   - Lock
   - Door
+  - Dialogue
   layers:
   - Default
   - TransparentFX
