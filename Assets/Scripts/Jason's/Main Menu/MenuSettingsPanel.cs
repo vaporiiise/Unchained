@@ -17,12 +17,6 @@ public class MenuSettingsPanel : MonoBehaviour
 
     private void Start()
     {
-        // Ensure settings panel is hidden at the start
-        if (settingsPanel != null)
-        {
-            settingsPanel.SetActive(false);
-        }
-
         // Load saved volume settings
         float savedVolume = PlayerPrefs.GetFloat(VolumeKey, 1f);
         float savedSfxVolume = PlayerPrefs.GetFloat(SfxVolumeKey, 1f);
