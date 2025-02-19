@@ -417,6 +417,8 @@ MonoBehaviour:
   imageAnimator2: {fileID: 415891972}
   audioSource: {fileID: 71024524}
   targetCanvas: {fileID: 944781048}
+  initialClip: {fileID: 8300000, guid: 0a8590569a3306c43a6d46905c661841, type: 3}
+  loopingClip: {fileID: 8300000, guid: 940060f16ed20f04abbd032a9e6351de, type: 3}
 --- !u!1 &179137394
 GameObject:
   m_ObjectHideFlags: 0
