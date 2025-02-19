@@ -4,25 +4,25 @@ using UnityEngine;
 public class DoorUnlockEffect : MonoBehaviour
 {
     [Header("References")]
-    public Transform player; // Assign the player
-    public Transform objectToMove; // Object that moves
-    public float moveYDistance = 2f; // How much the object moves in Y
-    public GameObject fadeOutObject; // The object to fade out (sprite)
-    public float fadeDuration = 1f; // Fade-out duration
+    public Transform player; 
+    public Transform objectToMove; 
+    public float moveYDistance = 2f; 
+    public GameObject fadeOutObject; 
+    public float fadeDuration = 1f; 
 
     
     [Header("Effects")]
-    public ParticleSystem effectPrefab; // The particle effect
-    public Transform effectSpawnPoint; // Where to spawn the particle effect
-    public AudioSource soundEffect; // Sound effect to play
+    public ParticleSystem effectPrefab; 
+    public Transform effectSpawnPoint; 
+    public AudioSource soundEffect; 
 
     [Header("Screen Shake Settings")]
-    public float shakeDuration = 0.2f; // How long the shake lasts
-    public float shakeIntensity = 0.1f; // How intense the shake is
+    public float shakeDuration = 0.2f; 
+    public float shakeIntensity = 0.1f;
 
     [Header("Trigger Settings")]
-    public Vector2 triggerAreaCenter; // Center of the trigger area
-    public float triggerRadius = 2f; // Radius of the trigger area
+    public Vector2 triggerAreaCenter; 
+    public float triggerRadius = 2f; 
 
     private bool effectTriggered = false;
 
@@ -30,7 +30,6 @@ public class DoorUnlockEffect : MonoBehaviour
     {
         if (effectTriggered) return;
 
-        // Check if player is inside the area
         if (Vector2.Distance(player.position, triggerAreaCenter) <= triggerRadius)
         {
             effectTriggered = true;
@@ -40,25 +39,20 @@ public class DoorUnlockEffect : MonoBehaviour
 
     void StartEffect()
     {
-        // Move the object upwards (only Y movement)
         objectToMove.position += new Vector3(0, moveYDistance, 0);
 
-        // Start fade-out effect
         StartCoroutine(FadeOutObject());
 
-        // Play sound effect
         if (soundEffect != null)
         {
             soundEffect.Play();
         }
 
-        // Spawn and play the particle effect at a custom position
         if (effectPrefab != null && effectSpawnPoint != null)
         {
             ParticleSystem newEffect = Instantiate(effectPrefab, effectSpawnPoint.position, Quaternion.identity);
             newEffect.Play();
             
-            // Start screen shake when particle effect plays
             StartCoroutine(ScreenShake());
         }
     }
@@ -100,7 +94,7 @@ public class DoorUnlockEffect : MonoBehaviour
             yield return null;
         }
 
-        mainCam.transform.position = originalPos; // Reset camera position
+        mainCam.transform.position = originalPos; 
     }
 
     private void OnDrawGizmos()
