@@ -14,7 +14,9 @@ public class TriggerDialogue : MonoBehaviour
     private float timeInArea = 0f;
     public float triggerDuration = 5f;
     public DialogueSystem dialogueSystem;
-    
+
+    [Header("Script Control")]
+    public MonoBehaviour scriptToDisable; // Assign the script to disable when dialogue is active
 
     void Update()
     {
@@ -34,7 +36,6 @@ public class TriggerDialogue : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 StartDialogue();
-
             }
         }
         else
@@ -44,6 +45,12 @@ public class TriggerDialogue : MonoBehaviour
                 playerInArea = false;
                 timeInArea = 0f;
             }
+        }
+
+        // Disable script while dialogue is active
+        if (scriptToDisable != null && dialogueSystem != null)
+        {
+            scriptToDisable.enabled = !dialogueSystem.IsDialogueActive();
         }
     }
 
@@ -71,7 +78,7 @@ public class TriggerDialogue : MonoBehaviour
         {
             if (dialogueSystem.IsDialogueActive()) 
             {
-                dialogueSystem.NextLine(); // Go to next line
+                dialogueSystem.NextLine(); // Go to the next line
             }
             else
             {

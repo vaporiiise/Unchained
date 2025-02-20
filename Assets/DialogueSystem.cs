@@ -14,9 +14,12 @@ public class DialogueSystem : MonoBehaviour
     [SerializeField] private float textSpeed = 0.05f;
 
     [Header("Audio Settings")]
-    [SerializeField] private AudioClip typingSound;  // 🎵 Typing sound effect
-    [SerializeField] private AudioSource audioSource; // 🔊 Audio source for playing sound
-    [SerializeField] private float fadeOutDuration = 0.3f; // ⏳ Smooth fade-out time
+    [SerializeField] private AudioClip typingSound;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private float fadeOutDuration = 0.3f;
+
+    [Header("Script to Disable")]
+    [SerializeField] private MonoBehaviour scriptToDisable; // 🔹 Script to disable when dialogue is active
 
     private int currentLineIndex = 0;
     private bool isDialogueActive = false;
@@ -28,12 +31,19 @@ public class DialogueSystem : MonoBehaviour
     {
         dialogueBox.SetActive(false);
 
-        // If no AudioSource is assigned, add one dynamically
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
             audioSource.playOnAwake = false;
-            audioSource.loop = false; // We'll manually restart it when needed
+            audioSource.loop = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (isDialogueActive && Input.GetKeyDown(KeyCode.Space)) 
+        {
+            NextLine();
         }
     }
 
@@ -44,9 +54,15 @@ public class DialogueSystem : MonoBehaviour
         dialogueBox.SetActive(true);
         currentLineIndex = 0;
         isDialogueActive = true;
+
+        // 🔹 Disable the assigned script
+        if (scriptToDisable != null)
+        {
+            scriptToDisable.enabled = false;
+        }
+
         StartTypingCurrentLine();
         BossMusicManager.Instance.OnDialogueStart();
-
     }
 
     private void StartTypingCurrentLine()
@@ -85,9 +101,9 @@ public class DialogueSystem : MonoBehaviour
             if (typingSound != null && audioSource != null)
             {
                 audioSource.clip = typingSound;
-                audioSource.volume = 1f; // Ensure full volume before playing
+                audioSource.volume = 1f;
                 audioSource.Play();
-                yield return new WaitForSeconds(typingSound.length); // Wait for the sound to finish
+                yield return new WaitForSeconds(typingSound.length);
             }
         }
     }
@@ -121,7 +137,6 @@ public class DialogueSystem : MonoBehaviour
     {
         if (isTyping) 
         {
-            // Instantly show full text if player presses "E" while typing
             StopCoroutine(typingCoroutine);
             dialogueText.text = dialogueLines[currentLineIndex];
             isTyping = false;
@@ -145,9 +160,15 @@ public class DialogueSystem : MonoBehaviour
     {
         dialogueBox.SetActive(false);
         isDialogueActive = false;
+
+        // 🔹 Re-enable the assigned script
+        if (scriptToDisable != null)
+        {
+            scriptToDisable.enabled = true;
+        }
+
         StartCoroutine(FadeOutAudio());
         BossMusicManager.Instance.OnDialogueEnd();
-
     }
 
     public bool IsDialogueActive()

@@ -1,95 +1,200 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BossDoorTrigger : MonoBehaviour
 {
-    public Transform box1;
-    public Transform box2;
-    public Transform targetPosition1;
-    public Transform targetPosition2;
+    [Header("Puzzle Settings")]
+    public List<Transform> boxes = new List<Transform>();
+    public List<Transform> targetPositions = new List<Transform>();
+    public float threshold = 0.5f;
+
+    [Header("Door Settings")]
     public GameObject door;
     public SpriteRenderer lockSprite;
-    public float threshold = 0.5f;
-    public AudioClip doorUnlockSound;
-    public MonoBehaviour scriptToDisable;
     public Transform moveToPosition;
     public float moveSpeed = 20f;
+
+    [Header("Effects & Audio")]
+    public AudioClip doorUnlockSound;
+    public ParticleSystem unlockEffect;
+    public float particleDuration = 1.5f;
+    public AudioClip tickSound;
+
+    [Header("Camera Settings")]
     public Camera mainCamera;
     public Transform cameraTarget;
-    public float cameraPanSpeed = 5f;
     public float shakeDuration = 0.2f;
     public float shakeIntensity = 0.2f;
     public float spriteFadeSpeed = 1.5f;
-    public ParticleSystem unlockEffect; 
-    public float particleDuration = 1.5f; 
 
+    [Header("Dialogue & Timer")]
+    public DialogueSystem dialogueSystem;
+    public TMP_Text timerText;
+    public float timeLimit = 10f;
+    private float timer;
+    private bool timerRunning = false;
+    private bool timeExpired = false;
     private bool doorOpened = false;
+    public RectTransform timerBox;
 
-    void Start()
+    [Header("Other Settings")]
+    public MonoBehaviour scriptToDisable;
+    public Transform playerTriggerZone;
+
+    private void Start()
     {
+        timerText.gameObject.SetActive(false);
+        timer = timeLimit;
+
         if (lockSprite != null)
         {
             Color c = lockSprite.color;
-            c.a = 1; 
+            c.a = 1;
             lockSprite.color = c;
         }
     }
 
-    void Update()
+    private void Update()
     {
-        if (Vector2.Distance(box1.position, targetPosition1.position) < threshold &&
-            Vector2.Distance(box2.position, targetPosition2.position) < threshold && !doorOpened)
+        if (timerRunning)
         {
+            if (timer > 0)
+            {
+                timer -= Time.deltaTime;
+                timerText.text = $"{timer:F2}";
+            }
+            else if (!timeExpired)
+            {
+                timeExpired = true;
+                timer = 0;
+                timerText.text = "00.00";
+                Debug.Log("Player is SLOW!");
+            }
+
+            ShakeAndRotateTimer();
+        }
+
+        if (!doorOpened && AreAllBoxesInPosition())
+        {
+            if (!timeExpired) // Player succeeded before time expired
+            {
+                StopTimer();
+                Debug.Log("Player wins!");
+            }
+            else
+            {
+                Debug.Log("Player is SLOW!");
+            }
+
             doorOpened = true;
             StartCoroutine(OpenDoorSequence());
         }
     }
 
-    IEnumerator OpenDoorSequence()
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!timerRunning && other.CompareTag("Player"))
+        {
+            StartTimer();
+        }
+    }
+
+    private void StartTimer()
+    {
+        timerText.gameObject.SetActive(true);
+        timerRunning = true;
+        StartCoroutine(PlayTickSound());
+    }
+
+    private void StopTimer()
+    {
+        timerRunning = false;
+        StopAllCoroutines(); // Stops ticking sound
+        timerText.gameObject.SetActive(false); // Hide timer UI
+    }
+
+    private IEnumerator PlayTickSound()
+    {
+        while (timerRunning && timer > 0)
+        {
+            if (tickSound != null)
+                AudioSource.PlayClipAtPoint(tickSound, transform.position, 1.0f);
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
+    private void ShakeAndRotateTimer()
+    {
+        float shakeAmount = 0.3f;
+        float rotationAmount = 0.4f;
+
+        Vector3 minBounds = timerBox.position - (Vector3)timerBox.rect.size / 2;
+        Vector3 maxBounds = timerBox.position + (Vector3)timerBox.rect.size / 2;
+
+        Vector3 newPos = timerText.transform.position + (Vector3)Random.insideUnitCircle * shakeAmount;
+        newPos.x = Mathf.Clamp(newPos.x, minBounds.x, maxBounds.x);
+        newPos.y = Mathf.Clamp(newPos.y, minBounds.y, maxBounds.y);
+
+        timerText.transform.position = newPos;
+        timerText.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-rotationAmount, rotationAmount));
+    }
+
+    private bool AreAllBoxesInPosition()
+    {
+        if (boxes.Count != targetPositions.Count)
+        {
+            Debug.LogWarning("Mismatch between the number of boxes and target positions!");
+            return false;
+        }
+
+        for (int i = 0; i < boxes.Count; i++)
+        {
+            if (Vector2.Distance(boxes[i].position, targetPositions[i].position) >= threshold)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private IEnumerator OpenDoorSequence()
     {
         if (scriptToDisable != null)
-        {
             scriptToDisable.enabled = false;
-        }
 
         yield return StartCoroutine(PanCamera());
-        
+
         if (doorUnlockSound != null)
-        {
             AudioSource.PlayClipAtPoint(doorUnlockSound, Camera.main.transform.position, 1.0f);
-        }
 
         if (unlockEffect != null)
-        {
             unlockEffect.Play();
-        }
 
         StartCoroutine(CameraShake());
 
         if (lockSprite != null)
-        {
             StartCoroutine(FadeOutSprite());
-        }
 
         StartCoroutine(MoveDoor());
 
         yield return new WaitForSeconds(particleDuration);
 
         if (unlockEffect != null)
-        {
             unlockEffect.Stop();
-        }
 
         yield return new WaitForSeconds(0.5f);
 
         if (scriptToDisable != null)
-        {
             scriptToDisable.enabled = true;
-        }
+
+        timerText.gameObject.SetActive(false);
+
+        StartDialogue();
     }
 
-    IEnumerator MoveDoor()
+    private IEnumerator MoveDoor()
     {
         float startTime = Time.time;
         Vector3 startPosition = door.transform.position;
@@ -104,10 +209,10 @@ public class BossDoorTrigger : MonoBehaviour
             yield return null;
         }
 
-        door.transform.position = endPosition; 
+        door.transform.position = endPosition;
     }
 
-    IEnumerator CameraShake()
+    private IEnumerator CameraShake()
     {
         Vector3 originalPos = mainCamera.transform.position;
         float elapsed = 0f;
@@ -121,16 +226,16 @@ public class BossDoorTrigger : MonoBehaviour
             yield return null;
         }
 
-        mainCamera.transform.position = originalPos; 
+        mainCamera.transform.position = originalPos;
     }
 
-    IEnumerator FadeOutSprite()
+    private IEnumerator FadeOutSprite()
     {
         Color c = lockSprite.color;
         float alpha = 1f;
         float startTime = Time.time;
 
-        while (alpha > 0f) 
+        while (alpha > 0f)
         {
             alpha = Mathf.Clamp01(1f - (Time.time - startTime) * spriteFadeSpeed);
             c.a = alpha;
@@ -139,15 +244,15 @@ public class BossDoorTrigger : MonoBehaviour
         }
 
         c.a = 0;
-        lockSprite.color = c; 
+        lockSprite.color = c;
     }
 
-    IEnumerator PanCamera()
+    private IEnumerator PanCamera()
     {
         Vector3 startCamPos = mainCamera.transform.position;
         Vector3 endCamPos = cameraTarget.position;
         float startTime = Time.time;
-        float duration = 0.5f; 
+        float duration = 0.5f;
 
         while (Time.time - startTime < duration)
         {
@@ -157,9 +262,12 @@ public class BossDoorTrigger : MonoBehaviour
         }
 
         mainCamera.transform.position = endCamPos;
-
-        yield return new WaitForSeconds(0.5f); 
+        yield return new WaitForSeconds(0.5f);
     }
 
-    
+    private void StartDialogue()
+    {
+        if (dialogueSystem != null)
+            dialogueSystem.BeginDialogue();
+    }
 }
