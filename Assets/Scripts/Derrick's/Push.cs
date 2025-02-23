@@ -6,11 +6,13 @@ public class Push : MonoBehaviour
 {
     private GameObject[] Obstacles;
     private GameObject[] ObjToPush;
+    private GameObject[] BoxWalls;
     // Start is called before the first frame update
     void Start()
     {
         Obstacles = GameObject.FindGameObjectsWithTag("Obstacles");
         ObjToPush = GameObject.FindGameObjectsWithTag("ObjToPush");
+        BoxWalls = GameObject.FindGameObjectsWithTag("ObjToBlock");
     }
 
     // Update is called once per frame
@@ -42,15 +44,25 @@ public class Push : MonoBehaviour
             {
                 return true;
             }
+        }
 
-            foreach (var objToPush in ObjToPush)
+        foreach (var objToPush in ObjToPush)
+        {
+            if (objToPush.transform.position.x == newpos.x && objToPush.transform.position.y == newpos.y)
             {
-                if (objToPush.transform.position.x == newpos.x && objToPush.transform.position.y == newpos.y)
-                {
-                    return true;
-                }
+                return true;
             }
         }
+
+        // Check if the new position has a BoxWall
+        foreach (var wall in BoxWalls)
+        {
+            if (wall.transform.position.x == newpos.x && wall.transform.position.y == newpos.y)
+            {
+                return true; // Box cannot move into walls
+            }
+        }
+
         return false;
     }
 }

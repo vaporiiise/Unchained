@@ -23,6 +23,7 @@ TagManager:
   - Lock
   - Door
   - Dialogue
+  - ObjToBlock
   layers:
   - Default
   - TransparentFX
@@ -62,4 +63,7 @@ TagManager:
     locked: 0
   - name: Armour
     uniqueID: 1771557779
+    locked: 0
+  - name: FadeArea
+    uniqueID: 3145981867
     locked: 0

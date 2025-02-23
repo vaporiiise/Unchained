@@ -100,21 +100,30 @@ public class Tilemovement : MonoBehaviour
             {
                 return true;
             }
+        }
 
-            foreach (var objToPush in ObjToPush)
+        foreach (var objToPush in ObjToPush)
+        {
+            if (objToPush.transform.position.x == newpos.x && objToPush.transform.position.y == newpos.y)
             {
-                if (objToPush.transform.position.x == newpos.x && objToPush.transform.position.y == newpos.y)
+                Push objPush = objToPush.GetComponent<Push>();
+                if (objPush && objPush.Move(direction))
                 {
-                    Push objPush = objToPush.GetComponent<Push>();
-                    if (objToPush && objPush.Move(direction))
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
+                    return false;
                 }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        // Allow player to move through BoxWalls unless pushing a box
+        foreach (var wall in GameObject.FindGameObjectsWithTag("ObjToBlock"))
+        {
+            if (wall.transform.position.x == newpos.x && wall.transform.position.y == newpos.y)
+            {
+                return false; // Player can pass through walls
             }
         }
 
