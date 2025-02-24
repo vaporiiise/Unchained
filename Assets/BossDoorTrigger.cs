@@ -42,12 +42,14 @@ public class BossDoorTrigger : MonoBehaviour
     [Header("Other Settings")]
     public MonoBehaviour scriptToDisable;
     public Transform playerTriggerZone;
+    private bool triggerActivated = false;
 
     private void Start()
     {
+        triggerActivated = false; // Ensures it's always reset when the scene reloads
         timerText.gameObject.SetActive(false);
         timer = timeLimit;
-
+    
         if (lockSprite != null)
         {
             Color c = lockSprite.color;
@@ -95,10 +97,11 @@ public class BossDoorTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!timerRunning && other.CompareTag("Player"))
-        {
-            StartTimer();
-        }
+        if (triggerActivated || !other.CompareTag("Player"))
+            return;
+    
+        StartTimer();  // Start the timer first
+        triggerActivated = true; // Now prevent re-triggering
     }
 
     private void StartTimer()
