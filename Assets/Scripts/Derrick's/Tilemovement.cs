@@ -29,38 +29,34 @@ public class Tilemovement : MonoBehaviour
 
     void Update()
     {
-
-        if (!PauseMenu.GameIsPaused)
+        if (PauseMenu.GameIsPaused || FindObjectOfType<DialogueSystem>().IsDialogueActive())
         {
+            Debug.Log("Game is paused or dialogue is active");
+            return; 
+        }
 
-            Vector2 moveinput = new Vector2(
-                Input.GetAxisRaw("Horizontal"),
-                Input.GetAxisRaw("Vertical")
-            );
-            moveinput.Normalize();
+        Vector2 moveinput = new Vector2(
+            Input.GetAxisRaw("Horizontal"),
+            Input.GetAxisRaw("Vertical")
+        );
+        moveinput.Normalize();
 
-            if (moveinput.sqrMagnitude > 0.5)
+        if (moveinput.sqrMagnitude > 0.5)
+        {
+            if (ReadyToMove)
             {
-                if (ReadyToMove)
+                ReadyToMove = false;
+
+                if (Move(moveinput))
                 {
-                    ReadyToMove = false;
-
-                    if (Move(moveinput))
-                    {
-                        PlayMoveSound();
-                    }
+                    PlayMoveSound();
                 }
-            }
-            else
-            {
-                ReadyToMove = true;
             }
         }
         else
-            Debug.Log("game is paused");
-        
-        
-
+        {
+            ReadyToMove = true;
+        }
     }
 
     public bool Move(Vector2 direction)

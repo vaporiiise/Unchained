@@ -43,9 +43,12 @@ public class BossDoorTrigger : MonoBehaviour
     public MonoBehaviour scriptToDisable;
     public Transform playerTriggerZone;
     private bool triggerActivated = false;
+    public int damage = 25;
+    private bossHealth bossHealth;
 
     private void Start()
     {
+        bossHealth = FindObjectOfType<bossHealth>();
         triggerActivated = false; // Ensures it's always reset when the scene reloads
         timerText.gameObject.SetActive(false);
         timer = timeLimit;
@@ -84,6 +87,7 @@ public class BossDoorTrigger : MonoBehaviour
             {
                 StopTimer();
                 Debug.Log("Player wins!");
+                if (bossHealth != null) bossHealth.TakeDamage(damage);
             }
             else
             {
@@ -176,6 +180,7 @@ public class BossDoorTrigger : MonoBehaviour
             unlockEffect.Play();
 
         StartCoroutine(CameraShake());
+        StartDialogue();
 
         if (lockSprite != null)
             StartCoroutine(FadeOutSprite());
@@ -194,7 +199,6 @@ public class BossDoorTrigger : MonoBehaviour
 
         timerText.gameObject.SetActive(false);
 
-        StartDialogue();
     }
 
     private IEnumerator MoveDoor()

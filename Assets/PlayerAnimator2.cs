@@ -22,9 +22,9 @@ public class PlayerAnimator2 : MonoBehaviour
         bool isMovingRight = horizontal > 0.1f;
 
         anim.SetBool("PlayerUp", isMovingUp);
-        anim.SetBool("moveDown", isMovingDown);
-        anim.SetBool("moveLeft", isMovingLeft);
-        anim.SetBool("moveRight", isMovingRight);
+        anim.SetBool("PlayerDown", isMovingDown);
+        anim.SetBool("PlayerLeft", isMovingLeft);
+        anim.SetBool("PlayerRight", isMovingRight);
     }
 
 

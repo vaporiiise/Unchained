@@ -19,13 +19,15 @@ public class DialogueSystem : MonoBehaviour
     [SerializeField] private float fadeOutDuration = 0.3f;
 
     [Header("Script to Disable")]
-    [SerializeField] private MonoBehaviour scriptToDisable; // 🔹 Script to disable when dialogue is active
+    [SerializeField] private Tilemovement scriptToDisable; // 🔹 Script to disable when dialogue is active
 
     private int currentLineIndex = 0;
     private bool isDialogueActive = false;
     private bool isTyping = false;
     private Coroutine typingCoroutine;
     private Coroutine fadeOutCoroutine;
+    
+
     
     private void Start()
     {
@@ -45,6 +47,10 @@ public class DialogueSystem : MonoBehaviour
         {
             NextLine();
         }
+        if (scriptToDisable != null)
+        {
+            scriptToDisable.enabled = !isDialogueActive;
+        }
     }
 
     public void BeginDialogue()
@@ -55,11 +61,7 @@ public class DialogueSystem : MonoBehaviour
         currentLineIndex = 0;
         isDialogueActive = true;
 
-        // 🔹 Disable the assigned script
-        if (scriptToDisable != null)
-        {
-            scriptToDisable.enabled = false;
-        }
+        
 
         StartTypingCurrentLine();
         BossMusicManager.Instance.OnDialogueStart();
@@ -161,11 +163,7 @@ public class DialogueSystem : MonoBehaviour
         dialogueBox.SetActive(false);
         isDialogueActive = false;
 
-        // 🔹 Re-enable the assigned script
-        if (scriptToDisable != null)
-        {
-            scriptToDisable.enabled = true;
-        }
+        GameManager2.ResumeGame(); // Unfreeze player input
 
         StartCoroutine(FadeOutAudio());
         BossMusicManager.Instance.OnDialogueEnd();

@@ -6,7 +6,7 @@ public class GridBoxSpawner : MonoBehaviour
 {
     public GameObject positionAreaPrefab;
     public GameObject particleEffectPrefab;
-    public string targetTag = "ObjToPush"; // The tag of objects that trigger a new position spawn
+    public string targetTag = "ObjToPush"; 
 
     public Vector2 gridSize = new Vector2(5, 5);
     public Vector3 gridOffset = Vector3.zero;
@@ -15,34 +15,46 @@ public class GridBoxSpawner : MonoBehaviour
 
     private GameObject positionArea;
     private Vector3 targetPosition;
+    public int damage = 25;
+    private bossHealth bossHealth;
+    private bool hasTakenDamage = false;
+    private bool isHandlingPosition = false;
 
     void Start()
     {
+        bossHealth = FindObjectOfType<bossHealth>();
+
         SpawnPositionArea();
     }
 
     void Update()
     {
-        if (AnyTaggedObjectInTargetPosition())
+        if (positionArea != null && AnyTaggedObjectInTargetPosition())
         {
-            StartCoroutine(HandlePositionReached());
+            if (!isHandlingPosition) 
+            {
+                StartCoroutine(HandlePositionReached());
+            }
         }
     }
 
     IEnumerator HandlePositionReached()
     {
-        // Play particle effect at position area before destroying it
-        GameObject effect = Instantiate(particleEffectPrefab, targetPosition, Quaternion.identity);
-        yield return new WaitForSeconds(effectDuration); // Wait for effect to finish
+        if (isHandlingPosition) yield break; 
+        isHandlingPosition = true;
 
-        // Destroy the position area and particle effect
+        GameObject effect = Instantiate(particleEffectPrefab, targetPosition, Quaternion.identity);
+    
+        bossHealth.TakeDamage(damage); 
+    
+        yield return new WaitForSeconds(effectDuration);
+
         Destroy(positionArea);
         Destroy(effect);
 
-        // Immediately spawn a new position area
+        isHandlingPosition = false; 
         SpawnPositionArea();
     }
-
     void SpawnPositionArea()
     {
         targetPosition = GetRandomPositionInGridCell();
@@ -57,6 +69,7 @@ public class GridBoxSpawner : MonoBehaviour
         {
             if (Vector3.Distance(obj.transform.position, targetPosition) < 0.1f)
             {
+
                 return true;
             }
         }
@@ -68,7 +81,6 @@ public class GridBoxSpawner : MonoBehaviour
         int x = Random.Range(0, (int)gridSize.x);
         int y = Random.Range(0, (int)gridSize.y);
 
-        // Center the position area in the middle of the selected grid cell
         float centerX = (x + 0.5f) * gridCellSize;
         float centerY = (y + 0.5f) * gridCellSize;
 
