@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8f85e9df9eac81d468cd50308bc1b732
+guid: 5039004bca48ab84785d52b86fd8611d
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,7 +121,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: IRLObjToPush
+  - name: PressureTilings
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -130,9 +130,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 64
-      height: 58
-    spriteID: 33aa6a3414352934380aad69f2051e12
+      width: 32
+      height: 32
+    spriteID: 4b66e5e8597da6245a6c0b0caae2a378
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,86 +141,28 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: IRLObjToPush_Frame_1
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 70
-      width: 64
-      height: 58
-    spriteID: b3859b0701649b6498b0ff4822589176
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 70}
-  - name: IRLObjToPush_Frame_2
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 136
-      width: 64
-      height: 58
-    spriteID: bd0454eb4b9276143bc2acfb63280d0f
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 136}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1502241233
-    name: IRLObjToPush
+    guid: 1980979575
+    name: PressureTilings
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: IRLObjToPush_Frame_0
+    - name: PressureTilings
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
-        width: 64
-        height: 58
-      spriteId: 33aa6a3414352934380aad69f2051e12
-    - name: IRLObjToPush_Frame_1
-      frameIndex: 1
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 64
-        height: 58
-      spriteId: b3859b0701649b6498b0ff4822589176
-    - name: IRLObjToPush_Frame_2
-      frameIndex: 2
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 64
-        height: 58
-      spriteId: bd0454eb4b9276143bc2acfb63280d0f
+        width: 32
+        height: 32
+      spriteId: 4b66e5e8597da6245a6c0b0caae2a378
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 64, y: 58}
+  canvasSize: {x: 32, y: 32}

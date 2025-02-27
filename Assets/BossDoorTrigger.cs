@@ -45,6 +45,7 @@ public class BossDoorTrigger : MonoBehaviour
     private bool triggerActivated = false;
     public int damage = 25;
     private bossHealth bossHealth;
+    public List<GameObject> staticCharge;
 
     private void Start()
     {
@@ -76,6 +77,10 @@ public class BossDoorTrigger : MonoBehaviour
                 timer = 0;
                 timerText.text = "00.00";
                 Debug.Log("Player is SLOW!");
+                foreach (GameObject obj in staticCharge)
+                {
+                    obj.SetActive(false);
+                }
             }
 
             ShakeAndRotateTimer();
@@ -83,8 +88,12 @@ public class BossDoorTrigger : MonoBehaviour
 
         if (!doorOpened && AreAllBoxesInPosition())
         {
-            if (!timeExpired) // Player succeeded before time expired
+            if (!timeExpired) 
             {
+                foreach (GameObject obj in staticCharge)
+                {
+                    obj.SetActive(false);
+                }
                 StopTimer();
                 Debug.Log("Player wins!");
                 if (bossHealth != null) bossHealth.TakeDamage(damage);
@@ -92,6 +101,7 @@ public class BossDoorTrigger : MonoBehaviour
             else
             {
                 Debug.Log("Player is SLOW!");
+                
             }
 
             doorOpened = true;

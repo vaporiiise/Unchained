@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8f85e9df9eac81d468cd50308bc1b732
+guid: 9e08624140430c240b7401efb50aa9e3
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,9 +121,49 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: IRLObjToPush
+  - name: IRLObjToPushStaticCharge_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: -0.17948718}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 55
+      width: 64
+      height: 39
+    spriteID: d9f395c849476b24181d7244c94d031f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 55}
+  - name: IRLObjToPushStaticCharge_Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: -0.17948718}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 102
+      width: 64
+      height: 39
+    spriteID: 2f35916a2f3741d4581dff20c3e67a43
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 102}
+  - name: IRLObjToPushStaticCharge_Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: -0.1627907}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -131,8 +171,8 @@ ScriptedImporter:
       x: 4
       y: 4
       width: 64
-      height: 58
-    spriteID: 33aa6a3414352934380aad69f2051e12
+      height: 43
+    spriteID: cd43ceb845340cb40ad088f305eecb8b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,82 +181,42 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: IRLObjToPush_Frame_1
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 70
-      width: 64
-      height: 58
-    spriteID: b3859b0701649b6498b0ff4822589176
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 70}
-  - name: IRLObjToPush_Frame_2
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 136
-      width: 64
-      height: 58
-    spriteID: bd0454eb4b9276143bc2acfb63280d0f
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 136}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1502241233
-    name: IRLObjToPush
+    guid: 595658795
+    name: IRLObjToPushStaticCharge
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: IRLObjToPush_Frame_0
+    - name: IRLObjToPushStaticCharge_Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
         x: 0
-        y: 0
+        y: 7
         width: 64
-        height: 58
-      spriteId: 33aa6a3414352934380aad69f2051e12
-    - name: IRLObjToPush_Frame_1
+        height: 39
+      spriteId: d9f395c849476b24181d7244c94d031f
+    - name: IRLObjToPushStaticCharge_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
         x: 0
-        y: 0
+        y: 7
         width: 64
-        height: 58
-      spriteId: b3859b0701649b6498b0ff4822589176
-    - name: IRLObjToPush_Frame_2
+        height: 39
+      spriteId: 2f35916a2f3741d4581dff20c3e67a43
+    - name: IRLObjToPushStaticCharge_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
         x: 0
-        y: 0
+        y: 7
         width: 64
-        height: 58
-      spriteId: bd0454eb4b9276143bc2acfb63280d0f
+        height: 43
+      spriteId: cd43ceb845340cb40ad088f305eecb8b
     linkedCells: []
     parentIndex: -1
   platformSettings: []
