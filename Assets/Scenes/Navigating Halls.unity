@@ -45153,11 +45153,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa13b5f6f2031b44a9f1b45567db30c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1897591103}
   audioSource: {fileID: 1658149170}
-  maxHealth: 160
-  warningHealth: 100
-  criticalHealth: 50
+  warningHealth: 80
+  criticalHealth: 40
+  heartbeatVolume: 1
+  slowHeartbeatSpeed: 1
+  fastHeartbeatSpeed: 1
   slowHeartbeatClip: {fileID: 8300000, guid: 78621bab28afac049b476e3c4f9b7c07, type: 3}
   fastHeartbeatClip: {fileID: 8300000, guid: 9079f878a1be3e045982b87e03827587, type: 3}
 --- !u!4 &1411257923
@@ -58475,7 +58476,7 @@ Canvas:
   m_GameObject: {fileID: 2133761031}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1779893150}
   m_PlaneDistance: 100
   m_PixelPerfect: 1
@@ -60488,6 +60489,7 @@ SceneRoots:
   - {fileID: 1779893151}
   - {fileID: 1897591104}
   - {fileID: 1411257923}
+  - {fileID: 1658149171}
   - {fileID: 2133761035}
   - {fileID: 1229067450}
   - {fileID: 763582016}
@@ -60496,7 +60498,6 @@ SceneRoots:
   - {fileID: 751280577}
   - {fileID: 2143392310}
   - {fileID: 1892456603}
-  - {fileID: 1658149171}
   - {fileID: 644838089}
   - {fileID: 326945288}
   - {fileID: 1006302267}
