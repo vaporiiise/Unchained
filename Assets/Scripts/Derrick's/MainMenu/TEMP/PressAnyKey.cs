@@ -16,6 +16,7 @@ public class PressAnyKey : MonoBehaviour
 
     private bool isFading = false;
     private bool canActivateCanvas = false;
+    private bool inputDisabled = false;
     private float timeSinceFirstKey = 0f;
 
     void Start()
@@ -27,9 +28,10 @@ public class PressAnyKey : MonoBehaviour
 
     void Update()
     {
-        if (!isFading && Input.anyKeyDown)
+        if (!isFading && !inputDisabled && Input.anyKeyDown)
         {
             isFading = true;
+            inputDisabled = true; // Disable input after key press
             StartCoroutine(StartGameSequence());
         }
 
@@ -101,6 +103,11 @@ public class PressAnyKey : MonoBehaviour
         yield return new WaitForSeconds(10f);
         canActivateCanvas = true;
         timeSinceFirstKey = 10f;
+        
+        inputDisabled = false; // Re-enable input after fade-out
+        
+        // Disable this GameObject
+        gameObject.SetActive(false);
     }
 
     IEnumerator PlayLoopingMusicAfterDelay(float delay)
