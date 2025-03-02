@@ -46,6 +46,9 @@ public class BossDoorTrigger : MonoBehaviour
     public int damage = 25;
     private bossHealth bossHealth;
     public List<GameObject> staticCharge;
+    
+    [Header("Game Object Activation")]
+    public GameObject objectToEnable;
 
     private void Start()
     {
@@ -285,6 +288,22 @@ public class BossDoorTrigger : MonoBehaviour
     private void StartDialogue()
     {
         if (dialogueSystem != null)
+        {
             dialogueSystem.BeginDialogue();
+            StartCoroutine(WaitForDialogueToEnd());
+        }
+    }
+
+    private IEnumerator WaitForDialogueToEnd()
+    {
+        while (dialogueSystem.IsDialogueActive()) // Ensure this method exists in DialogueSystem
+        {
+            yield return null; // Wait until dialogue ends
+        }
+
+        if (objectToEnable != null)
+        {
+            objectToEnable.SetActive(true);
+        }
     }
 }

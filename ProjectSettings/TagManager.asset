@@ -67,3 +67,6 @@ TagManager:
   - name: FadeArea
     uniqueID: 3145981867
     locked: 0
+  - name: LitUpLights
+    uniqueID: 3014739267
+    locked: 0

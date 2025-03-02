@@ -36340,7 +36340,6 @@ GameObject:
   - component: {fileID: 1229067453}
   - component: {fileID: 1229067452}
   - component: {fileID: 1229067451}
-  - component: {fileID: 1229067454}
   m_Layer: 0
   m_Name: X Box1
   m_TagString: ObjToPush
@@ -36449,18 +36448,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1229067454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1229067449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9fc6d9f896db974f9a7347d701218eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1231634787
 PrefabInstance:
   m_ObjectHideFlags: 0
