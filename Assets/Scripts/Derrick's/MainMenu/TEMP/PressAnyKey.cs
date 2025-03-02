@@ -106,8 +106,6 @@ public class PressAnyKey : MonoBehaviour
         
         inputDisabled = false; // Re-enable input after fade-out
         
-        // Disable this GameObject
-        gameObject.SetActive(false);
     }
 
     IEnumerator PlayLoopingMusicAfterDelay(float delay)

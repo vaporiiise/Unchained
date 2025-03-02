@@ -27,37 +27,37 @@ public class Tilemovement : MonoBehaviour
         checkpointManager = CheckpointManager.Instance;
     }
 
-    //void Update()
-    //{
-    //    if (PauseMenu.GameIsPaused || FindObjectOfType<DialogueSystem>().IsDialogueActive())
-    //    {
-    //        Debug.Log("Game is paused or dialogue is active");
-    //        return; 
-    //    }
+    void Update()
+    {
+        /*if (PauseMenu.GameIsPaused || FindObjectOfType<DialogueSystem>().IsDialogueActive())
+        {
+            Debug.Log("Game is paused or dialogue is active");
+            return; 
+        }*/
 
-    //    Vector2 moveinput = new Vector2(
-    //        Input.GetAxisRaw("Horizontal"),
-    //        Input.GetAxisRaw("Vertical")
-    //    );
-    //    moveinput.Normalize();
+        Vector2 moveinput = new Vector2(
+            Input.GetAxisRaw("Horizontal"),
+            Input.GetAxisRaw("Vertical")
+        );
+        moveinput.Normalize();
 
-    //    if (moveinput.sqrMagnitude > 0.5)
-    //    {
-    //        if (ReadyToMove)
-    //        {
-    //            ReadyToMove = false;
+        if (moveinput.sqrMagnitude > 0.5)
+        {
+            if (ReadyToMove)
+            {
+                ReadyToMove = false;
 
-    //            if (Move(moveinput))
-    //            {
-    //                PlayMoveSound();
-    //            }
-    //        }
-    //    }
-    //    else
-    //    {
-    //        ReadyToMove = true;
-    //    }
-    //}
+                if (Move(moveinput))
+                {
+                    PlayMoveSound();
+                }
+            }
+        }
+        else
+        {
+           ReadyToMove = true;
+        }
+    }
 
     public bool Move(Vector2 direction)
     {
