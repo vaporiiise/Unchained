@@ -4050,12 +4050,12 @@ GameObject:
   - component: {fileID: 218832440}
   - component: {fileID: 218832439}
   m_Layer: 0
-  m_Name: Square (1)
+  m_Name: Filter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &218832439
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4881,7 +4881,7 @@ GameObject:
   - component: {fileID: 273638309}
   - component: {fileID: 273638308}
   m_Layer: 0
-  m_Name: Square (2)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10883,7 +10883,7 @@ GameObject:
   - component: {fileID: 344141689}
   - component: {fileID: 344141688}
   m_Layer: 0
-  m_Name: Square (5)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16722,7 +16722,7 @@ GameObject:
   - component: {fileID: 368949709}
   - component: {fileID: 368949708}
   m_Layer: 0
-  m_Name: Square (19)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17175,7 +17175,7 @@ GameObject:
   - component: {fileID: 388041226}
   - component: {fileID: 388041225}
   m_Layer: 0
-  m_Name: Square (4)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17502,7 +17502,7 @@ GameObject:
   - component: {fileID: 422664306}
   - component: {fileID: 422664305}
   m_Layer: 0
-  m_Name: Square (17)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23132,7 +23132,7 @@ GameObject:
   - component: {fileID: 702140970}
   - component: {fileID: 702140969}
   m_Layer: 0
-  m_Name: Square (8)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24748,7 +24748,7 @@ GameObject:
   - component: {fileID: 772449686}
   - component: {fileID: 772449685}
   m_Layer: 0
-  m_Name: Square (11)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25164,7 +25164,7 @@ GameObject:
   - component: {fileID: 786823750}
   - component: {fileID: 786823749}
   m_Layer: 0
-  m_Name: Square (22)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31643,7 +31643,7 @@ GameObject:
   - component: {fileID: 881565044}
   - component: {fileID: 881565043}
   m_Layer: 0
-  m_Name: Square (15)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32837,12 +32837,12 @@ GameObject:
   - component: {fileID: 946514494}
   - component: {fileID: 946514493}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &946514493
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -33979,7 +33979,7 @@ GameObject:
   - component: {fileID: 1019181550}
   - component: {fileID: 1019181549}
   m_Layer: 0
-  m_Name: Square (18)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35960,7 +35960,7 @@ GameObject:
   - component: {fileID: 1128419701}
   - component: {fileID: 1128419700}
   m_Layer: 0
-  m_Name: Square (23)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36006,7 +36006,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.09019608, g: 0.14901961, b: 0.64705884, a: 1}
   m_FlipX: 0
@@ -36873,7 +36873,7 @@ GameObject:
   - component: {fileID: 1181586153}
   - component: {fileID: 1181586152}
   m_Layer: 0
-  m_Name: Square (21)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37596,7 +37596,7 @@ GameObject:
   - component: {fileID: 1216640170}
   - component: {fileID: 1216640169}
   m_Layer: 0
-  m_Name: Square (3)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39223,7 +39223,7 @@ GameObject:
   - component: {fileID: 1287673538}
   - component: {fileID: 1287673537}
   m_Layer: 0
-  m_Name: Square (16)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39548,7 +39548,7 @@ GameObject:
   - component: {fileID: 1306987200}
   - component: {fileID: 1306987199}
   m_Layer: 0
-  m_Name: Square (6)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41153,7 +41153,7 @@ GameObject:
   - component: {fileID: 1376052356}
   - component: {fileID: 1376052355}
   m_Layer: 0
-  m_Name: Square (7)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41601,7 +41601,7 @@ GameObject:
   - component: {fileID: 1389753456}
   - component: {fileID: 1389753455}
   m_Layer: 0
-  m_Name: Square (20)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44766,7 +44766,7 @@ GameObject:
   - component: {fileID: 1583376258}
   - component: {fileID: 1583376257}
   m_Layer: 0
-  m_Name: Square (12)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45233,7 +45233,7 @@ GameObject:
   - component: {fileID: 1616758491}
   - component: {fileID: 1616758490}
   m_Layer: 0
-  m_Name: Square (13)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46324,7 +46324,7 @@ GameObject:
   - component: {fileID: 1715419238}
   - component: {fileID: 1715419237}
   m_Layer: 0
-  m_Name: Square (10)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46906,7 +46906,7 @@ GameObject:
   - component: {fileID: 1756770662}
   - component: {fileID: 1756770661}
   m_Layer: 0
-  m_Name: Square (9)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55063,7 +55063,7 @@ GameObject:
   - component: {fileID: 1933369880}
   - component: {fileID: 1933369879}
   m_Layer: 0
-  m_Name: Square (14)
+  m_Name: WallGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -2984,7 +2984,7 @@ MonoBehaviour:
   - {fileID: 179137396}
   - {fileID: 1725584934}
   audioSource: {fileID: 0}
-  buttonClickSound: {fileID: 0}
+  buttonClickSound: {fileID: 8300000, guid: d660d87ccd7563548b407c0f210f940d, type: 3}
   buttonHoverSound: {fileID: 0}
 --- !u!4 &1270567552
 Transform:
@@ -3123,7 +3123,7 @@ Transform:
   m_GameObject: {fileID: 1354546175}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.3128006, y: -0.7222439, z: 0.042864855}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4304,7 +4304,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1747810756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4467,7 +4467,7 @@ Transform:
   m_GameObject: {fileID: 1782587299}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.6916988, y: -1.9071155, z: 8.228343}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
