@@ -29,21 +29,27 @@ public class Tilemovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        Vector2 moveinput = new Vector2(
+            Input.GetAxisRaw("Horizontal"),
+            Input.GetAxisRaw("Vertical")
+        );
+        moveinput.Normalize();
+
+        if (moveinput.sqrMagnitude > 0.5)
         {
-            if (Move(Vector2.up)) PlayMoveSound();
+            if (ReadyToMove)
+            {
+                ReadyToMove = false;
+
+                if (Move(moveinput))
+                {
+                    PlayMoveSound();
+                }
+            }
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        else
         {
-            if (Move(Vector2.down)) PlayMoveSound();
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            if (Move(Vector2.left)) PlayMoveSound();
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            if (Move(Vector2.right)) PlayMoveSound();
+            ReadyToMove = true;
         }
     }
 
