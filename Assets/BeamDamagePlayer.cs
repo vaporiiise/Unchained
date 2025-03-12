@@ -24,7 +24,7 @@ public class BeamDamagePlayer : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-        Debug.Log(currentHealth);
+        
         
         if (damageIndicator != null)
         {
@@ -32,19 +32,15 @@ public class BeamDamagePlayer : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void PlayerIsBeamed()
     {
-        if (other.CompareTag("Player"))
-        {
             TakeDamage();
-            Debug.Log(currentHealth);
+            Debug.Log($"Player's health is: currentHealth");
             StartCoroutine(ScreenShake());
             PlaySound();
-        }
-        
     }
 
-    private void TakeDamage()
+    public void TakeDamage()
     {
         currentHealth -= 10;
         

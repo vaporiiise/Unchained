@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class NHPlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 150;
+    public int maxHealth = 30;
     private int currentHealth;
     public AudioClip takeDamageSound;
     private AudioSource audioSource;
@@ -16,45 +16,43 @@ public class NHPlayerHealth : MonoBehaviour
     public GameObject damageIndicator;    
     public float damageDisplayDuration = 0.5f; 
 
-    public GameObject deathCanvas;        // Canvas to activate on death
-    public List<GameObject> otherCanvases; // List of other canvases to disable on death
+    public GameObject deathCanvas;        
+    public List<GameObject> otherCanvases; 
+    public BeamDamagePlayer beamDamagePlayer;
 
     void Start()
     {
+        beamDamagePlayer = gameObject.GetComponent<BeamDamagePlayer>();
         audioSource = GetComponent<AudioSource>();
     
-        // Check if the saved health exists, and if not, initialize it to maxHealth
         if (GameManager.Instance.savedPlayerHealth > 0)
         {
             currentHealth = GameManager.Instance.savedPlayerHealth; 
         }
         else 
         {
-            currentHealth = maxHealth;  // If no saved health or it's 0, set to max health
+            currentHealth = maxHealth;  
         }
 
-        // Ensure the health is saved in GameManager after initialization
         GameManager.Instance.SavePlayerHealth(currentHealth);
 
-        UpdateHealthUI();  // Update the UI with the current health
+        UpdateHealthUI();  
 
         if (damageIndicator != null)
         {
-            damageIndicator.gameObject.SetActive(false);  // Ensure damage indicator is off at the start
+            damageIndicator.gameObject.SetActive(false);  
         }
 
         if (deathCanvas != null)
         {
-            deathCanvas.SetActive(false);  // Ensure death canvas is off at the start
+            deathCanvas.SetActive(false);  
         }
+        
     }
 
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.JoystickButton5)))
-        {
-           TakeDamage(10);
-        }
+        //ins takedamage logic
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

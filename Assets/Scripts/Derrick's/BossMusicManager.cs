@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossMusicManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class BossMusicManager : MonoBehaviour
     [Header("Audio Sources")]
     [SerializeField] private AudioSource backgroundMusicSource;
     [SerializeField] private AudioSource dialogueMusicSource;
-    
+
     [Header("Settings")]
     [SerializeField] private float fadeDuration = 1.5f;
 
@@ -19,10 +20,32 @@ public class BossMusicManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.activeSceneChanged += OnSceneChanging; 
+
+            PlayBackgroundMusic(); 
         }
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.activeSceneChanged -= OnSceneChanging;
+    }
+
+    private void OnSceneChanging(Scene current, Scene next)
+    {
+        StopAllMusic();
+    }
+
+    private void PlayBackgroundMusic()
+    {
+        if (!backgroundMusicSource.isPlaying)
+        {
+            backgroundMusicSource.volume = 1f;
+            backgroundMusicSource.Play();
         }
     }
 
@@ -65,6 +88,12 @@ public class BossMusicManager : MonoBehaviour
                 yield return null;
             }
         }
+    }
+
+    private void StopAllMusic()
+    {
+        backgroundMusicSource.Stop();
+        dialogueMusicSource.Stop();
     }
 
     public void OnDialogueStart()
