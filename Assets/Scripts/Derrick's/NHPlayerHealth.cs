@@ -92,13 +92,10 @@ public class NHPlayerHealth : MonoBehaviour
 
     void UpdateHealthUI()
     {
-        // Calculate how many health images should be visible based on current health.
         int remainingSprites = Mathf.CeilToInt((float)currentHealth / 10); // Each sprite represents 10 health
 
-        // Ensure the number of visible sprites does not exceed the size of healthImages
         remainingSprites = Mathf.Clamp(remainingSprites, 0, healthImages.Count);
 
-        // Update the health images based on the remaining health
         for (int i = 0; i < healthImages.Count; i++)
         {
             if (i < remainingSprites)
