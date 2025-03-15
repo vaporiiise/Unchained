@@ -18,24 +18,12 @@ public class NHPlayerHealth : MonoBehaviour
 
     public GameObject deathCanvas;        
     public List<GameObject> otherCanvases; 
-    public BeamDamagePlayer beamDamagePlayer;
 
     void Start()
     {
-        beamDamagePlayer = gameObject.GetComponent<BeamDamagePlayer>();
         audioSource = GetComponent<AudioSource>();
-    
-        if (GameManager.Instance.savedPlayerHealth > 0)
-        {
-            currentHealth = GameManager.Instance.savedPlayerHealth; 
-        }
-        else 
-        {
-            currentHealth = maxHealth;  
-        }
-
-        GameManager.Instance.SavePlayerHealth(currentHealth);
-
+        currentHealth = maxHealth;  
+        
         UpdateHealthUI();  
 
         if (damageIndicator != null)
@@ -70,7 +58,6 @@ public class NHPlayerHealth : MonoBehaviour
         currentHealth -= damage;
         Debug.Log("Player Health: " + currentHealth);
         audioSource.PlayOneShot(takeDamageSound);
-        GameManager.Instance.SavePlayerHealth(currentHealth);
 
         if (damageIndicator != null)
         {
