@@ -245,7 +245,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 3, y: 102}
+  m_AnchoredPosition: {x: 3, y: 171}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &17465315
@@ -3925,6 +3925,56 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &155413948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 155413950}
+  - component: {fileID: 155413949}
+  m_Layer: 0
+  m_Name: CanvasManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &155413949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155413948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00c280275aaaa04b8bba809cbb2dcc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCanvas: {fileID: 860378754}
+  otherCanvases:
+  - {fileID: 37169962}
+  - {fileID: 437819585}
+  - {fileID: 1240173934}
+  - {fileID: 1383121273}
+--- !u!4 &155413950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155413948}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1075.117, y: 262.51202, z: -10.286595}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &164167869
 GameObject:
   m_ObjectHideFlags: 0
@@ -13307,6 +13357,7 @@ MonoBehaviour:
   takeDamageSound: {fileID: 8300000, guid: 9d70c4431c7406b49ad1e805d6400180, type: 3}
   healSound: {fileID: 8300000, guid: d4b11f89c4613f846a0e7a2bfe96cca7, type: 3}
   healthImages:
+  - {fileID: 1481653747}
   - {fileID: 1481653747}
   - {fileID: 379203439}
   - {fileID: 363373604}
@@ -47681,7 +47732,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1323835827}
         m_TargetAssemblyTypeName: EndSCControl, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: ReturnToTitle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -64016,7 +64067,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1833043936}
         m_TargetAssemblyTypeName: EndSCControl, Assembly-CSharp
-        m_MethodName: RestartGame
+        m_MethodName: RestartBossFight
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -88762,3 +88813,4 @@ SceneRoots:
   - {fileID: 1650696521}
   - {fileID: 1487395394}
   - {fileID: 554570770}
+  - {fileID: 155413950}

@@ -10,7 +10,7 @@ public class BeamDamagePlayer : MonoBehaviour
     public float shakeIntensity = 0.1f;
 
     [Header("Damage Settings")] 
-    public int damage = 10;
+    public int damage = 20;
     public AudioSource soundEffect;
     public GameObject damageIndicator;
     public float damageDisplayDuration = 0.5f;

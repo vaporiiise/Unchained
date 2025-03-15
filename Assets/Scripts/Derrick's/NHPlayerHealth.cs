@@ -76,23 +76,16 @@ public class NHPlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(damageDisplayDuration); 
         damageIndicator.gameObject.SetActive(false); 
     }
-
     void UpdateHealthUI()
     {
-        int remainingSprites = Mathf.CeilToInt((float)currentHealth / 10); // Each sprite represents 10 health
+        int healthPerImage = maxHealth / healthImages.Count; // Health each image represents
+        int remainingSprites = currentHealth / healthPerImage; // How many images should be active?
 
-        remainingSprites = Mathf.Clamp(remainingSprites, 0, healthImages.Count);
+        remainingSprites = Mathf.Clamp(remainingSprites, 0, healthImages.Count); // Ensure valid range
 
         for (int i = 0; i < healthImages.Count; i++)
         {
-            if (i < remainingSprites)
-            {
-                healthImages[i].gameObject.SetActive(true);  // Enable health image
-            }
-            else
-            {
-                healthImages[i].gameObject.SetActive(false);  // Disable health image
-            }
+            healthImages[i].gameObject.SetActive(i < remainingSprites);
         }
     }
 
