@@ -61,12 +61,12 @@ public class NewBehaviourScript : MonoBehaviour
     }
 
     // Make this method public to allow access from the PauseMenu script
-    //public void CloseSettingsPanel()
-    //{
-    //    PauseMenu pauseMenu = FindObjectOfType<PauseMenu>();
-    //    if (pauseMenu != null)
-    //    {
-    //        pauseMenu.CloseSettingsPanel(); // Close the settings panel and show pause menu
-    //    }
-    //}
+    public void CloseSettingsPanel()
+    {
+        PauseMenu pauseMenu = FindObjectOfType<PauseMenu>();
+        if (pauseMenu != null)
+        {
+            pauseMenu.CloseSettingsPanel(); // Close the settings panel and show pause menu
+        }
+    }
 }
