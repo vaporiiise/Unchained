@@ -24,6 +24,8 @@ TagManager:
   - Door
   - Dialogue
   - ObjToBlock
+  - Dialogue1
+  - Dialogue2
   layers:
   - Default
   - TransparentFX

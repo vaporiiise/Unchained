@@ -22,7 +22,17 @@ public class NHPlayerHealth : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        currentHealth = maxHealth;  
+        currentHealth = maxHealth;
+        if (GameManager.Instance.savedPlayerHealth > 0)
+        {
+            currentHealth = GameManager.Instance.savedPlayerHealth;
+        }
+        else
+        {
+            currentHealth = maxHealth;
+        }
+        
+        GameManager.Instance.SavePlayerHealth(currentHealth);
         
         UpdateHealthUI();  
 
@@ -58,6 +68,7 @@ public class NHPlayerHealth : MonoBehaviour
         currentHealth -= damage;
         Debug.Log("Player Health: " + currentHealth);
         audioSource.PlayOneShot(takeDamageSound);
+        GameManager.Instance.SavePlayerHealth(currentHealth);
 
         if (damageIndicator != null)
         {
@@ -76,16 +87,23 @@ public class NHPlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(damageDisplayDuration); 
         damageIndicator.gameObject.SetActive(false); 
     }
+
     void UpdateHealthUI()
     {
-        int healthPerImage = maxHealth / healthImages.Count; // Health each image represents
-        int remainingSprites = currentHealth / healthPerImage; // How many images should be active?
+        int remainingSprites = Mathf.CeilToInt((float)currentHealth / 10); // Each sprite represents 10 health
 
-        remainingSprites = Mathf.Clamp(remainingSprites, 0, healthImages.Count); // Ensure valid range
+        remainingSprites = Mathf.Clamp(remainingSprites, 0, healthImages.Count);
 
         for (int i = 0; i < healthImages.Count; i++)
         {
-            healthImages[i].gameObject.SetActive(i < remainingSprites);
+            if (i < remainingSprites)
+            {
+                healthImages[i].gameObject.SetActive(true);  // Enable health image
+            }
+            else
+            {
+                healthImages[i].gameObject.SetActive(false);  // Disable health image
+            }
         }
     }
 

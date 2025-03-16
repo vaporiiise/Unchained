@@ -15,7 +15,7 @@ public class BeamDamagePlayer : MonoBehaviour
     public GameObject damageIndicator;
     public float damageDisplayDuration = 0.5f;
     
-    NHPlayerHealth playerHealth;
+    BHPlayerHeaalth playerHealth;
 
 
 
@@ -31,7 +31,6 @@ public class BeamDamagePlayer : MonoBehaviour
     public void PlayerIsBeamed()
     {
             playerHealth.TakeDamage(damage);
-            Debug.Log($"Player's health is: currentHealth");
             StartCoroutine(ScreenShake());
             PlaySound();
     }
@@ -41,7 +40,7 @@ public class BeamDamagePlayer : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // Get the NHPlayerHealth component from the Player GameObject
-            playerHealth = other.GetComponent<NHPlayerHealth>();
+            playerHealth = other.GetComponent<BHPlayerHeaalth>();
 
             if (playerHealth != null)
             {
