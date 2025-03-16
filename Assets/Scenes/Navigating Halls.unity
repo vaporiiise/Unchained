@@ -1973,7 +1973,7 @@ Transform:
   m_GameObject: {fileID: 69060910}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0.0029997826, y: 0.49800014, z: 0}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -6983,8 +6983,8 @@ RectTransform:
   m_LocalScale: {x: 1.5597998, y: 1.5597998, z: 1.5597998}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 673706711}
   - {fileID: 298661293}
+  - {fileID: 673706711}
   - {fileID: 447996196}
   m_Father: {fileID: 295019243}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22164,7 +22164,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7672177355620198147}
@@ -36701,7 +36701,6 @@ GameObject:
   - component: {fileID: 1239404635}
   - component: {fileID: 1239404636}
   - component: {fileID: 1239404637}
-  - component: {fileID: 1239404638}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -37031,19 +37030,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
---- !u!114 &1239404638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1239404624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bd69a4adfdb4de4589725c32c0b730e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
 --- !u!4 &1241576897 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4835560486914657359, guid: 899614832fc99a2498af85004cee00f6, type: 3}
@@ -37074,24 +37060,12 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8273176295409059576, guid: b4ad9fb599ab3ff44a179a263f715867, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.99
-      objectReference: {fileID: 0}
-    - target: {fileID: 8273176295409059576, guid: b4ad9fb599ab3ff44a179a263f715867, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.99
-      objectReference: {fileID: 0}
-    - target: {fileID: 8273176295409059576, guid: b4ad9fb599ab3ff44a179a263f715867, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.99
-      objectReference: {fileID: 0}
-    - target: {fileID: 8273176295409059576, guid: b4ad9fb599ab3ff44a179a263f715867, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 8273176295409059576, guid: b4ad9fb599ab3ff44a179a263f715867, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.993
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 8273176295409059576, guid: b4ad9fb599ab3ff44a179a263f715867, type: 3}
       propertyPath: m_LocalPosition.z
@@ -37124,10 +37098,6 @@ PrefabInstance:
     - target: {fileID: 8273176295409059576, guid: b4ad9fb599ab3ff44a179a263f715867, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8273176295409059576, guid: b4ad9fb599ab3ff44a179a263f715867, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8675335967545087819, guid: b4ad9fb599ab3ff44a179a263f715867, type: 3}
       propertyPath: m_Color.a
@@ -50797,7 +50767,7 @@ MonoBehaviour:
   targetPosition2: {fileID: 1829692758}
   door: {fileID: 213775879}
   lockSprite: {fileID: 957771593}
-  threshold: 0.51
+  threshold: 0.62
   doorUnlockSound: {fileID: 8300000, guid: ba214c0aa5967994a8a3591f8b0bc74d, type: 3}
   scriptToDisable: {fileID: 1779893152}
   moveToPosition: {fileID: 834798934}
@@ -60270,7 +60240,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 5.5, y: -8.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 783615236}
