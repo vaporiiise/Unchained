@@ -32,20 +32,6 @@ public class EndSCControl : MonoBehaviour
         SceneManager.LoadScene(1); 
     }
 
-    public void RestartBossFight()
-    {
-        Time.timeScale = 1; 
-        AudioListener.pause = false;
-
-        SceneManager.LoadScene(3); 
-
-    }
-
-    public void ReturnToTitle()
-    {
-        SceneManager.LoadScene(0);
-    }
-
     public void QuitGame()
     {
         Debug.Log("Quitting the game...");

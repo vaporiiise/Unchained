@@ -5,7 +5,7 @@ using UnityEngine;
 public class HurtOnRewind : MonoBehaviour
 {
     NHPlayerHealth playerHealth;
-    public int damage = 10;
+    public int damage =10;
     // Start is called before the first frame update
     void Start()
     {

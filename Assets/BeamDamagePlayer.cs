@@ -5,23 +5,27 @@ using UnityEngine;
 
 public class BeamDamagePlayer : MonoBehaviour
 {
+    [Header("Beam Damage")]
+    public int maxHealth = 30;
+    private int currentHealth;
+    
     [Header("Screen Shake Settings")]
     public float shakeDuration = 0.2f; 
     public float shakeIntensity = 0.1f;
-
-    [Header("Damage Settings")] 
-    public int damage = 20;
+    
+    [Header("Damage Settings")]
     public AudioSource soundEffect;
     public GameObject damageIndicator;
-    public float damageDisplayDuration = 0.5f;
-    
-    BHPlayerHeaalth playerHealth;
+    public float damageDisplayDuration = 0.5f; 
 
 
 
 
     private void Start()
     {
+        currentHealth = maxHealth;
+        
+        
         if (damageIndicator != null)
         {
             damageIndicator.gameObject.SetActive(false);  // Ensure damage indicator is off at the start
@@ -30,29 +34,21 @@ public class BeamDamagePlayer : MonoBehaviour
 
     public void PlayerIsBeamed()
     {
-            playerHealth.TakeDamage(damage);
+            TakeDamage();
+            Debug.Log($"Player's health is: currentHealth");
             StartCoroutine(ScreenShake());
             PlaySound();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void TakeDamage()
     {
-        if (other.CompareTag("Player"))
+        currentHealth -= 10;
+        
+        if (damageIndicator != null)
         {
-            // Get the NHPlayerHealth component from the Player GameObject
-            playerHealth = other.GetComponent<BHPlayerHeaalth>();
-
-            if (playerHealth != null)
-            {
-                PlayerIsBeamed();
-            }
-            else
-            {
-                Debug.LogError("NHPlayerHealth script not found on Player GameObject!");
-            }
+            StartCoroutine(ShowDamageIndicator());
         }
     }
-
     IEnumerator ScreenShake()
     {
         Camera mainCam = Camera.main; 
