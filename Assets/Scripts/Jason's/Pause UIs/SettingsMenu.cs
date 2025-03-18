@@ -1,72 +1,61 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
-public class NewBehaviourScript : MonoBehaviour
+public class GameplayVolumeManager : MonoBehaviour
 {
-    public Slider volumeSlider; // Ref to the background music volume slider
-    public AudioSource backgroundMusic; // Ref to the background music AudioSource
+    [SerializeField] private AudioMixer myMixer;
+    [SerializeField] private Slider MasterSlider;
+    [SerializeField] private Slider MusicSlider;
+    [SerializeField] private Slider SFXSlider;
 
-    public Slider sfxSlider; // Ref to the SFX volume slider
-    public AudioSource[] soundEffects; // De array of AudioSources for SFX
-
-    private const string VolumeKey = "BackgroundVolume"; // Key for saving background volume in PlayerPrefs
-    private const string SfxVolumeKey = "SFXVolume"; // Key for saving SFX volume in PlayerPrefs
+    private const string MasterKey = "MasterVolume";
+    private const string MusicKey = "MusicVolume";
+    private const string SFXKey = "SFXVolume";
 
     private void Start()
     {
-        if (backgroundMusic != null)
-        {
-            float savedVolume = PlayerPrefs.GetFloat(VolumeKey, 1f); // Default to 1 (max volume)
-            backgroundMusic.volume = savedVolume; // Set the background music volume
-            volumeSlider.value = savedVolume;
-            volumeSlider.onValueChanged.AddListener(SetBackgroundVolume);
-        }
+        // Load saved values or default to 1
+        MasterSlider.value = PlayerPrefs.GetFloat(MasterKey, 1f);
+        MusicSlider.value = PlayerPrefs.GetFloat(MusicKey, 1f);
+        SFXSlider.value = PlayerPrefs.GetFloat(SFXKey, 1f);
 
-        // Initialize the SFX volume
-        float savedSfxVolume = PlayerPrefs.GetFloat(SfxVolumeKey, 1f); // Default to 1 (max volume)
-        SetSfxVolume(savedSfxVolume); // Set the SFX volumes
-        sfxSlider.value = savedSfxVolume;
-        sfxSlider.onValueChanged.AddListener(SetSfxVolume);
+        ApplyVolumes();
+
+        // Add listeners to sliders
+        MasterSlider.onValueChanged.AddListener(delegate { SetMasterVolume(); });
+        MusicSlider.onValueChanged.AddListener(delegate { SetMusicVolume(); });
+        SFXSlider.onValueChanged.AddListener(delegate { SetSFXVolume(); });
     }
 
-    public void SetBackgroundVolume(float volume)
+    public void SetMasterVolume()
     {
-        if (backgroundMusic != null)
-        {
-            backgroundMusic.volume = volume; // Set the volume based on slider value
-            PlayerPrefs.SetFloat(VolumeKey, volume); // Save the background volume to PlayerPrefs
-            PlayerPrefs.Save(); // Ensure the settings is saved immediately
-        }
+        float volume = MasterSlider.value;
+        myMixer.SetFloat("Master", Mathf.Log10(Mathf.Max(volume, 0.0001f)) * 20);
+        PlayerPrefs.SetFloat(MasterKey, volume);
+        PlayerPrefs.Save();
     }
 
-    public void SetSfxVolume(float volume)
+    public void SetMusicVolume()
     {
-        // Save the SFX volume to PlayerPrefs
-        PlayerPrefs.SetFloat(SfxVolumeKey, volume);
-        PlayerPrefs.Save(); // Ensure custom settings is saved immediately
-
-        // Set the volume for each SFX AudioSource if they exist
-        if (soundEffects != null)
-        {
-            foreach (AudioSource sfx in soundEffects)
-            {
-                if (sfx != null) //null or yas?
-                {
-                    sfx.volume = volume; // Set the volume for each SFX AudioSource
-                }
-            }
-        }
+        float volume = MusicSlider.value;
+        myMixer.SetFloat("Music", Mathf.Log10(Mathf.Max(volume, 0.0001f)) * 20);
+        PlayerPrefs.SetFloat(MusicKey, volume);
+        PlayerPrefs.Save();
     }
 
-    // Make this method public to allow access from the PauseMenu script
-    public void CloseSettingsPanel()
+    public void SetSFXVolume()
     {
-        PauseMenu pauseMenu = FindObjectOfType<PauseMenu>();
-        if (pauseMenu != null)
-        {
-            pauseMenu.CloseSettingsPanel(); // Close the settings panel and show pause menu
-        }
+        float volume = SFXSlider.value;
+        myMixer.SetFloat("SFX", Mathf.Log10(Mathf.Max(volume, 0.0001f)) * 20);
+        PlayerPrefs.SetFloat(SFXKey, volume);
+        PlayerPrefs.Save();
+    }
+
+    private void ApplyVolumes()
+    {
+        SetMasterVolume();
+        SetMusicVolume();
+        SetSFXVolume();
     }
 }
